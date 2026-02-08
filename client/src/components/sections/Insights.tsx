@@ -1,0 +1,516 @@
+import { useState } from 'react';
+import { InsightsSectionData, defaultInsightsData } from '../../types/insights';
+
+const Insights = () => {
+  const [data] = useState<InsightsSectionData>(defaultInsightsData);
+  const [email, setEmail] = useState('');
+  const [hoveredArticle, setHoveredArticle] = useState<number | null>(null);
+  const [hoveredPrinciple, setHoveredPrinciple] = useState<number | null>(null);
+  const [hoveredTalk, setHoveredTalk] = useState<number | null>(null);
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Subscribed with email:', email);
+    setEmail('');
+  };
+
+  const getTypeColor = (type: string) => {
+    switch (type) {
+      case 'Conference':
+        return 'bg-gradient-to-r from-blue-500/20 to-blue-600/10 text-blue-400 group-hover:from-blue-500 group-hover:to-blue-600';
+      case 'Meetup':
+        return 'bg-gradient-to-r from-emerald-500/20 to-emerald-600/10 text-emerald-400 group-hover:from-emerald-500 group-hover:to-emerald-600';
+      case 'Interview':
+        return 'bg-gradient-to-r from-purple-500/20 to-purple-600/10 text-purple-400 group-hover:from-purple-500 group-hover:to-purple-600';
+      default:
+        return 'bg-gradient-to-r from-gray-500/20 to-gray-600/10 text-gray-400 group-hover:from-gray-500 group-hover:to-gray-600';
+    }
+  };
+
+  return (
+    <div className="flex min-h-screen w-full flex-col bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white antialiased overflow-x-hidden relative">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-gradient-to-r from-blue-500/5 to-blue-400/5 rounded-full blur-3xl animate-float-slow"></div>
+        <div className="absolute bottom-1/3 -right-20 w-96 h-96 bg-gradient-to-l from-purple-500/5 to-pink-400/5 rounded-full blur-3xl animate-float-slow-delayed"></div>
+        <div className="absolute top-3/4 left-1/3 w-64 h-64 bg-gradient-to-b from-cyan-500/3 to-transparent rounded-full blur-2xl animate-float"></div>
+        {/* Grid Pattern */}
+        <div className="absolute inset-0" 
+          style={{ 
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(59, 130, 246, 0.08) 1px, transparent 0)`,
+            backgroundSize: '40px 40px',
+            maskImage: 'linear-gradient(to bottom, black 30%, transparent 100%)'
+          }}
+        ></div>
+      </div>
+
+      {/* Main Content */}
+      <main className="relative z-10 flex-grow flex flex-col items-center w-full">
+        {/* Hero Section - Enhanced */}
+        <section className="w-full px-4 md:px-6 lg:px-8 py-12 md:py-16 lg:py-24">
+          <div className="max-w-[1400px] mx-auto">
+            <div className="relative rounded-2xl overflow-hidden bg-surface-dark min-h-[400px] flex items-center justify-center text-center p-6 md:p-8 lg:p-16">
+              {/* Animated background */}
+              <div className="absolute inset-0 overflow-hidden">
+                <div 
+                  className="absolute inset-0 opacity-20 animate-gradient-shift"
+                  style={{ 
+                    backgroundImage: 'radial-gradient(#135bec 1px, transparent 1px)', 
+                    backgroundSize: '32px 32px',
+                    backgroundPosition: '0% 50%',
+                    animation: 'gradient-shift 15s ease infinite',
+                    backgroundRepeat: 'repeat'
+                  }}
+                ></div>
+                {/* Floating particles */}
+                <div className="absolute inset-0">
+                  {[...Array(20)].map((_, i) => (
+                    <div 
+                      key={i}
+                      className="absolute w-[2px] h-[2px] bg-primary/30 rounded-full animate-float-subtle"
+                      style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                        animation: `float-subtle ${3 + Math.random() * 7}s ease-in-out infinite`,
+                        animationDelay: `${Math.random() * 5}s`
+                      }}
+                    ></div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent"></div>
+              
+              <div className="relative z-10 max-w-3xl flex flex-col items-center gap-6 animate-slide-in">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider animate-slide-up group/tag">
+                  <span className="material-symbols-outlined text-base animate-pulse-subtle group-hover/tag:rotate-12 transition-transform duration-300">lightbulb</span>
+                  <span>{data.hero.tagline}</span>
+                </div>
+                
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] group/hero">
+                  {data.hero.title.split(' ').map((word, i) => (
+                    <span 
+                      key={i}
+                      className="inline-block text-transparent bg-clip-text bg-gradient-to-br from-white via-blue-400 to-cyan-400 animate-gradient-shift transform group-hover/hero:translate-y-[-2px] transition-transform duration-300"
+                      style={{animationDelay: `${i * 0.1}s`}}
+                    >
+                      {word}{' '}
+                    </span>
+                  ))}
+                </h1>
+                
+                <p className="text-slate-400 text-lg md:text-xl max-w-2xl font-light animate-slide-up group/desc" style={{animationDelay: '0.1s'}}>
+                  {data.hero.description}
+                </p>
+
+                {/* Newsletter with enhanced animations */}
+                <form onSubmit={handleSubscribe} className="mt-4 flex w-full max-w-md flex-col gap-3 sm:flex-row relative animate-slide-up group/form" style={{animationDelay: '0.2s'}}>
+                  <div className="relative flex-1">
+                    {/* Glow border */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/5 rounded-xl opacity-0 group-hover/form:opacity-100 blur-sm transition-opacity duration-500 -z-10"></div>
+                    
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder={data.hero.newsletterPlaceholder}
+                      className="h-12 w-full rounded-xl border border-gray-700 bg-background-dark/50 px-4 text-white placeholder-gray-500 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300 group-hover/form:border-primary/50 relative z-10"
+                      required
+                    />
+                    
+                    {/* Shimmer effect */}
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover/form:translate-x-full transition-transform duration-1000 pointer-events-none opacity-0 group-hover/form:opacity-100"></div>
+                  </div>
+                  
+                  <button
+                    type="submit"
+                    className="h-12 px-6 rounded-xl bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary font-bold text-white transition-all duration-500 hover:shadow-xl hover:shadow-primary/30 transform hover:-translate-y-0.5 active:scale-[0.98] relative overflow-hidden group/btn"
+                  >
+                    {/* Button particles */}
+                    <div className="absolute inset-0 overflow-hidden opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300">
+                      {[...Array(5)].map((_, i) => (
+                        <div 
+                          key={i}
+                          className="absolute w-1 h-1 rounded-full bg-white/50 animate-float"
+                          style={{
+                            left: `${10 + i * 15}%`,
+                            top: '20%',
+                            animationDelay: `${i * 0.1}s`,
+                            animationDuration: '1s'
+                          }}
+                        ></div>
+                      ))}
+                    </div>
+                    
+                    <span className="relative z-10">{data.hero.newsletterButton}</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Published Writing Grid - Enhanced */}
+        <section className="w-full px-4 md:px-6 lg:px-8 py-8 md:py-12">
+          <div className="max-w-[1400px] mx-auto">
+            <div className="flex items-center justify-between mb-8 group/title animate-slide-in">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center justify-center size-8 rounded-lg bg-gradient-to-br from-blue-500/20 to-blue-500/5 border border-blue-500/20 text-blue-500 group-hover/title:scale-110 group-hover/title:rotate-6 transition-all duration-300">
+                  <span className="material-symbols-outlined !text-[20px]">article</span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Published Writing</h2>
+              </div>
+              <a 
+                href="#" 
+                className="hidden sm:flex items-center gap-1 text-sm text-primary font-medium group/btn animate-slide-up"
+                style={{animationDelay: '0.1s'}}
+              >
+                View all articles 
+                <span className="material-symbols-outlined text-base group-hover/btn:translate-x-1 group-hover/btn:rotate-12 transition-all duration-300">
+                  arrow_forward
+                </span>
+              </a>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {data.articles.map((article, index) => (
+                <article 
+                  key={article.id}
+                  onMouseEnter={() => setHoveredArticle(article.id)}
+                  onMouseLeave={() => setHoveredArticle(null)}
+                  className="group relative overflow-hidden bg-surface-dark border border-gray-800 rounded-xl hover:border-blue-500/50 transition-all duration-500 shadow-lg hover:shadow-2xl hover:shadow-blue-500/20 animate-slide-up cursor-pointer"
+                  style={{
+                    transform: hoveredArticle === article.id ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
+                    transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                    animationDelay: `${index * 0.1}s`
+                  }}
+                >
+                  {/* Glow border effect */}
+                  <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 rounded-xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 -z-10"></div>
+                  
+                  {/* Hover shine effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 z-20"></div>
+                  
+                  <div className="h-48 w-full bg-gray-800 relative overflow-hidden">
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center transition-all duration-700 group-hover:scale-110"
+                      style={{ backgroundImage: `url('${article.image}')` }}
+                      data-alt={`${article.title} thumbnail`}
+                    ></div>
+                    
+                    {/* Image overlay gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <div className="absolute top-3 left-3 bg-gradient-to-r from-black/60 to-black/40 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-white flex items-center gap-1 transform group-hover:translate-y-0 transition-transform duration-300">
+                      <span className="material-symbols-outlined text-sm animate-pulse-subtle group-hover:rotate-12 transition-transform duration-300">{article.sourceIcon}</span>
+                      {article.source}
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col flex-1 p-5 gap-3 relative z-10">
+                    <div className="flex items-center gap-2 text-xs text-gray-400">
+                      <span className="transform group-hover:translate-x-1 transition-transform duration-300">{article.date}</span>
+                      <span className="size-1 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 animate-pulse-subtle"></span>
+                      <span className="transform group-hover:translate-x-2 transition-transform duration-500">{article.readTime}</span>
+                    </div>
+                    
+                    <h3 className="text-xl font-bold leading-tight group-hover:text-gradient-to-r group-hover:from-blue-500 group-hover:to-cyan-400 transition-all duration-300 transform group-hover:translate-x-1">
+                      {article.title}
+                    </h3>
+                    
+                    <p className="text-gray-400 text-sm leading-relaxed flex-1 transform group-hover:translate-x-2 transition-transform duration-500">
+                      {article.excerpt}
+                    </p>
+                    
+                    <div className="pt-2 relative">
+                      <button className="text-sm font-bold text-white flex items-center gap-2 group-hover:gap-3 transition-all duration-300 relative group/read">
+                        Read Article 
+                        <span className="material-symbols-outlined text-base transition-all duration-300 group-hover/read:rotate-45 group-hover/read:scale-125">
+                          arrow_right_alt
+                        </span>
+                        {/* Animated underline */}
+                        <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-blue-500 to-cyan-400 group-hover/read:w-full transition-all duration-700"></span>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  {/* Floating particles */}
+                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="flex gap-1">
+                      {[...Array(3)].map((_, i) => (
+                        <div 
+                          key={i}
+                          className="w-1 h-1 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 animate-pulse"
+                          style={{ animationDelay: `${i * 0.2}s` }}
+                        ></div>
+                      ))}
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Engineering Principles - Enhanced */}
+        <section className="w-full px-4 md:px-6 lg:px-8 py-8 md:py-12 lg:py-16 bg-surface-dark/50 border-y border-gray-800">
+          <div className="max-w-[1400px] mx-auto w-full">
+            <div className="mb-8 md:mb-10 text-center md:text-left animate-slide-in">
+              <div className="flex items-center gap-3 mb-2 group/title">
+                <div className="flex items-center justify-center size-8 rounded-lg bg-gradient-to-br from-green-500/20 to-green-500/5 border border-green-500/20 text-green-500 group-hover/title:scale-110 group-hover/title:rotate-6 transition-all duration-300">
+                  <span className="material-symbols-outlined !text-[20px]">psychology</span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Engineering Principles</h2>
+              </div>
+              <p className="text-gray-400 max-w-2xl animate-slide-up group/desc" style={{animationDelay: '0.1s'}}>
+                Core philosophies that guide my technical decision making and team leadership style.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {data.principles.map((principle, index) => (
+                <div 
+                  key={principle.id}
+                  onMouseEnter={() => setHoveredPrinciple(principle.id)}
+                  onMouseLeave={() => setHoveredPrinciple(null)}
+                  className="bg-background-dark p-6 rounded-xl border border-gray-800 hover:border-blue-500/50 transition-all duration-500 group animate-slide-up transform hover:-translate-y-2"
+                  style={{
+                    transform: hoveredPrinciple === principle.id ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
+                    transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                    animationDelay: `${index * 0.15}s`
+                  }}
+                >
+                  {/* Glow effect */}
+                  <div className="absolute -inset-1 bg-gradient-to-r from-green-500/10 via-green-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10"></div>
+                  
+                  {/* Icon with pulse animation */}
+                  <div className="relative mb-4">
+                    <div className="size-12 rounded-lg bg-gradient-to-br from-green-500/20 to-green-600/10 flex items-center justify-center text-green-500 group-hover:bg-gradient-to-br group-hover:from-green-500 group-hover:to-green-600 group-hover:text-white transition-all duration-300">
+                      <span className="material-symbols-outlined text-2xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+                        {principle.icon}
+                      </span>
+                    </div>
+                    
+                    {/* Icon glow */}
+                    <div className="absolute inset-0 size-12 rounded-lg bg-gradient-to-br from-green-500/30 to-green-600/20 animate-ping opacity-0 group-hover:opacity-100"></div>
+                  </div>
+                  
+                  <h3 className="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors duration-300 transform group-hover:translate-x-1">
+                    {principle.title}
+                  </h3>
+                  
+                  <p className="text-sm md:text-base text-gray-400 leading-relaxed mb-4 transform group-hover:translate-x-2 transition-transform duration-500">
+                    {principle.description}
+                  </p>
+                  
+                  <div className="flex gap-2 flex-wrap">
+                    {principle.tags.map((tag, tagIndex) => (
+                      <span 
+                        key={tagIndex}
+                        className="px-2 py-1 rounded text-xs font-medium bg-gradient-to-r from-gray-800 to-gray-900 text-gray-300 group-hover:from-gray-700 group-hover:to-gray-800 group-hover:text-white transition-all duration-300 hover:scale-105 transform group-hover:-translate-y-0.5"
+                        style={{animationDelay: `${tagIndex * 0.05}s`}}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  {/* Progress line */}
+                  <div className="mt-4 w-0 h-1 bg-gradient-to-r from-green-500 to-emerald-400 group-hover:w-full transition-all duration-700 rounded-full"></div>
+                  
+                  {/* Floating dots */}
+                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="flex gap-0.5">
+                      {[...Array(3)].map((_, i) => (
+                        <div 
+                          key={i}
+                          className="w-1 h-1 rounded-full bg-gradient-to-r from-green-500 to-emerald-400 animate-pulse"
+                          style={{ animationDelay: `${i * 0.1}s` }}
+                        ></div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Speaking Engagements - Enhanced */}
+        <section className="w-full px-4 md:px-6 lg:px-8 py-8 md:py-12 lg:py-16">
+          <div className="max-w-[1400px] mx-auto">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 md:mb-8 gap-4 animate-slide-in">
+              <div>
+                <div className="flex items-center gap-3 mb-2 group/title">
+                  <div className="flex items-center justify-center size-8 rounded-lg bg-gradient-to-br from-purple-500/20 to-purple-500/5 border border-purple-500/20 text-purple-500 group-hover/title:scale-110 group-hover/title:rotate-6 transition-all duration-300">
+                    <span className="material-symbols-outlined !text-[20px]">mic</span>
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Speaking Engagements</h2>
+                </div>
+                <p className="text-gray-400 animate-slide-up group/desc" style={{animationDelay: '0.1s'}}>
+                  Selected talks from international conferences and meetups.
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex flex-col gap-4">
+              {data.speakingEngagements.map((talk, index) => (
+                <div 
+                  key={talk.id}
+                  onMouseEnter={() => setHoveredTalk(talk.id)}
+                  onMouseLeave={() => setHoveredTalk(null)}
+                  className="bg-surface-dark border border-gray-800 rounded-xl p-5 md:p-6 flex flex-col md:flex-row gap-6 items-start md:items-center hover:border-blue-500/30 transition-all duration-500 group animate-slide-up transform hover:-translate-y-2"
+                  style={{
+                    transform: hoveredTalk === talk.id ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
+                    transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                    animationDelay: `${index * 0.1}s`
+                  }}
+                >
+                  {/* Glow effect */}
+                  <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/10 via-purple-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10"></div>
+                  
+                  {/* Video thumbnail with enhanced animations */}
+                  <div className="flex-shrink-0 w-full md:w-48 aspect-video md:aspect-auto md:h-28 bg-gray-800 rounded-lg overflow-hidden relative group/thumbnail">
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover/thumbnail:scale-110"
+                      style={{ backgroundImage: `url('${talk.image}')` }}
+                      data-alt={talk.title}
+                    ></div>
+                    
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/thumbnail:opacity-100 transition-opacity duration-500"></div>
+                    
+                    {talk.actions.watch && (
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/thumbnail:opacity-100 transition-opacity duration-500">
+                        <div className="size-14 rounded-full bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center animate-pulse-subtle hover:scale-110 transition-transform duration-300 shadow-xl shadow-primary/50">
+                          <span className="material-symbols-outlined text-white text-3xl ml-1 group-hover/thumbnail:scale-125 group-hover/thumbnail:rotate-12 transition-all duration-300">
+                            play_arrow
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="flex flex-col flex-1 gap-1">
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                      <span className={`px-2 py-0.5 rounded text-xs font-bold uppercase transform group-hover:scale-105 transition-all duration-300 ${getTypeColor(talk.type)}`}>
+                        {talk.type}
+                      </span>
+                      <span className="text-sm text-gray-400 flex items-center gap-1 group-hover:text-white transition-colors duration-300 transform group-hover:translate-x-1">
+                        <span className="material-symbols-outlined text-base">calendar_month</span>
+                        {talk.date}
+                      </span>
+                      <span className="text-sm text-gray-400 flex items-center gap-1 group-hover:text-white transition-colors duration-300 transform group-hover:translate-x-2">
+                        <span className="material-symbols-outlined text-base">location_on</span>
+                        {talk.location}
+                      </span>
+                    </div>
+                    
+                    <h3 className="text-xl font-bold text-white group-hover:text-gradient-to-r group-hover:from-blue-500 group-hover:to-cyan-400 transition-all duration-300 transform group-hover:translate-x-1">
+                      {talk.title}
+                    </h3>
+                    
+                    <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors duration-300 transform group-hover:translate-x-2">
+                      {talk.event}
+                    </p>
+                    
+                    <p className="text-gray-500 text-sm mt-1 line-clamp-2 group-hover:text-gray-400 transition-colors duration-300 transform group-hover:translate-x-3">
+                      {talk.description}
+                    </p>
+                  </div>
+                  
+                  <div className="flex flex-row md:flex-col gap-3 w-full md:w-auto mt-2 md:mt-0">
+                    {talk.actions.watch && (
+                      <button className="flex-1 md:flex-none h-9 px-4 rounded-lg bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white text-sm font-bold flex items-center justify-center gap-2 transition-all duration-500 whitespace-nowrap hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98] transform group-hover/button:-translate-y-0.5">
+                        <span className="material-symbols-outlined text-lg group-hover/button:rotate-12 transition-transform duration-300">videocam</span>
+                        Watch
+                      </button>
+                    )}
+                    {talk.actions.slides && (
+                      <button className="flex-1 md:flex-none h-9 px-4 rounded-lg bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 text-white text-sm font-medium flex items-center justify-center gap-2 transition-all duration-500 whitespace-nowrap hover:scale-[1.02] active:scale-[0.98]">
+                        <span className="material-symbols-outlined text-lg group-hover:rotate-12 transition-transform duration-300">slideshow</span>
+                        Slides
+                      </button>
+                    )}
+                    {talk.actions.recording && (
+                      <button className="flex-1 md:flex-none h-9 px-4 rounded-lg bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 text-white text-sm font-medium flex items-center justify-center gap-2 transition-all duration-500 whitespace-nowrap hover:scale-[1.02] active:scale-[0.98]">
+                        <span className="material-symbols-outlined text-lg group-hover:rotate-12 transition-transform duration-300">videocam</span>
+                        Recording
+                      </button>
+                    )}
+                  </div>
+                  
+                  {/* Connection indicator */}
+                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="flex gap-0.5">
+                      {[...Array(4)].map((_, i) => (
+                        <div 
+                          key={i}
+                          className="w-1 h-1 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 animate-pulse"
+                          style={{ animationDelay: `${i * 0.1}s` }}
+                        ></div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* Footer with enhanced animations */}
+      <footer className="relative z-10 bg-surface-dark border-t border-gray-800 py-8 md:py-12 px-4 md:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6 animate-slide-in">
+            <div className="text-center md:text-left group/info">
+              <h3 className="text-lg md:text-xl font-bold text-white transform group-hover/info:translate-x-1 transition-transform duration-300">
+                {data.footer.name}
+              </h3>
+              <p className="text-gray-500 text-sm mt-1 transform group-hover/info:translate-x-2 transition-transform duration-500">
+                {data.footer.title}
+              </p>
+              
+              {/* Animated separator */}
+              <div className="relative w-24 md:w-32 mt-2">
+                <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
+                <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 size-1.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 opacity-0 group-hover/info:opacity-100 transition-opacity duration-300"></div>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 md:gap-6">
+              {data.footer.socialLinks.map((social, index) => (
+                <a 
+                  key={index}
+                  href={social.href}
+                  className="text-gray-400 hover:text-white transition-all duration-500 hover:scale-110 group/social relative animate-slide-up"
+                  style={{animationDelay: `${0.2 + index * 0.1}s`}}
+                  aria-label={social.platform}
+                >
+                  {/* Social icon glow */}
+                  <div className="absolute -inset-2 bg-gradient-to-br from-current/10 to-transparent rounded-full opacity-0 group-hover/social:opacity-100 transition-opacity duration-300 -z-10"></div>
+                  
+                  <svg 
+                    className="h-5 w-5 md:h-6 md:w-6 transform group-hover/social:rotate-12 transition-transform duration-300" 
+                    fill="currentColor" 
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path d={social.icon} />
+                  </svg>
+                  
+                  {/* Tooltip */}
+                  <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs opacity-0 group-hover/social:opacity-100 transition-all duration-300 whitespace-nowrap bg-gradient-to-r from-gray-800 to-gray-900 px-2 py-1 rounded border border-gray-700">
+                    {social.platform}
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default Insights;
