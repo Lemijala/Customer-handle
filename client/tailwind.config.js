@@ -8,17 +8,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Section 1 Colors
-        "primary": "#13ecda",
-        "secondary": "#f59e0b",
-        "background-light": "#f6f8f8",
+        // Section 1 Colors (light / professional palette)
+        "primary": "#2563eb", // blue-600
+        "primary-dark": "#1d4ed8", // blue-700
+        "secondary": "#0ea5a4", // teal-500
+        "background-light": "#ffffff",
+        "background-muted": "#f8fafc",
         "background-dark": "#0B1120",
         "surface-dark": "#162032",
         
-        // Section 2 Colors (Add these)
-        "primary-blue": "#135bec",
-        "text-secondary": "#9da6b9",
-        "border-dark": "#282e39",
+        // Section 2 Colors
+        "text-secondary": "#64748b",
+        "border-muted": "#e6edf3",
+        "card-light": "#ffffff",
         "card-dark": "#1c1f27"
       },
       fontFamily: {

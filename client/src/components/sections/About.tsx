@@ -237,11 +237,11 @@ const About = () => {
               
               {/* Profile image with glow */}
               <div className="relative mb-4 lg:mb-5 xl:mb-6">
-                <div 
-                  className="size-24 lg:size-28 xl:size-32 rounded-full bg-cover bg-center ring-4 ring-white dark:ring-gray-900 group-hover:ring-8 transition-all duration-300 shadow-xl"
-                  style={{ backgroundImage: `url('${data.profile.image}')` }}
-                  data-alt="Portrait of Lemesa Girma"
-                ></div>
+                <img
+                  src={data.profile.image}
+                  alt="Portrait of Lemesa Girma"
+                  className="size-24 lg:size-28 xl:size-32 rounded-full object-cover ring-4 ring-white dark:ring-gray-900 group-hover:ring-8 transition-all duration-300 shadow-xl"
+                />
                 {/* Profile image glow */}
                 <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-blue-500/30 to-cyan-400/30 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 {/* Status indicator */}

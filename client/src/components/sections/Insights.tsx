@@ -458,57 +458,6 @@ const Insights = () => {
           </div>
         </section>
       </main>
-
-      {/* Footer with enhanced animations */}
-      <footer className="relative z-10 bg-surface-dark border-t border-gray-800 py-8 md:py-12 px-4 md:px-6 lg:px-8">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 animate-slide-in">
-            <div className="text-center md:text-left group/info">
-              <h3 className="text-lg md:text-xl font-bold text-white transform group-hover/info:translate-x-1 transition-transform duration-300">
-                {data.footer.name}
-              </h3>
-              <p className="text-gray-500 text-sm mt-1 transform group-hover/info:translate-x-2 transition-transform duration-500">
-                {data.footer.title}
-              </p>
-              
-              {/* Animated separator */}
-              <div className="relative w-24 md:w-32 mt-2">
-                <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
-                <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 size-1.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 opacity-0 group-hover/info:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
-            
-            <div className="flex gap-4 md:gap-6">
-              {data.footer.socialLinks.map((social, index) => (
-                <a 
-                  key={index}
-                  href={social.href}
-                  className="text-gray-400 hover:text-white transition-all duration-500 hover:scale-110 group/social relative animate-slide-up"
-                  style={{animationDelay: `${0.2 + index * 0.1}s`}}
-                  aria-label={social.platform}
-                >
-                  {/* Social icon glow */}
-                  <div className="absolute -inset-2 bg-gradient-to-br from-current/10 to-transparent rounded-full opacity-0 group-hover/social:opacity-100 transition-opacity duration-300 -z-10"></div>
-                  
-                  <svg 
-                    className="h-5 w-5 md:h-6 md:w-6 transform group-hover/social:rotate-12 transition-transform duration-300" 
-                    fill="currentColor" 
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path d={social.icon} />
-                  </svg>
-                  
-                  {/* Tooltip */}
-                  <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs opacity-0 group-hover/social:opacity-100 transition-all duration-300 whitespace-nowrap bg-gradient-to-r from-gray-800 to-gray-900 px-2 py-1 rounded border border-gray-700">
-                    {social.platform}
-                  </span>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

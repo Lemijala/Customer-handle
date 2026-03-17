@@ -11,8 +11,8 @@ const Hero = () => {
   const [hoveredPersona, setHoveredPersona] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  // Replace this URL with your actual profile picture
-  const profilePictureUrl = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400&q=80";
+  // Profile picture — served from /public/profile.jpg
+  const profilePictureUrl = "/profile.png";
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -135,8 +135,8 @@ const Hero = () => {
                     onMouseLeave={() => setHoveredPersona(null)}
                     className={`relative z-10 px-4 md:px-5 py-2 md:py-2.5 text-xs md:text-sm font-bold uppercase tracking-wider transition-all duration-300 ${
                       persona.isActive
-                        ? 'text-white'
-                        : 'text-gray-400 hover:text-white'
+                        ? 'text-slate-900 dark:text-white'
+                        : 'text-gray-500 hover:text-slate-900 dark:text-gray-400 dark:hover:text-white'
                     }`}
                   >
                     {persona.name}
@@ -162,11 +162,13 @@ const Hero = () => {
                   {/* Outer glow effect */}
                   <div className="absolute -inset-3 bg-gradient-to-r from-blue-500/20 to-cyan-400/20 rounded-full blur-xl opacity-0 group-hover/profile-pic:opacity-100 transition-opacity duration-500 -z-10"></div>
                   
-                  {/* Profile Picture with circular border radius */}
-                  <div 
-                    className="w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 xl:w-36 xl:h-36 rounded-full border-4 border-white/10 bg-cover bg-center shadow-2xl shadow-black/50 group-hover/profile-pic:scale-110 group-hover/profile-pic:border-gradient-to-r group-hover/profile-pic:from-blue-500 group-hover/profile-pic:to-cyan-400 transition-all duration-500 overflow-hidden"
-                    style={{ backgroundImage: `url('${profilePictureUrl}')` }}
-                  >
+                  {/* Profile Picture */}
+                  <div className="relative w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 xl:w-36 xl:h-36 rounded-full border-4 border-white/10 shadow-xl group-hover/profile-pic:scale-110 transition-all duration-500 overflow-hidden">
+                    <img
+                      src={profilePictureUrl}
+                      alt="Lemesa Girma"
+                      className="w-full h-full object-cover"
+                    />
                     {/* Image shine effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/profile-pic:translate-x-full transition-transform duration-1000"></div>
                   </div>
@@ -206,7 +208,7 @@ const Hero = () => {
                   
                   {/* Name with enhanced animations */}
                   <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-black leading-[0.9] tracking-tight group/name mb-3 md:mb-4">
-                    <span className="text-white relative inline-block">
+                    <span className="text-slate-900 dark:text-white relative inline-block">
                       Lemesa
                       <span className="absolute -bottom-2 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-cyan-400 group-hover/name:w-full transition-all duration-1000 ease-out"></span>
                     </span>{' '}
@@ -232,62 +234,13 @@ const Hero = () => {
             {/* Description with animated border */}
             <div className="relative pl-5 md:pl-6 lg:pl-8 border-l-3 md:border-l-4 border-gradient-to-b from-blue-500/40 via-blue-500/20 to-transparent py-1 group/desc">
               <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 opacity-0 group-hover/desc:opacity-100 transition-opacity duration-300 animate-pulse"></div>
-              <p className="text-gray-300 text-base md:text-lg lg:text-xl xl:text-2xl leading-relaxed max-w-2xl xl:max-w-3xl transform group-hover/desc:translate-x-3 transition-transform duration-500">
+              <p className="text-slate-600 dark:text-gray-300 text-base md:text-lg lg:text-xl xl:text-2xl leading-relaxed max-w-2xl xl:max-w-3xl transform group-hover/desc:translate-x-3 transition-transform duration-500">
                 Architecting scalable systems and delivering robust code. Specialized in high-performance cloud infrastructure, distributed systems, and enterprise-grade full-stack applications.
               </p>
             </div>
 
             {/* Enhanced CTA Group */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-6 w-full sm:w-auto pt-4 md:pt-6">
-              {/* Primary CTA */}
-              <button className="group/primary relative w-full sm:w-auto bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 hover:from-blue-600 hover:via-blue-500 hover:to-cyan-500 text-white text-base md:text-lg font-bold h-12 md:h-14 px-8 md:px-10 rounded-xl transition-all duration-500 flex items-center justify-center gap-2 shadow-2xl shadow-blue-500/30 hover:shadow-2xl hover:shadow-blue-500/50 transform hover:-translate-y-0.5">
-                {/* Button glow */}
-                <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/20 to-cyan-400/20 blur-xl opacity-0 group-hover/primary:opacity-100 transition-opacity duration-500 rounded-xl -z-10"></div>
-                {/* Shine effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/primary:translate-x-full transition-transform duration-1000 rounded-xl"></div>
-                <span>View Portfolio</span>
-                <span className="material-symbols-outlined text-xl md:text-2xl transition-all duration-500 group-hover/primary:translate-x-2 group-hover/primary:rotate-12">
-                  arrow_forward
-                </span>
-                {/* Floating particles */}
-                <div className="absolute inset-0 overflow-hidden opacity-0 group-hover/primary:opacity-100 transition-opacity duration-300">
-                  {[...Array(5)].map((_, i) => (
-                    <div 
-                      key={i}
-                      className="absolute w-1 h-1 rounded-full bg-white/50 animate-float"
-                      style={{
-                        left: `${10 + i * 15}%`,
-                        top: '20%',
-                        animationDelay: `${i * 0.1}s`,
-                        animationDuration: '1s'
-                      }}
-                    ></div>
-                  ))}
-                </div>
-              </button>
-              
-              {/* Secondary CTA */}
-              <button className="group/secondary w-full sm:w-auto bg-gradient-to-r from-gray-800/80 to-gray-900/80 hover:from-gray-700/80 hover:to-gray-800/80 border border-white/10 text-white text-base md:text-lg font-medium h-12 md:h-14 px-6 md:px-8 rounded-xl transition-all duration-500 flex items-center justify-center gap-2 shadow-xl hover:shadow-2xl hover:shadow-white/10 transform hover:-translate-y-0.5">
-                <span className="material-symbols-outlined text-xl md:text-2xl transition-transform duration-500 group-hover/secondary:scale-110 group-hover/secondary:-translate-y-1">
-                  download
-                </span>
-                <span>Strategy Deck</span>
-                {/* Animated border */}
-                <div className="absolute -inset-1 border border-gradient-to-r from-blue-500/20 to-cyan-400/20 rounded-xl opacity-0 group-hover/secondary:opacity-100 transition-opacity duration-500 -z-10"></div>
-              </button>
-              
-              {/* Tertiary CTA */}
-              <button className="group/tertiary w-full sm:w-auto flex items-center justify-center gap-2 text-gray-400 hover:text-gradient-to-r hover:from-blue-500 hover:to-cyan-400 transition-all duration-500 px-4 md:px-6 py-2 md:py-3">
-                <span className="material-symbols-outlined text-xl md:text-2xl transition-transform duration-500 group-hover/tertiary:rotate-12">
-                  calendar_month
-                </span>
-                <span className="font-medium text-sm md:text-base lg:text-lg transform group-hover/tertiary:translate-x-1 transition-transform duration-300">
-                  Schedule Chat
-                </span>
-                {/* Underline effect */}
-                <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 group-hover/tertiary:w-full transition-all duration-700"></div>
-              </button>
-            </div>
+            
           </div>
 
           {/* Right Column: Live Metrics Dashboard with premium effects */}
@@ -296,12 +249,12 @@ const Hero = () => {
               transform: `translate(${mousePosition.x * -0.003}px, ${mousePosition.y * -0.003}px)`
             }}
           >
-            <div className="relative bg-gradient-to-br from-gray-800/40 via-gray-900/30 to-gray-800/40 backdrop-blur-xl rounded-3xl p-1 shadow-2xl shadow-black/40 overflow-hidden group/dashboard border border-white/10 hover:border-gradient-to-r hover:from-blue-500/30 hover:to-cyan-400/30 transition-all duration-500 transform hover:-translate-y-1">
+            <div className="relative bg-card-light dark:bg-[#0f1623]/80 backdrop-blur-xl rounded-3xl p-1 shadow-md dark:shadow-2xl shadow-black/10 overflow-hidden group/dashboard border border-border-muted/20 dark:border-primary/10 hover:border-gradient-to-r hover:from-blue-500/30 hover:to-cyan-400/30 transition-all duration-500 transform hover:-translate-y-1">
               {/* Dashboard glow */}
               <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 rounded-3xl opacity-0 group-hover/dashboard:opacity-100 blur-2xl transition-opacity duration-500 -z-10"></div>
               
               {/* Animated header */}
-              <div className="bg-gradient-to-r from-black/40 to-black/30 px-5 md:px-6 py-3 md:py-4 border-b border-white/10 flex items-center justify-between">
+              <div className="bg-background-muted dark:bg-[#0d1420] px-5 md:px-6 py-3 md:py-4 border-b border-border-muted/20 dark:border-primary/10 flex items-center justify-between">
                 <div className="flex items-center gap-2 md:gap-3">
                   <div className="flex gap-1.5 md:gap-2">
                     <div className="w-3 h-3 md:w-3.5 md:h-3.5 rounded-full bg-gradient-to-br from-red-500 to-orange-500 shadow-[0_0_10px_rgba(239,68,68,0.5)] animate-pulse"></div>
@@ -326,7 +279,7 @@ const Hero = () => {
 
               <div className="p-5 md:p-6 lg:p-7 grid gap-5 md:gap-6 lg:gap-7">
                 {/* Metric 1: Uptime */}
-                <div className="group/uptime flex items-center justify-between p-4 md:p-5 lg:p-6 rounded-2xl bg-gradient-to-br from-gray-900/60 to-gray-800/40 border border-white/10 hover:border-gradient-to-r hover:from-blue-500/40 hover:to-cyan-400/40 transition-all duration-500 transform hover:-translate-y-0.5">
+                <div className="group/uptime flex items-center justify-between p-4 md:p-5 lg:p-6 rounded-2xl bg-[#162032]/80 border border-primary/10 hover:border-gradient-to-r hover:from-blue-500/40 hover:to-cyan-400/40 transition-all duration-500 transform hover:-translate-y-0.5">
                   <div className="flex items-center gap-4 md:gap-5 lg:gap-6">
                     <div className="relative">
                       <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-400/20 border border-blue-500/30 flex items-center justify-center text-gradient-to-r from-blue-500 to-cyan-400 group-hover/uptime:scale-110 transition-all duration-300 shadow-xl shadow-blue-500/10">
@@ -338,7 +291,7 @@ const Hero = () => {
                     </div>
                     <div>
                       <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider mb-1">System Uptime</div>
-                      <div className="text-2xl md:text-3xl lg:text-4xl font-black text-white font-mono group-hover/uptime:text-gradient-to-r group-hover/uptime:from-blue-500 group-hover/uptime:to-cyan-400 transition-all duration-300">
+                      <div className="text-2xl md:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white font-mono group-hover/uptime:text-gradient-to-r group-hover/uptime:from-blue-500 group-hover/uptime:to-cyan-400 transition-all duration-300">
                         99.98%
                       </div>
                     </div>
@@ -359,11 +312,11 @@ const Hero = () => {
                 </div>
 
                 {/* Metric 2: GitHub Activity */}
-                <div className="group/github p-4 md:p-5 lg:p-6 rounded-2xl bg-gradient-to-br from-gray-900/60 to-gray-800/40 border border-white/10 hover:border-gradient-to-r hover:from-blue-500/40 hover:to-cyan-400/40 transition-all duration-500 transform hover:-translate-y-0.5">
+                <div className="group/github p-4 md:p-5 lg:p-6 rounded-2xl bg-[#162032]/80 border border-primary/10 hover:border-gradient-to-r hover:from-blue-500/40 hover:to-cyan-400/40 transition-all duration-500 transform hover:-translate-y-0.5">
                   <div className="flex justify-between items-end mb-4 md:mb-5 lg:mb-6">
                     <div>
                       <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider mb-1">GitHub Contributions</div>
-                      <div className="text-2xl md:text-3xl lg:text-4xl font-black text-white font-mono group-hover/github:text-gradient-to-r group-hover/github:from-blue-500 group-hover/github:to-cyan-400 transition-all duration-300">
+                      <div className="text-2xl md:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white font-mono group-hover/github:text-gradient-to-r group-hover/github:from-blue-500 group-hover/github:to-cyan-400 transition-all duration-300">
                         3,450+
                       </div>
                     </div>
@@ -383,7 +336,7 @@ const Hero = () => {
                 {/* Metric 3: Projects & Satisfaction */}
                 <div className="grid grid-cols-2 gap-4 md:gap-5 lg:gap-6">
                   {/* Projects Card */}
-                  <div className="group/projects p-4 md:p-5 lg:p-6 rounded-2xl bg-gradient-to-br from-gray-900/60 to-gray-800/40 border border-white/10 hover:border-gradient-to-r hover:from-blue-500/40 hover:to-cyan-400/40 transition-all duration-500 transform hover:-translate-y-0.5 flex flex-col justify-between">
+                  <div className="group/projects p-4 md:p-5 lg:p-6 rounded-2xl bg-[#162032]/80 border border-primary/10 hover:border-gradient-to-r hover:from-blue-500/40 hover:to-cyan-400/40 transition-all duration-500 transform hover:-translate-y-0.5 flex flex-col justify-between">
                     <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Projects</div>
                     <div className="mt-2 md:mt-3 flex items-baseline gap-2">
                       <span className="text-3xl md:text-4xl lg:text-5xl font-black text-white group-hover/projects:text-gradient-to-r group-hover/projects:from-blue-500 group-hover/projects:to-cyan-400 transition-all duration-300">
@@ -402,7 +355,7 @@ const Hero = () => {
                   </div>
                   
                   {/* Satisfaction Card */}
-                  <div className="group/satisfaction p-4 md:p-5 lg:p-6 rounded-2xl bg-gradient-to-br from-gray-900/60 to-gray-800/40 border border-white/10 hover:border-gradient-to-r hover:from-green-500/40 hover:to-emerald-400/40 transition-all duration-500 transform hover:-translate-y-0.5 flex flex-col justify-between">
+                  <div className="group/satisfaction p-4 md:p-5 lg:p-6 rounded-2xl bg-[#162032]/80 border border-primary/10 hover:border-gradient-to-r hover:from-green-500/40 hover:to-emerald-400/40 transition-all duration-500 transform hover:-translate-y-0.5 flex flex-col justify-between">
                     <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Satisfaction</div>
                     <div className="mt-2 md:mt-3 flex items-baseline gap-2">
                       <span className="text-3xl md:text-4xl lg:text-5xl font-black text-white group-hover/satisfaction:text-gradient-to-r group-hover/satisfaction:from-green-500 group-hover/satisfaction:to-emerald-400 transition-all duration-300">
@@ -432,7 +385,7 @@ const Hero = () => {
               </div>
 
               {/* Code Snippet Decor with animation */}
-              <div className="bg-gradient-to-r from-black/60 to-black/40 px-5 md:px-6 py-3 md:py-4 border-t border-white/10 font-mono text-xs md:text-sm text-gray-400 overflow-hidden group/code">
+              <div className="bg-[#0d1420] px-5 md:px-6 py-3 md:py-4 border-t border-primary/10 font-mono text-xs md:text-sm text-gray-400 overflow-hidden group/code">
                 <div className="whitespace-nowrap animate-marquee-slow">
                   <span className="text-purple-400">const</span>{' '}
                   <span className="text-blue-400">skills</span>{' '}

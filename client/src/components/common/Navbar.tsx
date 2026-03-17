@@ -204,8 +204,8 @@ const Navbar = () => {
     <header 
       className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
         isScrolled 
-          ? 'bg-background-dark/95 backdrop-blur-xl shadow-2xl shadow-primary/10 border-b border-primary/20 py-2'
-          : 'bg-background-dark/90 backdrop-blur-lg border-b border-[#282e39]/30 py-3'
+          ? 'bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-xl shadow-2xl shadow-primary/10 border-b border-border-muted/40 dark:border-primary/20 py-2'
+          : 'bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-lg border-b border-border-muted/30 dark:border-[#282e39]/30 py-3'
       }`}
       style={{
         willChange: 'backdrop-filter'
@@ -272,7 +272,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-4 lg:gap-8">
             <nav className="flex gap-2 lg:gap-3 relative">
               {/* Active indicator line with glow */}
-              <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gray-800/50 rounded-full overflow-hidden">
+              <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gray-200/60 dark:bg-gray-800/50 rounded-full overflow-hidden">
                 <div 
                   className="h-full bg-gradient-to-r from-primary via-blue-500 to-cyan-400 rounded-full transition-all duration-500 ease-out shadow-lg shadow-primary/30"
                   style={getIndicatorStyle()}
@@ -290,9 +290,9 @@ const Navbar = () => {
                   onMouseEnter={() => setHoveredItem(item.id)}
                   onMouseLeave={() => setHoveredItem(null)}
                   className={`relative text-sm font-medium transition-all duration-300 py-2 px-3 md:px-4 rounded-lg group/nav-item ${
-                    activeSection === item.id
-                      ? 'text-white'
-                      : 'text-gray-400 hover:text-white'
+                      activeSection === item.id
+                        ? 'text-slate-900 dark:text-white'
+                        : 'text-gray-600 hover:text-slate-900 dark:text-gray-400 dark:hover:text-white'
                   }`}
                   style={{
                     animationDelay: `${index * 0.1}s`
@@ -302,7 +302,7 @@ const Navbar = () => {
                   <div className={`absolute inset-0 rounded-lg transition-all duration-500 ${
                     activeSection === item.id 
                       ? 'bg-gradient-to-r from-primary/20 via-primary/10 to-cyan-400/10 shadow-inner shadow-primary/20' 
-                      : 'bg-primary/5 opacity-0 group-hover/nav-item:opacity-100'
+                        : 'bg-primary/5 opacity-0 group-hover/nav-item:opacity-100'
                   }`}></div>
                   
                   {/* Border glow effect */}
@@ -367,7 +367,7 @@ const Navbar = () => {
             </nav>
             
             {/* Separator with gradient animation */}
-            <div className="h-6 w-px bg-gradient-to-b from-transparent via-[#282e39] to-transparent opacity-70 group-hover/separator:opacity-100 transition-all duration-500 relative">
+            <div className="h-6 w-px bg-gradient-to-b from-transparent via-border-muted to-transparent opacity-70 group-hover/separator:opacity-100 transition-all duration-500 relative">
               <div className="absolute inset-0 bg-gradient-to-b from-primary/0 via-primary/20 to-cyan-400/0 opacity-0 group-hover/separator:opacity-100 transition-opacity duration-500"></div>
             </div>
             
@@ -454,7 +454,7 @@ const Navbar = () => {
               onClick={handleMenuToggle}
             />
             
-            <div className="md:hidden border-t border-[#282e39]/50 mt-2 py-4 animate-slideIn backdrop-blur-xl bg-background-dark/95 rounded-b-2xl shadow-2xl stagger-animate fixed left-4 right-4 top-20 overflow-hidden">
+            <div className="md:hidden border-t border-border-muted/50 mt-2 py-4 animate-slideIn backdrop-blur-xl bg-background-light/95 dark:bg-background-dark/95 rounded-b-2xl shadow-2xl stagger-animate fixed left-4 right-4 top-20 overflow-hidden">
               {/* Menu background pattern */}
               <div className="absolute inset-0 opacity-10">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-cyan-400/10"></div>

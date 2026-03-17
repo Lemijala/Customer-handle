@@ -151,7 +151,7 @@ const Artifacts: React.FC = () => {
                 key={diagram.id}
                 onMouseEnter={() => setHoveredDiagram(diagram.id)}
                 onMouseLeave={() => setHoveredDiagram(null)}
-                className="group relative overflow-hidden rounded-xl bg-card-dark border border-[#282e39] hover:border-blue-500/50 transition-all duration-500 shadow-lg hover:shadow-2xl hover:shadow-blue-500/20 cursor-pointer"
+                className="group relative overflow-hidden rounded-xl bg-card-light dark:bg-card-dark border border-border-muted dark:border-[#282e39] hover:dark:border-blue-500/50 transition-all duration-500 shadow-md hover:shadow-lg hover:shadow-blue-500/10 cursor-pointer"
                 style={{
                   transform: hoveredDiagram === diagram.id ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
                   transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
@@ -184,18 +184,18 @@ const Artifacts: React.FC = () => {
                 
                 <div className="p-5 relative z-10">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-white font-bold text-lg transform group-hover:translate-x-1 transition-transform duration-300">
+                    <h3 className="text-slate-900 dark:text-white font-bold text-lg transform group-hover:translate-x-1 transition-transform duration-300">
                       {diagram.title}
                     </h3>
                     <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 opacity-0 group-hover:opacity-100 animate-pulse"></div>
                   </div>
                   
-                  <p className="text-[#9da6b9] text-sm leading-relaxed transform group-hover:translate-x-2 transition-transform duration-500">
+                  <p className="text-slate-600 dark:text-[#9da6b9] text-sm leading-relaxed transform group-hover:translate-x-2 transition-transform duration-500">
                     {diagram.description}
                   </p>
                   
                   {/* Animated progress indicator */}
-                  <div className="mt-4 w-full h-1 bg-gray-800 rounded-full overflow-hidden">
+                  <div className="mt-4 w-full h-1 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
                     <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full w-0 group-hover:w-full transition-all duration-700 ease-out"></div>
                   </div>
                 </div>
@@ -352,7 +352,7 @@ const Artifacts: React.FC = () => {
                 key={doc.id}
                 onMouseEnter={() => setHoveredDocument(doc.id)}
                 onMouseLeave={() => setHoveredDocument(null)}
-                className="bg-card-dark border border-[#282e39] hover:border-blue-500/50 rounded-lg p-4 md:p-6 flex items-start gap-4 transition-all group cursor-pointer transform hover:-translate-y-2"
+                className="bg-card-light dark:bg-card-dark border border-border-muted dark:border-[#282e39] hover:dark:border-blue-500/50 rounded-lg p-4 md:p-6 flex items-start gap-4 transition-all group cursor-pointer transform hover:-translate-y-2"
                 style={{
                   transform: hoveredDocument === doc.id ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
                   transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
@@ -370,7 +370,7 @@ const Artifacts: React.FC = () => {
                 
                 <div className="flex-1">
                   <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-white font-bold text-base md:text-lg transform group-hover:translate-x-1 transition-transform duration-300">
+                    <h3 className="text-slate-900 dark:text-white font-bold text-base md:text-lg transform group-hover:translate-x-1 transition-transform duration-300">
                       {doc.title}
                     </h3>
                     <span className={`text-xs md:text-sm px-2 py-0.5 rounded flex items-center gap-1 transform group-hover:scale-105 transition-all duration-300 ${
@@ -426,7 +426,7 @@ const Artifacts: React.FC = () => {
             <div 
               onMouseEnter={() => setHoveredProof('linkedin')}
               onMouseLeave={() => setHoveredProof(null)}
-              className="bg-card-dark border border-[#282e39] rounded-xl p-6 relative overflow-hidden group transform hover:-translate-y-2 transition-all duration-500 cursor-pointer"
+              className="bg-card-light dark:bg-card-dark border border-border-muted dark:border-[#282e39] rounded-xl p-6 relative overflow-hidden group transform hover:-translate-y-2 transition-all duration-500 cursor-pointer"
               style={{
                 transform: hoveredProof === 'linkedin' ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)'
               }}
@@ -440,15 +440,15 @@ const Artifacts: React.FC = () => {
               <div className="flex items-center gap-3 mb-4 relative">
                 <div className="relative">
                   <img 
-                    alt="Portrait of James Carter" 
+                    alt="Portrait of Lemesa Girma" 
                     className="w-12 h-12 md:w-14 md:h-14 rounded-full object-cover border-2 border-primary group-hover:border-4 transition-all duration-300"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-VocOfxecXH2oZ38ohOIozuYFY-Q0nugarTLu4Hb2XxOYVfPmDKIWFTI4WtQpgdJo_9zkxuZYWKZsyWfDGcz_WqT8PDqo-EqTnj4n9Kj0ttck2zDWiTEFkb0e-Thwy0uEz8jDKla1WZ-Q8T0vSbGYWmKejx3vajvRlr-h_zdbMSi1-usQv2yVBxesMYF4g840w5YVzOyCB2IqyI31LaLWHW9fQlTdVX_NDfw95LQV_yxuQ07iCyToV8FjsbPD4WNZVoUbSBe1mTHe" 
+                    src="/profile.png" 
                   />
                   {/* Profile glow */}
                   <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-blue-500/20 to-cyan-400/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 </div>
                 <div>
-                  <p className="text-white font-bold text-base md:text-lg transform group-hover:translate-x-1 transition-transform duration-300">
+                  <p className="text-slate-900 dark:text-white font-bold text-base md:text-lg transform group-hover:translate-x-1 transition-transform duration-300">
                     James Carter
                   </p>
                   <p className="text-xs md:text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
@@ -457,7 +457,7 @@ const Artifacts: React.FC = () => {
                 </div>
               </div>
               
-              <p className="text-gray-300 text-sm md:text-base italic leading-relaxed mb-4 transform group-hover:translate-x-2 transition-transform duration-500">
+              <p className="text-slate-600 dark:text-gray-300 text-sm md:text-base italic leading-relaxed mb-4 transform group-hover:translate-x-2 transition-transform duration-500">
                 "Lemesa transformed our backend infrastructure. His ability to visualize complex distributed systems and turn them into performant code is unmatched. The payment gateway he designed is still our core asset."
               </p>
               
@@ -484,13 +484,13 @@ const Artifacts: React.FC = () => {
             <div 
               onMouseEnter={() => setHoveredProof('github')}
               onMouseLeave={() => setHoveredProof(null)}
-              className="bg-card-dark border border-[#282e39] rounded-xl p-6 flex flex-col group transform hover:-translate-y-2 transition-all duration-500 cursor-pointer"
+              className="bg-card-light dark:bg-card-dark border border-border-muted dark:border-[#282e39] rounded-xl p-6 flex flex-col group transform hover:-translate-y-2 transition-all duration-500 cursor-pointer"
               style={{
                 transform: hoveredProof === 'github' ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)'
               }}
             >
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-white font-bold text-base md:text-lg transform group-hover:translate-x-1 transition-transform duration-300">
+                <h3 className="text-slate-900 dark:text-white font-bold text-base md:text-lg transform group-hover:translate-x-1 transition-transform duration-300">
                   GitHub Activity
                 </h3>
                 <span className="text-green-400 text-xs md:text-sm font-mono px-2 md:px-3 py-1 rounded bg-gradient-to-r from-green-500/20 to-green-600/10 transform group-hover:scale-105 transition-all duration-300 shadow-lg shadow-green-500/20">

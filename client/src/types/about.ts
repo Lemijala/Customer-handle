@@ -123,7 +123,7 @@ export const defaultAboutData: AboutSectionData = {
   profile: {
     name: "Lemesa Girma",
     title: "Senior Developer",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDoyVVXN7TjoTkVdkswLGT7x7oChk8yL-2x5PPfafncJ1pkLwVMps9SB3abwmqI28w8Qp0QnhCZn6uizR_izeL_SE2r2EabVGv_5dH7LZdj_PGgHO6SMlkjlq8GaD2q63L_vFN7MJgJ80Qxn897x5RbzyqKccfacCGXlw2nXfYc3pwy4fnjVva3ef4dzF3ofnya5BRk8h_gc0M_z4PMC0ZBF_h7mxIZmNaCUXIpISgiPdKN6AI2EgmZEEaT18Z5aGw9wESUBmH7-zRo",
+    image: "/profile.png",
     location: "Addis Ababa, Ethiopia",
     email: "lemesa@example.com"
   },
