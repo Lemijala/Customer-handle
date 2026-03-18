@@ -6,6 +6,7 @@ export interface IContact extends Document {
   organization?: string;
   inquiryType?: string;
   message: string;
+  rating?: number;
   isRead: boolean;
   createdAt: Date;
 }
@@ -17,6 +18,7 @@ const ContactSchema = new Schema<IContact>(
     organization: { type: String, trim: true },
     inquiryType: { type: String, trim: true },
     message: { type: String, required: true },
+    rating: { type: Number, min: 1, max: 5 },
     isRead: { type: Boolean, default: false },
   },
   { timestamps: true }

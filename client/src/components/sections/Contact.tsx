@@ -1,19 +1,72 @@
-// File path: src/components/sections/Contact.tsx
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
+interface RecentContact {
+  _id: string;
+  name: string;
+  inquiryType?: string;
+  rating?: number;
+  createdAt: string;
+}
+
+interface LiveStats {
+  uptime: string;
+  totalMessages: number;
+  unreadMessages: number;
+  avgRating: number | null;
+  ratingCount: number;
+  recentContacts: RecentContact[];
+  memoryUsage: string;
+  cpuLoad: string;
+  dbStatus: string;
+  processUptime: number;
+}
+
+const StarRating: React.FC<{ value: number; onChange: (v: number) => void }> = ({ value, onChange }) => {
+  const [hovered, setHovered] = useState(0);
+  return (
+    <div className="flex gap-1">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <button key={star} type="button" onClick={() => onChange(star)}
+          onMouseEnter={() => setHovered(star)} onMouseLeave={() => setHovered(0)}
+          className="text-2xl transition-transform hover:scale-110">
+          <span className={`material-symbols-outlined ${(hovered || value) >= star ? 'text-yellow-400' : 'text-gray-600'}`}>star</span>
+        </button>
+      ))}
+    </div>
+  );
+};
+
+const timeAgo = (dateStr: string) => {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  return `${Math.floor(hrs / 24)}d ago`;
+};
+
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    organization: '',
-    inquiryType: '',
-    message: '',
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', organization: '', inquiryType: '', message: '', rating: 0 });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [statusMsg, setStatusMsg] = useState('');
+  const [liveStats, setLiveStats] = useState<LiveStats | null>(null);
+
+  const fetchStats = async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/stats`);
+      const data = await res.json();
+      if (data.success) setLiveStats(data.data);
+    } catch { /* silent */ }
+  };
+
+  useEffect(() => {
+    fetchStats();
+    const interval = setInterval(fetchStats, 20000);
+    return () => clearInterval(interval);
+  }, []);
 
   const timeSlots = [
     { id: 1, time: '09:00 AM', available: true },
@@ -22,16 +75,7 @@ const Contact: React.FC = () => {
     { id: 4, time: '04:30 PM', available: false },
   ];
 
-  const systemStatus = {
-    uptime: '99.9%',
-    commits: 142,
-    responseTime: '<24h',
-    version: 'v3.0.1',
-  };
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -44,13 +88,14 @@ const Contact: React.FC = () => {
       const res = await fetch(`${API_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, rating: formData.rating || undefined }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Submission failed');
       setStatus('success');
       setStatusMsg(data.message || 'Message sent!');
-      setFormData({ name: '', email: '', organization: '', inquiryType: '', message: '' });
+      setFormData({ name: '', email: '', organization: '', inquiryType: '', message: '', rating: 0 });
+      fetchStats();
     } catch (err: unknown) {
       setStatus('error');
       setStatusMsg(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
@@ -60,7 +105,6 @@ const Contact: React.FC = () => {
   return (
     <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white">
       <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-10 py-8 sm:py-12">
-        {/* Header */}
         <div className="flex flex-col gap-4 mb-12">
           <h1 className="text-slate-900 dark:text-white text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-[-0.033em]">
             Let's Build Something <span className="text-primary">Scalable</span>
@@ -71,62 +115,39 @@ const Contact: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-          {/* Left Column: Contact Form */}
+          {/* Left: Form */}
           <div className="lg:col-span-7 flex flex-col gap-8">
             <div className="bg-white dark:bg-[#162032] border border-gray-200 dark:border-[#282e39] rounded-2xl p-6 sm:p-8 shadow-sm">
               <div className="flex items-center gap-3 mb-6">
                 <span className="material-symbols-outlined text-primary">mail</span>
                 <h2 className="text-2xl font-bold tracking-tight">Contact Me</h2>
               </div>
-
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <label className="flex flex-col gap-2">
                     <span className="text-sm font-medium text-slate-700 dark:text-gray-300">Name</span>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
+                    <input type="text" name="name" value={formData.name} onChange={handleInputChange}
                       className="w-full rounded-xl border border-gray-300 dark:border-[#3b4354] bg-slate-50 dark:bg-[#111318] text-slate-900 dark:text-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 h-12 px-4 placeholder:text-gray-400 transition-colors"
-                      placeholder="Jane Doe"
-                    />
+                      placeholder="Jane Doe" />
                   </label>
-
                   <label className="flex flex-col gap-2">
                     <span className="text-sm font-medium text-slate-700 dark:text-gray-300">Work Email</span>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
+                    <input type="email" name="email" value={formData.email} onChange={handleInputChange}
                       className="w-full rounded-xl border border-gray-300 dark:border-[#3b4354] bg-slate-50 dark:bg-[#111318] text-slate-900 dark:text-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 h-12 px-4 placeholder:text-gray-400 transition-colors"
-                      placeholder="jane@company.com"
-                    />
+                      placeholder="jane@company.com" />
                   </label>
                 </div>
-
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <label className="flex flex-col gap-2">
                     <span className="text-sm font-medium text-slate-700 dark:text-gray-300">Organization</span>
-                    <input
-                      type="text"
-                      name="organization"
-                      value={formData.organization}
-                      onChange={handleInputChange}
+                    <input type="text" name="organization" value={formData.organization} onChange={handleInputChange}
                       className="w-full rounded-xl border border-gray-300 dark:border-[#3b4354] bg-slate-50 dark:bg-[#111318] text-slate-900 dark:text-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 h-12 px-4 placeholder:text-gray-400 transition-colors"
-                      placeholder="Company Ltd."
-                    />
+                      placeholder="Company Ltd." />
                   </label>
-
                   <label className="flex flex-col gap-2">
                     <span className="text-sm font-medium text-slate-700 dark:text-gray-300">Inquiry Type</span>
-                    <select
-                      name="inquiryType"
-                      value={formData.inquiryType}
-                      onChange={handleInputChange}
-                      className="w-full rounded-xl border border-gray-300 dark:border-[#3b4354] bg-slate-50 dark:bg-[#111318] text-slate-900 dark:text-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 h-12 px-4 transition-colors"
-                    >
+                    <select name="inquiryType" value={formData.inquiryType} onChange={handleInputChange}
+                      className="w-full rounded-xl border border-gray-300 dark:border-[#3b4354] bg-slate-50 dark:bg-[#111318] text-slate-900 dark:text-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 h-12 px-4 transition-colors">
                       <option value="">Select inquiry type...</option>
                       <option value="consulting">Technical Consulting</option>
                       <option value="fulltime">Full-time Opportunity</option>
@@ -135,107 +156,143 @@ const Contact: React.FC = () => {
                     </select>
                   </label>
                 </div>
-
                 <label className="flex flex-col gap-2">
                   <span className="text-sm font-medium text-slate-700 dark:text-gray-300">Message</span>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    rows={6}
-                    className="w-full rounded-xl border border-gray-300 dark:border-[#3b4354] bg-slate-50 dark:bg-[#111318] text-slate-900 dark:text-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 min-h-[160px] p-4 placeholder:text-gray-400 transition-colors resize-none"
-                    placeholder="Tell me about your project needs, timeline, and tech stack..."
-                  />
+                  <textarea name="message" value={formData.message} onChange={handleInputChange} rows={5}
+                    className="w-full rounded-xl border border-gray-300 dark:border-[#3b4354] bg-slate-50 dark:bg-[#111318] text-slate-900 dark:text-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 min-h-[140px] p-4 placeholder:text-gray-400 transition-colors resize-none"
+                    placeholder="Tell me about your project needs, timeline, and tech stack..." />
                 </label>
 
+                {/* Star Rating */}
+                <div className="flex flex-col gap-2">
+                  <span className="text-sm font-medium text-slate-700 dark:text-gray-300">Rate your experience (optional)</span>
+                  <StarRating value={formData.rating} onChange={(v) => setFormData((p) => ({ ...p, rating: v }))} />
+                </div>
+
                 <div className="pt-2 flex flex-col gap-3">
-                  <button
-                    type="submit"
-                    disabled={status === 'loading'}
-                    className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-primary hover:bg-blue-600 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 px-8 rounded-xl transition-all shadow-lg shadow-blue-500/25 overflow-hidden"
-                  >
+                  <button type="submit" disabled={status === 'loading'}
+                    className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-primary hover:bg-blue-600 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 px-8 rounded-xl transition-all shadow-lg shadow-blue-500/25 overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                     <span className="relative z-10">{status === 'loading' ? 'Sending...' : 'Submit'}</span>
                     <span className="material-symbols-outlined text-[20px] relative z-10 group-hover:translate-x-1 transition-transform">
                       {status === 'loading' ? 'hourglass_empty' : 'send'}
                     </span>
                   </button>
-                  {status === 'success' && (
-                    <p className="text-green-500 text-sm font-medium">{statusMsg}</p>
-                  )}
-                  {status === 'error' && (
-                    <p className="text-red-500 text-sm font-medium">{statusMsg}</p>
-                  )}
+                  {status === 'success' && <p className="text-green-500 text-sm font-medium">{statusMsg}</p>}
+                  {status === 'error' && <p className="text-red-500 text-sm font-medium">{statusMsg}</p>}
                 </div>
               </form>
             </div>
           </div>
 
-          {/* Right Column: Availability & System Status */}
+          {/* Right: Status + Booking */}
           <div className="lg:col-span-5 flex flex-col gap-6">
-            {/* Availability Calendar */}
+            {/* Book a Call */}
             <div className="bg-white dark:bg-[#162032] border border-gray-200 dark:border-[#282e39] rounded-2xl p-6 shadow-sm">
               <div className="flex items-center gap-3 mb-5">
                 <span className="material-symbols-outlined text-primary">calendar_month</span>
                 <h2 className="text-xl font-bold">Book a Call</h2>
               </div>
-              <p className="text-sm text-slate-500 dark:text-gray-400 mb-4">
-                Select an available time slot for a 30-minute discovery call.
-              </p>
+              <p className="text-sm text-slate-500 dark:text-gray-400 mb-4">Select an available time slot for a 30-minute discovery call.</p>
               <div className="grid grid-cols-2 gap-3">
                 {timeSlots.map((slot) => (
-                  <button
-                    key={slot.id}
-                    disabled={!slot.available}
+                  <button key={slot.id} disabled={!slot.available}
                     className={`py-3 px-4 rounded-xl text-sm font-medium transition-all duration-300 ${
                       slot.available
                         ? 'bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-white hover:shadow-lg hover:shadow-primary/30'
                         : 'bg-gray-100 dark:bg-gray-800/50 text-gray-400 border border-gray-200 dark:border-gray-700 cursor-not-allowed line-through'
-                    }`}
-                  >
+                    }`}>
                     {slot.time}
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* System Status */}
+            {/* Live System Status */}
             <div className="bg-white dark:bg-[#162032] border border-gray-200 dark:border-[#282e39] rounded-2xl p-6 shadow-sm">
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                <h2 className="text-xl font-bold">System Status</h2>
+              <div className="flex items-center justify-between mb-5">
+                <div className="flex items-center gap-3">
+                  <div className={`w-2 h-2 rounded-full animate-pulse ${liveStats?.dbStatus === 'connected' ? 'bg-green-500' : 'bg-red-500'}`} />
+                  <h2 className="text-xl font-bold">System Status</h2>
+                </div>
+                <span className="text-xs text-gray-400 font-mono">live</span>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                {Object.entries(systemStatus).map(([key, value]) => (
-                  <div key={key} className="flex flex-col gap-1">
-                    <span className="text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider">
-                      {key.replace(/([A-Z])/g, ' $1').trim()}
-                    </span>
-                    <span className="text-lg font-bold text-slate-900 dark:text-white font-mono">
-                      {value}
-                    </span>
+
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                {[
+                  { label: 'Uptime', value: liveStats?.uptime },
+                  { label: 'Messages', value: liveStats?.totalMessages },
+                  { label: 'CPU Load', value: liveStats?.cpuLoad },
+                  { label: 'Memory', value: liveStats?.memoryUsage },
+                ].map(({ label, value }) => (
+                  <div key={label} className="flex flex-col gap-1">
+                    <span className="text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider">{label}</span>
+                    <span className="text-lg font-bold text-slate-900 dark:text-white font-mono">{value ?? '—'}</span>
                   </div>
                 ))}
               </div>
+
+              {/* Avg Rating */}
+              {liveStats?.avgRating != null && (
+                <div className="border-t border-gray-100 dark:border-[#282e39] pt-4 mb-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-slate-500 dark:text-gray-400">Avg. Rating</span>
+                    <div className="flex items-center gap-2">
+                      <div className="flex">
+                        {[1,2,3,4,5].map((s) => (
+                          <span key={s} className={`material-symbols-outlined text-sm ${s <= Math.round(liveStats.avgRating!) ? 'text-yellow-400' : 'text-gray-600'}`}>star</span>
+                        ))}
+                      </div>
+                      <span className="text-sm font-bold">{liveStats.avgRating} <span className="text-gray-400 font-normal text-xs">({liveStats.ratingCount})</span></span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Recent Inquiries */}
+              {liveStats?.recentContacts && liveStats.recentContacts.length > 0 && (
+                <div className="border-t border-gray-100 dark:border-[#282e39] pt-4">
+                  <p className="text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-3">Recent Inquiries</p>
+                  <div className="flex flex-col gap-3">
+                    {liveStats.recentContacts.map((c) => (
+                      <div key={c._id} className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold">
+                            {c.name.charAt(0).toUpperCase()}
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-slate-900 dark:text-white">{c.name}</p>
+                            {c.inquiryType && <p className="text-xs text-gray-400 capitalize">{c.inquiryType}</p>}
+                          </div>
+                        </div>
+                        <div className="flex flex-col items-end gap-0.5">
+                          <span className="text-xs text-gray-400">{timeAgo(c.createdAt)}</span>
+                          {c.rating && (
+                            <div className="flex">
+                              {[1,2,3,4,5].map((s) => (
+                                <span key={s} className={`material-symbols-outlined text-xs ${s <= c.rating! ? 'text-yellow-400' : 'text-gray-600'}`}>star</span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Direct Contact */}
             <div className="bg-gradient-to-br from-primary/10 to-cyan-400/10 border border-primary/20 rounded-2xl p-6">
               <h3 className="font-bold text-lg mb-3">Prefer direct contact?</h3>
               <div className="flex flex-col gap-3">
-                <a
-                  href="mailto:lemesa@example.com"
-                  className="flex items-center gap-3 text-sm text-slate-600 dark:text-gray-300 hover:text-primary transition-colors group"
-                >
+                <a href="mailto:tlemesagirma@gmail.com"
+                  className="flex items-center gap-3 text-sm text-slate-600 dark:text-gray-300 hover:text-primary transition-colors group">
                   <span className="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">mail</span>
-                  lemesa@example.com
+                  tlemesagirma@gmail.com
                 </a>
-                <a
-                  href="https://linkedin.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-sm text-slate-600 dark:text-gray-300 hover:text-primary transition-colors group"
-                >
+                <a href="https://linkedin.com/in/lemesa" target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-sm text-slate-600 dark:text-gray-300 hover:text-primary transition-colors group">
                   <span className="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">link</span>
                   linkedin.com/in/lemesa
                 </a>

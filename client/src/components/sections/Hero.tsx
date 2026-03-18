@@ -1,15 +1,47 @@
 // File path: src/components/sections/Hero.tsx
 
 import { useState, useEffect } from 'react';
-import { Persona, TechStackItem, DashboardMetric, defaultPersonas, defaultTechStack, defaultMetrics } from '../../types/hero';
+import type { Persona, TechStackItem, DashboardMetric } from '../../types/hero';
+import { defaultPersonas, defaultTechStack, defaultMetrics } from '../../types/hero';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
+interface LiveStats {
+  uptime: string;
+  totalMessages: number;
+  memoryUsage: string;
+  cpuLoad: string;
+  dbStatus: string;
+  processUptime: number;
+  nodeVersion: string;
+  platform: string;
+  timestamp: string;
+}
 
 const Hero = () => {
   const [personas, setPersonas] = useState<Persona[]>(defaultPersonas);
   const [techStack] = useState<TechStackItem[]>(defaultTechStack);
   const [metrics] = useState<DashboardMetric[]>(defaultMetrics);
   const [activePersona, setActivePersona] = useState<number>(1);
+  const [liveStats, setLiveStats] = useState<LiveStats | null>(null);
   const [hoveredPersona, setHoveredPersona] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  // Fetch real stats from backend
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/stats`);
+        const data = await res.json();
+        if (data.success) setLiveStats(data.data);
+      } catch {
+        // silently fail — dashboard shows fallback values
+      }
+    };
+    fetchStats();
+    const interval = setInterval(fetchStats, 30000); // refresh every 30s
+    return () => clearInterval(interval);
+  }, []);
 
   // Profile picture — served from /public/profile.jpg
   const profilePictureUrl = "/profile.png";
@@ -292,7 +324,7 @@ const Hero = () => {
                     <div>
                       <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider mb-1">System Uptime</div>
                       <div className="text-2xl md:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white font-mono group-hover/uptime:text-gradient-to-r group-hover/uptime:from-blue-500 group-hover/uptime:to-cyan-400 transition-all duration-300">
-                        99.98%
+                        {liveStats ? liveStats.uptime : '99.98%'}
                       </div>
                     </div>
                   </div>
@@ -311,74 +343,73 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* Metric 2: GitHub Activity */}
+                {/* Metric 2: Messages & Server Stats */}
                 <div className="group/github p-4 md:p-5 lg:p-6 rounded-2xl bg-[#162032]/80 border border-primary/10 hover:border-gradient-to-r hover:from-blue-500/40 hover:to-cyan-400/40 transition-all duration-500 transform hover:-translate-y-0.5">
                   <div className="flex justify-between items-end mb-4 md:mb-5 lg:mb-6">
                     <div>
-                      <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider mb-1">GitHub Contributions</div>
+                      <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider mb-1">Messages Received</div>
                       <div className="text-2xl md:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white font-mono group-hover/github:text-gradient-to-r group-hover/github:from-blue-500 group-hover/github:to-cyan-400 transition-all duration-300">
-                        3,450+
+                        {liveStats ? liveStats.totalMessages : '—'}
                       </div>
                     </div>
                     <span className="text-gradient-to-r from-blue-500 to-cyan-400 text-xs md:text-sm font-bold bg-gradient-to-r from-blue-500/10 to-cyan-400/10 px-3 py-1.5 rounded-full border border-blue-500/20 shadow-lg shadow-blue-500/10 group-hover/github:scale-110 transition-all duration-300">
-                      +12% vs last mo
+                      {liveStats ? `CPU ${liveStats.cpuLoad}` : 'live'}
                     </span>
                   </div>
                   
-                  {/* Enhanced Contribution Graph */}
-                  <div className="flex gap-1 justify-between opacity-90 group-hover/github:opacity-100 transition-opacity duration-300 group/graph">
-                    <div className="grid grid-rows-4 grid-flow-col gap-1 w-full h-16 md:h-20">
-                      {generateGitHubGraph()}
+                  {/* Memory & DB status bars */}
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center justify-between text-xs text-gray-400">
+                      <span>Memory</span>
+                      <span className="font-mono">{liveStats ? liveStats.memoryUsage : '—'}</span>
+                    </div>
+                    <div className="w-full bg-white/10 rounded-full h-1.5 overflow-hidden">
+                      <div
+                        className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full transition-all duration-1000"
+                        style={{ width: liveStats ? liveStats.memoryUsage : '0%' }}
+                      />
+                    </div>
+                    <div className="flex items-center gap-2 mt-1">
+                      <div className={`w-2 h-2 rounded-full ${liveStats?.dbStatus === 'connected' ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`} />
+                      <span className="text-xs text-gray-400">
+                        DB {liveStats ? liveStats.dbStatus : 'checking...'}
+                      </span>
                     </div>
                   </div>
                 </div>
 
-                {/* Metric 3: Projects & Satisfaction */}
+                {/* Metric 3: Server Uptime & Node Version */}
                 <div className="grid grid-cols-2 gap-4 md:gap-5 lg:gap-6">
-                  {/* Projects Card */}
+                  {/* Process Uptime Card */}
                   <div className="group/projects p-4 md:p-5 lg:p-6 rounded-2xl bg-[#162032]/80 border border-primary/10 hover:border-gradient-to-r hover:from-blue-500/40 hover:to-cyan-400/40 transition-all duration-500 transform hover:-translate-y-0.5 flex flex-col justify-between">
-                    <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Projects</div>
+                    <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Server Up</div>
                     <div className="mt-2 md:mt-3 flex items-baseline gap-2">
-                      <span className="text-3xl md:text-4xl lg:text-5xl font-black text-white group-hover/projects:text-gradient-to-r group-hover/projects:from-blue-500 group-hover/projects:to-cyan-400 transition-all duration-300">
-                        15
-                      </span>
-                      <span className="text-gray-500 text-sm md:text-base transform group-hover/projects:translate-x-2 transition-transform duration-500">
-                        Delivered
+                      <span className="text-2xl md:text-3xl lg:text-4xl font-black text-white font-mono group-hover/projects:text-gradient-to-r group-hover/projects:from-blue-500 group-hover/projects:to-cyan-400 transition-all duration-300">
+                        {liveStats
+                          ? liveStats.processUptime < 60
+                            ? `${liveStats.processUptime}s`
+                            : liveStats.processUptime < 3600
+                            ? `${Math.floor(liveStats.processUptime / 60)}m`
+                            : `${Math.floor(liveStats.processUptime / 3600)}h`
+                          : '—'}
                       </span>
                     </div>
-                    {/* Animated progress bar */}
                     <div className="relative w-full bg-white/10 rounded-full h-1.5 md:h-2 mt-3 md:mt-4 overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 rounded-full transition-all duration-1000 ease-out w-0 group-hover/projects:w-[85%]"></div>
-                      {/* Progress glow */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-400/20 blur-sm opacity-0 group-hover/projects:opacity-100 transition-opacity duration-500 rounded-full"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 rounded-full w-[85%]"></div>
                     </div>
                   </div>
                   
-                  {/* Satisfaction Card */}
+                  {/* Node Version Card */}
                   <div className="group/satisfaction p-4 md:p-5 lg:p-6 rounded-2xl bg-[#162032]/80 border border-primary/10 hover:border-gradient-to-r hover:from-green-500/40 hover:to-emerald-400/40 transition-all duration-500 transform hover:-translate-y-0.5 flex flex-col justify-between">
-                    <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Satisfaction</div>
-                    <div className="mt-2 md:mt-3 flex items-baseline gap-2">
-                      <span className="text-3xl md:text-4xl lg:text-5xl font-black text-white group-hover/satisfaction:text-gradient-to-r group-hover/satisfaction:from-green-500 group-hover/satisfaction:to-emerald-400 transition-all duration-300">
-                        100
+                    <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Node</div>
+                    <div className="mt-2 md:mt-3 flex items-baseline gap-1">
+                      <span className="text-2xl md:text-3xl font-black text-white font-mono group-hover/satisfaction:text-gradient-to-r group-hover/satisfaction:from-green-500 group-hover/satisfaction:to-emerald-400 transition-all duration-300">
+                        {liveStats ? liveStats.nodeVersion : '—'}
                       </span>
-                      <span className="text-gradient-to-r from-green-500 to-emerald-400 text-sm md:text-base font-bold">%</span>
                     </div>
-                    <div className="flex -space-x-1.5 md:-space-x-2 mt-3 md:mt-4 opacity-80 group-hover/satisfaction:opacity-100 transition-opacity duration-300">
-                      {['bg-gradient-to-br from-gray-700 to-gray-900', 
-                        'bg-gradient-to-br from-gray-600 to-gray-800', 
-                        'bg-gradient-to-br from-gray-500 to-gray-700',
-                        'bg-gradient-to-br from-gray-800 to-gray-900'].map((gradient, i) => (
-                        <div 
-                          key={i}
-                          className={`w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 rounded-full border-2 border-gray-900 ${gradient} flex items-center justify-center text-[8px] md:text-[10px] text-white shadow-lg group-hover/satisfaction:scale-110 transition-all duration-300`}
-                          style={{ 
-                            transitionDelay: `${i * 100}ms`,
-                            zIndex: 4 - i
-                          }}
-                        >
-                          {i === 3 ? '+5' : ''}
-                        </div>
-                      ))}
+                    <div className="flex items-center gap-2 mt-3 md:mt-4">
+                      <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                      <span className="text-xs text-gray-400">{liveStats ? liveStats.platform : 'live'}</span>
                     </div>
                   </div>
                 </div>
