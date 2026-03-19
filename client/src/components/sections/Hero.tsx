@@ -228,14 +228,15 @@ const Hero = () => {
                 {/* Name and Title Section */}
                 <div className="flex-1">
                   {/* Availability Badge */}
-                  <div className="flex items-center gap-2 md:gap-3 text-gradient-to-r from-blue-400 to-cyan-400 font-medium tracking-wide text-xs md:text-sm lg:text-base uppercase animate-gradient group/availability mb-3 md:mb-4">
-                    <span className="material-symbols-outlined text-base md:text-lg lg:text-xl animate-pulse">
-                      verified
-                    </span>
-                    <span className="relative">
-                      Available for Contract
-                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 group-hover/availability:w-full transition-all duration-700"></span>
-                    </span>
+                  <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-3 md:mb-4">
+                    <div className="inline-flex items-center gap-1.5 bg-green-500/10 border border-green-500/30 text-green-500 text-xs font-bold px-3 py-1.5 rounded-full animate-pulse">
+                      <span className="w-2 h-2 rounded-full bg-green-500 animate-ping"></span>
+                      Open to Opportunities
+                    </div>
+                    <div className="inline-flex items-center gap-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold px-3 py-1.5 rounded-full">
+                      <span className="material-symbols-outlined text-[14px]">location_on</span>
+                      Remote / Addis Ababa
+                    </div>
                   </div>
                   
                   {/* Name with enhanced animations */}
@@ -253,7 +254,7 @@ const Hero = () => {
                   {/* Title and Education */}
                   <div className="space-y-2 md:space-y-3 group/title">
                     <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold text-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 animate-gradient-x">
-                      Senior Systems Architect
+                      Senior Software Developer
                     </h2>
                     <p className="text-base md:text-lg lg:text-xl xl:text-2xl text-gray-400 font-normal transform group-hover/title:translate-x-2 transition-transform duration-500">
                       &amp; IT Student @ Haramaya University
@@ -267,12 +268,43 @@ const Hero = () => {
             <div className="relative pl-5 md:pl-6 lg:pl-8 border-l-3 md:border-l-4 border-gradient-to-b from-blue-500/40 via-blue-500/20 to-transparent py-1 group/desc">
               <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 opacity-0 group-hover/desc:opacity-100 transition-opacity duration-300 animate-pulse"></div>
               <p className="text-slate-600 dark:text-gray-300 text-base md:text-lg lg:text-xl xl:text-2xl leading-relaxed max-w-2xl xl:max-w-3xl transform group-hover/desc:translate-x-3 transition-transform duration-500">
-                Architecting scalable systems and delivering robust code. Specialized in high-performance cloud infrastructure, distributed systems, and enterprise-grade full-stack applications.
+                Building production-grade web applications and APIs. Specialized in React, Node.js, cloud infrastructure, and turning complex problems into clean, maintainable solutions.
               </p>
             </div>
 
             {/* Enhanced CTA Group */}
-            
+            <div className="flex flex-col gap-4">
+              {/* Currently building */}
+              <div className="inline-flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                <span className="material-symbols-outlined text-[14px] text-blue-500 animate-spin" style={{animationDuration:'3s'}}>settings</span>
+                <span>Currently building: <span className="text-slate-700 dark:text-gray-300 font-medium">AI-powered logistics platform</span></span>
+              </div>
+              <div className="flex flex-wrap gap-3 md:gap-4">
+              {/* Resume Download */}
+              <a
+                href="/resume.pdf"
+                download="Lemesa_Girma_Resume.pdf"
+                className="group relative inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105 active:scale-95 transition-all duration-300 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                <span className="material-symbols-outlined text-[18px] relative z-10">download</span>
+                <span className="relative z-10 text-sm md:text-base">Resume</span>
+              </a>
+
+              {/* GitHub */}
+              <a
+                href="https://github.com/Lemijala"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-gray-300 hover:text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95"
+              >
+                <svg className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                </svg>
+                <span className="text-sm md:text-base">GitHub</span>
+              </a>
+            </div>
+            </div>
           </div>
 
           {/* Right Column: Live Metrics Dashboard with premium effects */}
@@ -281,12 +313,12 @@ const Hero = () => {
               transform: `translate(${mousePosition.x * -0.003}px, ${mousePosition.y * -0.003}px)`
             }}
           >
-            <div className="relative bg-card-light dark:bg-[#0f1623]/80 backdrop-blur-xl rounded-3xl p-1 shadow-md dark:shadow-2xl shadow-black/10 overflow-hidden group/dashboard border border-border-muted/20 dark:border-primary/10 hover:border-gradient-to-r hover:from-blue-500/30 hover:to-cyan-400/30 transition-all duration-500 transform hover:-translate-y-1">
+            <div className="relative bg-card-light dark:bg-[#0f1623]/80 backdrop-blur-xl rounded-3xl p-1 shadow-md dark:shadow-2xl shadow-black/10 overflow-hidden group/dashboard border border-gray-200 dark:border-primary/10 hover:border-blue-300 dark:hover:border-blue-500/30 transition-all duration-500 transform hover:-translate-y-1">
               {/* Dashboard glow */}
               <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 rounded-3xl opacity-0 group-hover/dashboard:opacity-100 blur-2xl transition-opacity duration-500 -z-10"></div>
               
               {/* Animated header */}
-              <div className="bg-background-muted dark:bg-[#0d1420] px-5 md:px-6 py-3 md:py-4 border-b border-border-muted/20 dark:border-primary/10 flex items-center justify-between">
+              <div className="bg-gray-100 dark:bg-[#0d1420] px-5 md:px-6 py-3 md:py-4 border-b border-gray-200 dark:border-primary/10 flex items-center justify-between">
                 <div className="flex items-center gap-2 md:gap-3">
                   <div className="flex gap-1.5 md:gap-2">
                     <div className="w-3 h-3 md:w-3.5 md:h-3.5 rounded-full bg-gradient-to-br from-red-500 to-orange-500 shadow-[0_0_10px_rgba(239,68,68,0.5)] animate-pulse"></div>
@@ -309,114 +341,41 @@ const Hero = () => {
                 </div>
               </div>
 
-              <div className="p-5 md:p-6 lg:p-7 grid gap-5 md:gap-6 lg:gap-7">
-                {/* Metric 1: Uptime */}
-                <div className="group/uptime flex items-center justify-between p-4 md:p-5 lg:p-6 rounded-2xl bg-[#162032]/80 border border-primary/10 hover:border-gradient-to-r hover:from-blue-500/40 hover:to-cyan-400/40 transition-all duration-500 transform hover:-translate-y-0.5">
-                  <div className="flex items-center gap-4 md:gap-5 lg:gap-6">
-                    <div className="relative">
-                      <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-400/20 border border-blue-500/30 flex items-center justify-center text-gradient-to-r from-blue-500 to-cyan-400 group-hover/uptime:scale-110 transition-all duration-300 shadow-xl shadow-blue-500/10">
-                        <span className="material-symbols-outlined text-xl md:text-2xl lg:text-3xl">dns</span>
-                        {/* Icon shine */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/uptime:translate-x-full transition-transform duration-700 rounded-xl"></div>
-                      </div>
-                      <div className="absolute -top-2 -right-2 w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full animate-pulse shadow-[0_0_15px_rgba(59,130,246,0.8)]"></div>
-                    </div>
-                    <div>
-                      <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider mb-1">System Uptime</div>
-                      <div className="text-2xl md:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white font-mono group-hover/uptime:text-gradient-to-r group-hover/uptime:from-blue-500 group-hover/uptime:to-cyan-400 transition-all duration-300">
-                        {liveStats ? liveStats.uptime : '99.98%'}
-                      </div>
-                    </div>
-                  </div>
-                  {/* Animated bar chart */}
-                  <div className="h-10 md:h-12 w-24 md:w-32 flex items-end gap-1 md:gap-1.5 group-hover/uptime:scale-105 transition-transform duration-300">
-                    {[40, 70, 50, 90, 80, 100].map((height, i) => (
-                      <div 
-                        key={i}
-                        className="w-2 md:w-2.5 bg-gradient-to-b from-blue-500/20 via-blue-500/60 to-cyan-400 rounded-t-sm group-hover/uptime:from-blue-500 group-hover/uptime:via-blue-400 group-hover/uptime:to-cyan-400 transition-all duration-300"
-                        style={{ 
-                          height: `${height}%`,
-                          animationDelay: `${i * 100}ms`
-                        }}
-                      ></div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Metric 2: Messages & Server Stats */}
-                <div className="group/github p-4 md:p-5 lg:p-6 rounded-2xl bg-[#162032]/80 border border-primary/10 hover:border-gradient-to-r hover:from-blue-500/40 hover:to-cyan-400/40 transition-all duration-500 transform hover:-translate-y-0.5">
-                  <div className="flex justify-between items-end mb-4 md:mb-5 lg:mb-6">
-                    <div>
-                      <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider mb-1">Messages Received</div>
-                      <div className="text-2xl md:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white font-mono group-hover/github:text-gradient-to-r group-hover/github:from-blue-500 group-hover/github:to-cyan-400 transition-all duration-300">
-                        {liveStats ? liveStats.totalMessages : '—'}
+              <div className="p-5 md:p-6">
+                <div className="grid grid-cols-2 gap-4">
+                  {[
+                    { label: 'System Uptime', value: liveStats?.uptime ?? '99.98%', badge: null },
+                    { label: 'Messages Received', value: liveStats?.totalMessages ?? '—', badge: 'live' },
+                    { label: 'Memory', value: liveStats?.memoryUsage ?? '—', badge: null },
+                    { label: 'DB', value: liveStats?.dbStatus ?? 'checking...', badge: null },
+                    {
+                      label: 'Server Up',
+                      value: liveStats
+                        ? liveStats.processUptime < 60
+                          ? `${liveStats.processUptime}s`
+                          : liveStats.processUptime < 3600
+                          ? `${Math.floor(liveStats.processUptime / 60)}m`
+                          : `${Math.floor(liveStats.processUptime / 3600)}h`
+                        : '—',
+                      badge: null,
+                    },
+                    { label: 'Node', value: liveStats?.nodeVersion ?? '—', badge: 'live' },
+                  ].map(({ label, value, badge }) => (
+                    <div key={label} className="flex flex-col gap-1 p-3 rounded-xl bg-gray-50 dark:bg-[#162032]/80 border border-gray-200 dark:border-white/5">
+                      <span className="text-[10px] uppercase tracking-wider text-gray-500 dark:text-gray-400">{label}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-lg font-black font-mono text-slate-900 dark:text-white">{value}</span>
+                        {badge && (
+                          <span className="text-[10px] font-bold text-blue-500 bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded-full">{badge}</span>
+                        )}
                       </div>
                     </div>
-                    <span className="text-gradient-to-r from-blue-500 to-cyan-400 text-xs md:text-sm font-bold bg-gradient-to-r from-blue-500/10 to-cyan-400/10 px-3 py-1.5 rounded-full border border-blue-500/20 shadow-lg shadow-blue-500/10 group-hover/github:scale-110 transition-all duration-300">
-                      {liveStats ? `CPU ${liveStats.cpuLoad}` : 'live'}
-                    </span>
-                  </div>
-                  
-                  {/* Memory & DB status bars */}
-                  <div className="flex flex-col gap-2">
-                    <div className="flex items-center justify-between text-xs text-gray-400">
-                      <span>Memory</span>
-                      <span className="font-mono">{liveStats ? liveStats.memoryUsage : '—'}</span>
-                    </div>
-                    <div className="w-full bg-white/10 rounded-full h-1.5 overflow-hidden">
-                      <div
-                        className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full transition-all duration-1000"
-                        style={{ width: liveStats ? liveStats.memoryUsage : '0%' }}
-                      />
-                    </div>
-                    <div className="flex items-center gap-2 mt-1">
-                      <div className={`w-2 h-2 rounded-full ${liveStats?.dbStatus === 'connected' ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`} />
-                      <span className="text-xs text-gray-400">
-                        DB {liveStats ? liveStats.dbStatus : 'checking...'}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Metric 3: Server Uptime & Node Version */}
-                <div className="grid grid-cols-2 gap-4 md:gap-5 lg:gap-6">
-                  {/* Process Uptime Card */}
-                  <div className="group/projects p-4 md:p-5 lg:p-6 rounded-2xl bg-[#162032]/80 border border-primary/10 hover:border-gradient-to-r hover:from-blue-500/40 hover:to-cyan-400/40 transition-all duration-500 transform hover:-translate-y-0.5 flex flex-col justify-between">
-                    <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Server Up</div>
-                    <div className="mt-2 md:mt-3 flex items-baseline gap-2">
-                      <span className="text-2xl md:text-3xl lg:text-4xl font-black text-white font-mono group-hover/projects:text-gradient-to-r group-hover/projects:from-blue-500 group-hover/projects:to-cyan-400 transition-all duration-300">
-                        {liveStats
-                          ? liveStats.processUptime < 60
-                            ? `${liveStats.processUptime}s`
-                            : liveStats.processUptime < 3600
-                            ? `${Math.floor(liveStats.processUptime / 60)}m`
-                            : `${Math.floor(liveStats.processUptime / 3600)}h`
-                          : '—'}
-                      </span>
-                    </div>
-                    <div className="relative w-full bg-white/10 rounded-full h-1.5 md:h-2 mt-3 md:mt-4 overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 rounded-full w-[85%]"></div>
-                    </div>
-                  </div>
-                  
-                  {/* Node Version Card */}
-                  <div className="group/satisfaction p-4 md:p-5 lg:p-6 rounded-2xl bg-[#162032]/80 border border-primary/10 hover:border-gradient-to-r hover:from-green-500/40 hover:to-emerald-400/40 transition-all duration-500 transform hover:-translate-y-0.5 flex flex-col justify-between">
-                    <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Node</div>
-                    <div className="mt-2 md:mt-3 flex items-baseline gap-1">
-                      <span className="text-2xl md:text-3xl font-black text-white font-mono group-hover/satisfaction:text-gradient-to-r group-hover/satisfaction:from-green-500 group-hover/satisfaction:to-emerald-400 transition-all duration-300">
-                        {liveStats ? liveStats.nodeVersion : '—'}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 mt-3 md:mt-4">
-                      <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                      <span className="text-xs text-gray-400">{liveStats ? liveStats.platform : 'live'}</span>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
 
               {/* Code Snippet Decor with animation */}
-              <div className="bg-[#0d1420] px-5 md:px-6 py-3 md:py-4 border-t border-primary/10 font-mono text-xs md:text-sm text-gray-400 overflow-hidden group/code">
+              <div className="bg-gray-100 dark:bg-[#0d1420] px-5 md:px-6 py-3 md:py-4 border-t border-gray-200 dark:border-primary/10 font-mono text-xs md:text-sm text-gray-500 dark:text-gray-400 overflow-hidden group/code">
                 <div className="whitespace-nowrap animate-marquee-slow">
                   <span className="text-purple-400">const</span>{' '}
                   <span className="text-blue-400">skills</span>{' '}
@@ -455,23 +414,22 @@ const Hero = () => {
           
           <div className="w-full overflow-hidden relative">
             {/* Gradient overlays */}
-            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background-dark to-transparent z-10 pointer-events-none"></div>
-            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background-dark to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-20 md:w-32 bg-gradient-to-r from-background-dark to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-20 md:w-32 bg-gradient-to-l from-background-dark to-transparent z-10 pointer-events-none"></div>
             
-            <div className="flex items-center gap-10 md:gap-12 lg:gap-16 xl:gap-20 animate-marquee-slower whitespace-nowrap">
+            <div className="flex items-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 animate-marquee-slower" style={{ whiteSpace: 'nowrap', willChange: 'transform' }}>
               {duplicatedTechStack.map((tech, index) => (
                 <div
                   key={`${tech.id}-${index}`}
-                  className="flex items-center gap-3 md:gap-4 text-gray-400 font-mono text-lg md:text-xl lg:text-2xl font-bold group/tech transform hover:-translate-y-0.5 transition-all duration-300"
+                  className="inline-flex items-center gap-2 sm:gap-3 text-gray-400 font-mono text-sm sm:text-base md:text-lg lg:text-xl font-bold group/tech flex-shrink-0 transform hover:-translate-y-0.5 transition-all duration-300"
                 >
-                  <span className={`material-symbols-outlined text-xl md:text-2xl lg:text-3xl ${tech.color} group-hover/tech:scale-110 group-hover/tech:rotate-12 transition-all duration-300`}>
+                  <span className={`material-symbols-outlined text-base sm:text-lg md:text-xl lg:text-2xl ${tech.color} group-hover/tech:scale-110 group-hover/tech:rotate-12 transition-all duration-300`}>
                     {tech.icon}
                   </span>
-                  <span className="group-hover/tech:text-gradient-to-r group-hover/tech:from-blue-500 group-hover/tech:to-cyan-400 transition-all duration-300">
+                  <span className="group-hover/tech:text-white transition-all duration-300">
                     {tech.name}
                   </span>
-                  {/* Tech indicator */}
-                  <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300 animate-pulse"></div>
+                  <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 opacity-40 flex-shrink-0"></div>
                 </div>
               ))}
             </div>

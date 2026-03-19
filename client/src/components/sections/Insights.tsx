@@ -1,31 +1,12 @@
 import { useState } from 'react';
-import { InsightsSectionData, defaultInsightsData } from '../../types/insights';
+import type { InsightsSectionData } from '../../types/insights';
+import { defaultInsightsData } from '../../types/insights';
+import Reveal from '../common/Reveal';
 
 const Insights = () => {
   const [data] = useState<InsightsSectionData>(defaultInsightsData);
-  const [email, setEmail] = useState('');
   const [hoveredArticle, setHoveredArticle] = useState<number | null>(null);
   const [hoveredPrinciple, setHoveredPrinciple] = useState<number | null>(null);
-  const [hoveredTalk, setHoveredTalk] = useState<number | null>(null);
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Subscribed with email:', email);
-    setEmail('');
-  };
-
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case 'Conference':
-        return 'bg-gradient-to-r from-blue-500/20 to-blue-600/10 text-blue-400 group-hover:from-blue-500 group-hover:to-blue-600';
-      case 'Meetup':
-        return 'bg-gradient-to-r from-emerald-500/20 to-emerald-600/10 text-emerald-400 group-hover:from-emerald-500 group-hover:to-emerald-600';
-      case 'Interview':
-        return 'bg-gradient-to-r from-purple-500/20 to-purple-600/10 text-purple-400 group-hover:from-purple-500 group-hover:to-purple-600';
-      default:
-        return 'bg-gradient-to-r from-gray-500/20 to-gray-600/10 text-gray-400 group-hover:from-gray-500 group-hover:to-gray-600';
-    }
-  };
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white antialiased overflow-x-hidden relative">
@@ -49,7 +30,7 @@ const Insights = () => {
         {/* Hero Section - Enhanced */}
         <section className="w-full px-4 md:px-6 lg:px-8 py-12 md:py-16 lg:py-24">
           <div className="max-w-[1400px] mx-auto">
-            <div className="relative rounded-2xl overflow-hidden bg-surface-dark min-h-[400px] flex items-center justify-center text-center p-6 md:p-8 lg:p-16">
+            <div className="relative rounded-2xl overflow-hidden bg-gray-100 dark:bg-surface-dark min-h-[400px] flex items-center justify-center text-center p-6 md:p-8 lg:p-16">
               {/* Animated background */}
               <div className="absolute inset-0 overflow-hidden">
                 <div 
@@ -79,7 +60,7 @@ const Insights = () => {
                 </div>
               </div>
               
-              <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-background-light dark:from-background-dark via-transparent to-transparent"></div>
               
               <div className="relative z-10 max-w-3xl flex flex-col items-center gap-6 animate-slide-in">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider animate-slide-up group/tag">
@@ -91,7 +72,7 @@ const Insights = () => {
                   {data.hero.title.split(' ').map((word, i) => (
                     <span 
                       key={i}
-                      className="inline-block text-transparent bg-clip-text bg-gradient-to-br from-white via-blue-400 to-cyan-400 animate-gradient-shift transform group-hover/hero:translate-y-[-2px] transition-transform duration-300"
+                      className="inline-block text-transparent bg-clip-text bg-gradient-to-br from-slate-900 via-blue-600 to-cyan-500 dark:from-white dark:via-blue-400 dark:to-cyan-400 animate-gradient-shift transform group-hover/hero:translate-y-[-2px] transition-transform duration-300"
                       style={{animationDelay: `${i * 0.1}s`}}
                     >
                       {word}{' '}
@@ -99,52 +80,9 @@ const Insights = () => {
                   ))}
                 </h1>
                 
-                <p className="text-slate-400 text-lg md:text-xl max-w-2xl font-light animate-slide-up group/desc" style={{animationDelay: '0.1s'}}>
+                <p className="text-slate-600 dark:text-slate-400 text-lg md:text-xl max-w-2xl font-light animate-slide-up group/desc" style={{animationDelay: '0.1s'}}>
                   {data.hero.description}
                 </p>
-
-                {/* Newsletter with enhanced animations */}
-                <form onSubmit={handleSubscribe} className="mt-4 flex w-full max-w-md flex-col gap-3 sm:flex-row relative animate-slide-up group/form" style={{animationDelay: '0.2s'}}>
-                  <div className="relative flex-1">
-                    {/* Glow border */}
-                    <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/5 rounded-xl opacity-0 group-hover/form:opacity-100 blur-sm transition-opacity duration-500 -z-10"></div>
-                    
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder={data.hero.newsletterPlaceholder}
-                      className="h-12 w-full rounded-xl border border-gray-700 bg-background-dark/50 px-4 text-white placeholder-gray-500 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300 group-hover/form:border-primary/50 relative z-10"
-                      required
-                    />
-                    
-                    {/* Shimmer effect */}
-                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover/form:translate-x-full transition-transform duration-1000 pointer-events-none opacity-0 group-hover/form:opacity-100"></div>
-                  </div>
-                  
-                  <button
-                    type="submit"
-                    className="h-12 px-6 rounded-xl bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary font-bold text-white transition-all duration-500 hover:shadow-xl hover:shadow-primary/30 transform hover:-translate-y-0.5 active:scale-[0.98] relative overflow-hidden group/btn"
-                  >
-                    {/* Button particles */}
-                    <div className="absolute inset-0 overflow-hidden opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300">
-                      {[...Array(5)].map((_, i) => (
-                        <div 
-                          key={i}
-                          className="absolute w-1 h-1 rounded-full bg-white/50 animate-float"
-                          style={{
-                            left: `${10 + i * 15}%`,
-                            top: '20%',
-                            animationDelay: `${i * 0.1}s`,
-                            animationDuration: '1s'
-                          }}
-                        ></div>
-                      ))}
-                    </div>
-                    
-                    <span className="relative z-10">{data.hero.newsletterButton}</span>
-                  </button>
-                </form>
               </div>
             </div>
           </div>
@@ -174,11 +112,11 @@ const Insights = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {data.articles.map((article, index) => (
+                <Reveal key={article.id} direction={index % 2 === 0 ? 'left' : 'right'} delay={index * 120} duration={1200}>
                 <article 
-                  key={article.id}
                   onMouseEnter={() => setHoveredArticle(article.id)}
                   onMouseLeave={() => setHoveredArticle(null)}
-                  className="group relative overflow-hidden bg-surface-dark border border-gray-800 rounded-xl hover:border-blue-500/50 transition-all duration-500 shadow-lg hover:shadow-2xl hover:shadow-blue-500/20 animate-slide-up cursor-pointer"
+                  className="group relative overflow-hidden bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-800 rounded-xl hover:border-blue-500/50 transition-all duration-500 shadow-lg hover:shadow-2xl hover:shadow-blue-500/20 animate-slide-up cursor-pointer"
                   style={{
                     transform: hoveredArticle === article.id ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
                     transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
@@ -191,7 +129,7 @@ const Insights = () => {
                   {/* Hover shine effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 z-20"></div>
                   
-                  <div className="h-48 w-full bg-gray-800 relative overflow-hidden">
+                  <div className="h-48 w-full bg-gray-200 dark:bg-gray-800 relative overflow-hidden">
                     <div 
                       className="absolute inset-0 bg-cover bg-center transition-all duration-700 group-hover:scale-110"
                       style={{ backgroundImage: `url('${article.image}')` }}
@@ -208,7 +146,7 @@ const Insights = () => {
                   </div>
                   
                   <div className="flex flex-col flex-1 p-5 gap-3 relative z-10">
-                    <div className="flex items-center gap-2 text-xs text-gray-400">
+                    <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                       <span className="transform group-hover:translate-x-1 transition-transform duration-300">{article.date}</span>
                       <span className="size-1 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 animate-pulse-subtle"></span>
                       <span className="transform group-hover:translate-x-2 transition-transform duration-500">{article.readTime}</span>
@@ -218,12 +156,12 @@ const Insights = () => {
                       {article.title}
                     </h3>
                     
-                    <p className="text-gray-400 text-sm leading-relaxed flex-1 transform group-hover:translate-x-2 transition-transform duration-500">
+                    <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed flex-1 transform group-hover:translate-x-2 transition-transform duration-500">
                       {article.excerpt}
                     </p>
                     
                     <div className="pt-2 relative">
-                      <button className="text-sm font-bold text-white flex items-center gap-2 group-hover:gap-3 transition-all duration-300 relative group/read">
+                      <button className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2 group-hover:gap-3 transition-all duration-300 relative group/read">
                         Read Article 
                         <span className="material-symbols-outlined text-base transition-all duration-300 group-hover/read:rotate-45 group-hover/read:scale-125">
                           arrow_right_alt
@@ -247,13 +185,14 @@ const Insights = () => {
                     </div>
                   </div>
                 </article>
+                </Reveal>
               ))}
             </div>
           </div>
         </section>
 
         {/* Engineering Principles - Enhanced */}
-        <section className="w-full px-4 md:px-6 lg:px-8 py-8 md:py-12 lg:py-16 bg-surface-dark/50 border-y border-gray-800">
+        <section className="w-full px-4 md:px-6 lg:px-8 py-8 md:py-12 lg:py-16 bg-gray-50 dark:bg-surface-dark/50 border-y border-gray-200 dark:border-gray-800">
           <div className="max-w-[1400px] mx-auto w-full">
             <div className="mb-8 md:mb-10 text-center md:text-left animate-slide-in">
               <div className="flex items-center gap-3 mb-2 group/title">
@@ -262,18 +201,18 @@ const Insights = () => {
                 </div>
                 <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Engineering Principles</h2>
               </div>
-              <p className="text-gray-400 max-w-2xl animate-slide-up group/desc" style={{animationDelay: '0.1s'}}>
+              <p className="text-gray-500 dark:text-gray-400 max-w-2xl animate-slide-up group/desc" style={{animationDelay: '0.1s'}}>
                 Core philosophies that guide my technical decision making and team leadership style.
               </p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {data.principles.map((principle, index) => (
+                <Reveal key={principle.id} direction="up" delay={index * 150} duration={1200}>
                 <div 
-                  key={principle.id}
                   onMouseEnter={() => setHoveredPrinciple(principle.id)}
                   onMouseLeave={() => setHoveredPrinciple(null)}
-                  className="bg-background-dark p-6 rounded-xl border border-gray-800 hover:border-blue-500/50 transition-all duration-500 group animate-slide-up transform hover:-translate-y-2"
+                  className="bg-white dark:bg-background-dark p-6 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-blue-500/50 transition-all duration-500 group animate-slide-up transform hover:-translate-y-2"
                   style={{
                     transform: hoveredPrinciple === principle.id ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
                     transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
@@ -295,11 +234,11 @@ const Insights = () => {
                     <div className="absolute inset-0 size-12 rounded-lg bg-gradient-to-br from-green-500/30 to-green-600/20 animate-ping opacity-0 group-hover:opacity-100"></div>
                   </div>
                   
-                  <h3 className="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors duration-300 transform group-hover:translate-x-1">
+                  <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-green-400 transition-colors duration-300 transform group-hover:translate-x-1">
                     {principle.title}
                   </h3>
                   
-                  <p className="text-sm md:text-base text-gray-400 leading-relaxed mb-4 transform group-hover:translate-x-2 transition-transform duration-500">
+                  <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 leading-relaxed mb-4 transform group-hover:translate-x-2 transition-transform duration-500">
                     {principle.description}
                   </p>
                   
@@ -307,7 +246,7 @@ const Insights = () => {
                     {principle.tags.map((tag, tagIndex) => (
                       <span 
                         key={tagIndex}
-                        className="px-2 py-1 rounded text-xs font-medium bg-gradient-to-r from-gray-800 to-gray-900 text-gray-300 group-hover:from-gray-700 group-hover:to-gray-800 group-hover:text-white transition-all duration-300 hover:scale-105 transform group-hover:-translate-y-0.5"
+                        className="px-2 py-1 rounded text-xs font-medium bg-gray-100 dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900 text-gray-600 dark:text-gray-300 group-hover:bg-gray-200 dark:group-hover:from-gray-700 dark:group-hover:to-gray-800 group-hover:text-gray-900 dark:group-hover:text-white transition-all duration-300 hover:scale-105 transform group-hover:-translate-y-0.5"
                         style={{animationDelay: `${tagIndex * 0.05}s`}}
                       >
                         {tag}
@@ -331,132 +270,12 @@ const Insights = () => {
                     </div>
                   </div>
                 </div>
+                </Reveal>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Speaking Engagements - Enhanced */}
-        <section className="w-full px-4 md:px-6 lg:px-8 py-8 md:py-12 lg:py-16">
-          <div className="max-w-[1400px] mx-auto">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 md:mb-8 gap-4 animate-slide-in">
-              <div>
-                <div className="flex items-center gap-3 mb-2 group/title">
-                  <div className="flex items-center justify-center size-8 rounded-lg bg-gradient-to-br from-purple-500/20 to-purple-500/5 border border-purple-500/20 text-purple-500 group-hover/title:scale-110 group-hover/title:rotate-6 transition-all duration-300">
-                    <span className="material-symbols-outlined !text-[20px]">mic</span>
-                  </div>
-                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Speaking Engagements</h2>
-                </div>
-                <p className="text-gray-400 animate-slide-up group/desc" style={{animationDelay: '0.1s'}}>
-                  Selected talks from international conferences and meetups.
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex flex-col gap-4">
-              {data.speakingEngagements.map((talk, index) => (
-                <div 
-                  key={talk.id}
-                  onMouseEnter={() => setHoveredTalk(talk.id)}
-                  onMouseLeave={() => setHoveredTalk(null)}
-                  className="bg-surface-dark border border-gray-800 rounded-xl p-5 md:p-6 flex flex-col md:flex-row gap-6 items-start md:items-center hover:border-blue-500/30 transition-all duration-500 group animate-slide-up transform hover:-translate-y-2"
-                  style={{
-                    transform: hoveredTalk === talk.id ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
-                    transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-                    animationDelay: `${index * 0.1}s`
-                  }}
-                >
-                  {/* Glow effect */}
-                  <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/10 via-purple-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10"></div>
-                  
-                  {/* Video thumbnail with enhanced animations */}
-                  <div className="flex-shrink-0 w-full md:w-48 aspect-video md:aspect-auto md:h-28 bg-gray-800 rounded-lg overflow-hidden relative group/thumbnail">
-                    <div 
-                      className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover/thumbnail:scale-110"
-                      style={{ backgroundImage: `url('${talk.image}')` }}
-                      data-alt={talk.title}
-                    ></div>
-                    
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/thumbnail:opacity-100 transition-opacity duration-500"></div>
-                    
-                    {talk.actions.watch && (
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/thumbnail:opacity-100 transition-opacity duration-500">
-                        <div className="size-14 rounded-full bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center animate-pulse-subtle hover:scale-110 transition-transform duration-300 shadow-xl shadow-primary/50">
-                          <span className="material-symbols-outlined text-white text-3xl ml-1 group-hover/thumbnail:scale-125 group-hover/thumbnail:rotate-12 transition-all duration-300">
-                            play_arrow
-                          </span>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div className="flex flex-col flex-1 gap-1">
-                    <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <span className={`px-2 py-0.5 rounded text-xs font-bold uppercase transform group-hover:scale-105 transition-all duration-300 ${getTypeColor(talk.type)}`}>
-                        {talk.type}
-                      </span>
-                      <span className="text-sm text-gray-400 flex items-center gap-1 group-hover:text-white transition-colors duration-300 transform group-hover:translate-x-1">
-                        <span className="material-symbols-outlined text-base">calendar_month</span>
-                        {talk.date}
-                      </span>
-                      <span className="text-sm text-gray-400 flex items-center gap-1 group-hover:text-white transition-colors duration-300 transform group-hover:translate-x-2">
-                        <span className="material-symbols-outlined text-base">location_on</span>
-                        {talk.location}
-                      </span>
-                    </div>
-                    
-                    <h3 className="text-xl font-bold text-white group-hover:text-gradient-to-r group-hover:from-blue-500 group-hover:to-cyan-400 transition-all duration-300 transform group-hover:translate-x-1">
-                      {talk.title}
-                    </h3>
-                    
-                    <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors duration-300 transform group-hover:translate-x-2">
-                      {talk.event}
-                    </p>
-                    
-                    <p className="text-gray-500 text-sm mt-1 line-clamp-2 group-hover:text-gray-400 transition-colors duration-300 transform group-hover:translate-x-3">
-                      {talk.description}
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-row md:flex-col gap-3 w-full md:w-auto mt-2 md:mt-0">
-                    {talk.actions.watch && (
-                      <button className="flex-1 md:flex-none h-9 px-4 rounded-lg bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white text-sm font-bold flex items-center justify-center gap-2 transition-all duration-500 whitespace-nowrap hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98] transform group-hover/button:-translate-y-0.5">
-                        <span className="material-symbols-outlined text-lg group-hover/button:rotate-12 transition-transform duration-300">videocam</span>
-                        Watch
-                      </button>
-                    )}
-                    {talk.actions.slides && (
-                      <button className="flex-1 md:flex-none h-9 px-4 rounded-lg bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 text-white text-sm font-medium flex items-center justify-center gap-2 transition-all duration-500 whitespace-nowrap hover:scale-[1.02] active:scale-[0.98]">
-                        <span className="material-symbols-outlined text-lg group-hover:rotate-12 transition-transform duration-300">slideshow</span>
-                        Slides
-                      </button>
-                    )}
-                    {talk.actions.recording && (
-                      <button className="flex-1 md:flex-none h-9 px-4 rounded-lg bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 text-white text-sm font-medium flex items-center justify-center gap-2 transition-all duration-500 whitespace-nowrap hover:scale-[1.02] active:scale-[0.98]">
-                        <span className="material-symbols-outlined text-lg group-hover:rotate-12 transition-transform duration-300">videocam</span>
-                        Recording
-                      </button>
-                    )}
-                  </div>
-                  
-                  {/* Connection indicator */}
-                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="flex gap-0.5">
-                      {[...Array(4)].map((_, i) => (
-                        <div 
-                          key={i}
-                          className="w-1 h-1 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 animate-pulse"
-                          style={{ animationDelay: `${i * 0.1}s` }}
-                        ></div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
       </main>
     </div>
   );

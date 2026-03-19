@@ -165,11 +165,11 @@ export const defaultCaseStudiesData: CaseStudiesSectionData = {
         },
         {
           title: "Daily Users",
-          value: "450+"
+          value: "73"
         },
         {
           title: "Data Points/Sec",
-          value: "2k",
+          value: "~50",
           trend: "up"
         }
       ],

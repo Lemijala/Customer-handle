@@ -1,7 +1,8 @@
 // File path: src/components/sections/CaseStudies.tsx
 
 import { useState } from 'react';
-import { CaseStudiesSectionData, defaultCaseStudiesData } from '../../types/case-studies';
+import type { CaseStudiesSectionData } from '../../types/case-studies';
+import { defaultCaseStudiesData } from '../../types/case-studies';
 
 const CaseStudies = () => {
   const [data] = useState<CaseStudiesSectionData>(defaultCaseStudiesData);
@@ -13,7 +14,7 @@ const CaseStudies = () => {
     const afterPercentage = Math.min((after / 50) * 100, 100);
     
     return (
-      <div className="flex-1 flex items-end gap-6 lg:gap-8 px-4 h-32 lg:h-40 border-b border-gray-700/50 relative group/chart">
+      <div className="flex-1 flex items-end gap-6 lg:gap-8 px-4 h-32 lg:h-40 border-b border-gray-300 dark:border-gray-700/50 relative group/chart">
         {/* Animated Y-axis lines */}
         <div className="absolute inset-0 flex flex-col justify-between pointer-events-none">
           {[...Array(4)].map((_, i) => (
@@ -56,7 +57,7 @@ const CaseStudies = () => {
             {/* Bar glow effect */}
             <div className="absolute -inset-2 bg-gradient-to-b from-blue-500/20 to-cyan-400/20 blur-lg opacity-0 group-hover/bar:opacity-100 transition-opacity duration-500 rounded-t-sm -z-10"></div>
           </div>
-          <span className="text-[10px] lg:text-xs text-white font-medium mt-2 transform group-hover/bar:translate-y-1 transition-transform duration-300">
+          <span className="text-[10px] lg:text-xs text-slate-900 dark:text-white font-medium mt-2 transform group-hover/bar:translate-y-1 transition-transform duration-300">
             {afterLabel}
           </span>
         </div>
@@ -88,7 +89,7 @@ const CaseStudies = () => {
               {beforeValue} Hours
             </span>
           </div>
-          <div className="relative w-full bg-gray-800/50 rounded-full h-2 lg:h-3 overflow-hidden group-hover/bar:shadow-lg group-hover/bar:shadow-gray-700/20 transition-all duration-300">
+          <div className="relative w-full bg-gray-200 dark:bg-gray-800/50 rounded-full h-2 lg:h-3 overflow-hidden group-hover/bar:shadow-lg group-hover/bar:shadow-gray-700/20 transition-all duration-300">
             <div className="absolute inset-0 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 h-full rounded-full opacity-50 transition-all duration-700 group-hover/bar:w-0"></div>
             {/* Animated shrinking effect */}
             <div 
@@ -101,14 +102,14 @@ const CaseStudies = () => {
         {/* Comparison Bar: After */}
         <div className="flex flex-col gap-2 group/bar">
           <div className="flex justify-between text-xs lg:text-sm mb-1">
-            <span className="text-white font-medium transform group-hover/bar:translate-x-1 transition-transform duration-300">
+            <span className="text-slate-900 dark:text-white font-medium transform group-hover/bar:translate-x-1 transition-transform duration-300">
               {afterLabel}
             </span>
             <span className="text-gradient-to-r from-blue-500 to-cyan-400 font-bold font-mono transform group-hover/bar:-translate-x-1 transition-transform duration-300">
               &lt; 100ms
             </span>
           </div>
-          <div className="relative w-full bg-gray-800/50 rounded-full h-2 lg:h-3 overflow-hidden group-hover/bar:shadow-lg group-hover/bar:shadow-blue-500/20 transition-all duration-300">
+          <div className="relative w-full bg-gray-200 dark:bg-gray-800/50 rounded-full h-2 lg:h-3 overflow-hidden group-hover/bar:shadow-lg group-hover/bar:shadow-blue-500/20 transition-all duration-300">
             <div className="relative h-full">
               <div 
                 className="absolute h-full bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.8)] transition-all duration-1000 ease-out"
@@ -179,7 +180,7 @@ const CaseStudies = () => {
             key={caseStudy.id}
             onMouseEnter={() => setHoveredCaseStudy(caseStudy.id)}
             onMouseLeave={() => setHoveredCaseStudy(null)}
-            className="flex flex-col gap-6 lg:gap-8 rounded-3xl bg-gradient-to-br from-gray-800/80 via-gray-900/60 to-gray-800/80 border border-gray-700/50 p-6 lg:p-8 xl:p-10 relative overflow-hidden group/case-study mb-8 lg:mb-12 xl:mb-16 shadow-2xl shadow-black/20 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 transform hover:-translate-y-1"
+            className="flex flex-col gap-6 lg:gap-8 rounded-3xl bg-white dark:bg-[#162032] border border-gray-200 dark:border-[#282e39] p-6 lg:p-8 xl:p-10 relative overflow-hidden group/case-study mb-8 lg:mb-12 xl:mb-16 shadow-2xl shadow-black/10 dark:shadow-black/20 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 transform hover:-translate-y-1"
             style={{
               transform: hoveredCaseStudy === caseStudy.id ? 'translateY(-8px) scale(1.01)' : 'translateY(0) scale(1)',
               transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
@@ -213,14 +214,14 @@ const CaseStudies = () => {
                   {caseStudy.categories.map((category, index) => (
                     <span 
                       key={index}
-                      className="inline-flex items-center px-3 lg:px-4 py-1.5 lg:py-2 rounded-full bg-gradient-to-r from-gray-700/80 to-gray-800/80 border border-gray-600/50 text-xs lg:text-sm font-medium text-gray-300 backdrop-blur-sm group-hover/case-study:border-blue-500/30 transition-all duration-300 shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-0.5"
+                      className="inline-flex items-center px-3 lg:px-4 py-1.5 lg:py-2 rounded-full bg-gray-100 dark:bg-gradient-to-r dark:from-gray-700/80 dark:to-gray-800/80 border border-gray-300 dark:border-gray-600/50 text-xs lg:text-sm font-medium text-gray-600 dark:text-gray-300 backdrop-blur-sm group-hover/case-study:border-blue-500/30 transition-all duration-300 shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-0.5"
                     >
                       {category}
                       <span className="ml-1.5 w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 opacity-0 group-hover/case-study:opacity-100 transition-opacity duration-300"></span>
                     </span>
                   ))}
                 </div>
-                <h2 className="text-white text-2xl lg:text-3xl xl:text-4xl font-bold leading-tight tracking-[-0.015em] group-hover/case-study:text-gradient-to-r group-hover/case-study:from-blue-400 group-hover/case-study:to-cyan-300 transition-all duration-500">
+                <h2 className="text-slate-900 dark:text-white text-2xl lg:text-3xl xl:text-4xl font-bold leading-tight tracking-[-0.015em] group-hover/case-study:text-gradient-to-r group-hover/case-study:from-blue-400 group-hover/case-study:to-cyan-300 transition-all duration-500">
                   {caseStudy.title}
                 </h2>
               </div>
@@ -229,7 +230,7 @@ const CaseStudies = () => {
                 {caseStudy.technologies.map((tech, index) => (
                   <span 
                     key={index}
-                    className="relative p-2 lg:p-3 rounded-xl bg-gradient-to-br from-gray-700/80 to-gray-800/80 border border-gray-600/50 text-white hover:border-blue-500/50 hover:bg-gradient-to-br hover:from-blue-500/20 hover:to-cyan-500/20 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transform hover:-translate-y-0.5 group/tech"
+                    className="relative p-2 lg:p-3 rounded-xl bg-gray-100 dark:bg-gradient-to-br dark:from-gray-700/80 dark:to-gray-800/80 border border-gray-300 dark:border-gray-600/50 text-gray-700 dark:text-white hover:border-blue-500/50 hover:bg-blue-50 dark:hover:bg-gradient-to-br dark:hover:from-blue-500/20 dark:hover:to-cyan-500/20 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transform hover:-translate-y-0.5 group/tech"
                     title={tech.title}
                   >
                     <span className="material-symbols-outlined text-sm lg:text-base transform group-hover/tech:scale-110 group-hover/tech:rotate-12 transition-all duration-300">
@@ -247,7 +248,7 @@ const CaseStudies = () => {
             {/* C/S/R Grid with 3D Effects */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 relative z-10">
               {/* Challenge */}
-              <div className="group/csr flex flex-col gap-3 lg:gap-4 rounded-2xl border border-gray-600/50 bg-gradient-to-br from-gray-900/50 to-gray-800/30 p-5 lg:p-6 xl:p-7 hover:border-red-500/30 hover:bg-gradient-to-br hover:from-red-900/10 hover:to-red-800/5 transition-all duration-500 transform hover:-translate-y-1">
+              <div className="group/csr flex flex-col gap-3 lg:gap-4 rounded-2xl border border-gray-200 dark:border-[#282e39] bg-gray-50 dark:bg-[#0f1623] p-5 lg:p-6 xl:p-7 hover:border-red-500/30 hover:bg-red-50/50 dark:hover:bg-red-900/10 transition-all duration-500 transform hover:-translate-y-1">
                 <div className="flex items-center gap-3 text-gradient-to-r from-red-400 to-orange-400">
                   <span className="material-symbols-outlined text-xl lg:text-2xl transform group-hover/csr:scale-110 group-hover/csr:rotate-6 transition-all duration-300">
                     {caseStudy.challenge.icon}
@@ -264,7 +265,7 @@ const CaseStudies = () => {
               </div>
               
               {/* Solution */}
-              <div className="group/csr flex flex-col gap-3 lg:gap-4 rounded-2xl border border-gray-600/50 bg-gradient-to-br from-gray-900/50 to-gray-800/30 p-5 lg:p-6 xl:p-7 hover:border-blue-500/30 hover:bg-gradient-to-br hover:from-blue-900/10 hover:to-cyan-800/5 transition-all duration-500 transform hover:-translate-y-1">
+              <div className="group/csr flex flex-col gap-3 lg:gap-4 rounded-2xl border border-gray-200 dark:border-[#282e39] bg-gray-50 dark:bg-[#0f1623] p-5 lg:p-6 xl:p-7 hover:border-blue-500/30 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-all duration-500 transform hover:-translate-y-1">
                 <div className="flex items-center gap-3 text-gradient-to-r from-blue-400 to-cyan-400">
                   <span className="material-symbols-outlined text-xl lg:text-2xl transform group-hover/csr:scale-110 group-hover/csr:rotate-6 transition-all duration-300">
                     {caseStudy.solution.icon}
@@ -281,7 +282,7 @@ const CaseStudies = () => {
               </div>
               
               {/* Result */}
-              <div className="group/csr flex flex-col gap-3 lg:gap-4 rounded-2xl border border-gray-600/50 bg-gradient-to-br from-gray-900/50 to-gray-800/30 p-5 lg:p-6 xl:p-7 hover:border-green-500/30 hover:bg-gradient-to-br hover:from-green-900/10 hover:to-emerald-800/5 transition-all duration-500 transform hover:-translate-y-1">
+              <div className="group/csr flex flex-col gap-3 lg:gap-4 rounded-2xl border border-gray-200 dark:border-[#282e39] bg-gray-50 dark:bg-[#0f1623] p-5 lg:p-6 xl:p-7 hover:border-green-500/30 hover:bg-green-50/50 dark:hover:bg-green-900/10 transition-all duration-500 transform hover:-translate-y-1">
                 <div className="flex items-center gap-3 text-gradient-to-r from-green-400 to-emerald-400">
                   <span className="material-symbols-outlined text-xl lg:text-2xl transform group-hover/csr:scale-110 group-hover/csr:rotate-6 transition-all duration-300">
                     {caseStudy.result.icon}
@@ -308,7 +309,7 @@ const CaseStudies = () => {
                       key={index}
                       onMouseEnter={() => setActiveMetric(index)}
                       onMouseLeave={() => setActiveMetric(null)}
-                      className={`p-4 lg:p-6 xl:p-7 rounded-2xl bg-gradient-to-br from-gray-900/70 to-gray-800/50 border border-gray-700/50 flex flex-col justify-center relative group/metric ${
+                      className={`p-4 lg:p-6 xl:p-7 rounded-2xl bg-gray-50 dark:bg-[#0f1623] border border-gray-200 dark:border-[#282e39] flex flex-col justify-center relative group/metric ${
                         metric.highlight ? 'col-span-2' : ''
                       } transform hover:-translate-y-1 transition-all duration-300`}
                       style={{
@@ -323,7 +324,7 @@ const CaseStudies = () => {
                         {metric.title}
                       </p>
                       <div className="flex items-baseline gap-2 mt-1 lg:mt-2">
-                        <span className="text-3xl lg:text-4xl xl:text-5xl font-black text-white transform group-hover/metric:scale-110 transition-transform duration-300">
+                        <span className="text-3xl lg:text-4xl xl:text-5xl font-black text-slate-900 dark:text-white transform group-hover/metric:scale-110 transition-transform duration-300">
                           {metric.value}
                         </span>
                         {metric.unit && (
@@ -359,9 +360,9 @@ const CaseStudies = () => {
               
               {/* Chart Visualization */}
               {caseStudy.chartData && (
-                <div className="flex flex-col rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700/50 p-5 lg:p-6 xl:p-7 shadow-xl hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 group/chart-container">
+                <div className="flex flex-col rounded-2xl bg-white dark:bg-[#0f1623] border border-gray-200 dark:border-[#282e39] p-5 lg:p-6 xl:p-7 shadow-xl hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 group/chart-container">
                   <div className="flex justify-between items-center mb-6 lg:mb-8">
-                    <h4 className="text-white text-sm lg:text-base font-bold transform group-hover/chart-container:translate-x-1 transition-transform duration-300">
+                    <h4 className="text-slate-900 dark:text-white text-sm lg:text-base font-bold transform group-hover/chart-container:translate-x-1 transition-transform duration-300">
                       {caseStudy.chartData.title}
                     </h4>
                     <span className="text-[10px] lg:text-xs uppercase tracking-wider text-gray-500 transform group-hover/chart-container:-translate-x-1 transition-transform duration-300">
@@ -392,7 +393,7 @@ const CaseStudies = () => {
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 rounded-sm bg-gradient-to-b from-blue-500 to-cyan-400 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
-                      <span className="text-[10px] lg:text-xs text-white">After</span>
+                      <span className="text-[10px] lg:text-xs text-slate-900 dark:text-white">After</span>
                     </div>
                   </div>
                 </div>
@@ -401,70 +402,7 @@ const CaseStudies = () => {
           </section>
         ))}
 
-        {/* Aggregated Performance Dashboard */}
-        <section className="flex flex-col gap-6 lg:gap-8 mt-8 lg:mt-12 xl:mt-16 group/dashboard">
-          <div className="flex items-center gap-4 lg:gap-6">
-            <div className="h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent flex-1 opacity-0 group-hover/dashboard:opacity-100 transition-opacity duration-500"></div>
-            <h3 className="text-gray-400 text-sm lg:text-base font-bold uppercase tracking-widest text-center group-hover/dashboard:text-gradient-to-r group-hover/dashboard:from-blue-500 group-hover/dashboard:to-cyan-400 transition-all duration-500">
-              Combined Performance Impact
-            </h3>
-            <div className="h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent flex-1 opacity-0 group-hover/dashboard:opacity-100 transition-opacity duration-500"></div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {data.performanceMetrics.map((metric) => (
-              <div 
-                key={metric.id}
-                className="bg-gradient-to-br from-gray-900/80 to-gray-800/60 border border-gray-700/30 p-6 lg:p-8 xl:p-10 rounded-3xl flex flex-col items-center text-center gap-3 lg:gap-4 hover:border-gradient-to-r hover:from-blue-500/30 hover:to-cyan-400/30 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-blue-500/10 transform hover:-translate-y-1 group/metric-card"
-              >
-                <div className={`relative p-4 lg:p-5 ${
-                  metric.backgroundColor === 'bg-primary-blue/10' 
-                    ? 'bg-gradient-to-br from-blue-500/20 to-cyan-500/20' 
-                    : metric.backgroundColor === 'bg-success/10'
-                    ? 'bg-gradient-to-br from-green-500/20 to-emerald-500/20'
-                    : 'bg-gradient-to-br from-purple-500/20 to-pink-500/20'
-                } rounded-2xl mb-2 lg:mb-3 group-hover/metric-card:scale-110 group-hover/metric-card:rotate-3 transition-all duration-300 shadow-lg`}>
-                  <span className={`material-symbols-outlined text-2xl lg:text-3xl xl:text-4xl ${
-                    metric.iconColor === 'text-primary-blue'
-                      ? 'text-gradient-to-r from-blue-500 to-cyan-400'
-                      : metric.iconColor === 'text-success'
-                      ? 'text-gradient-to-r from-green-500 to-emerald-400'
-                      : 'text-gradient-to-r from-purple-500 to-pink-400'
-                  } relative z-10`}>
-                    {metric.icon}
-                  </span>
-                  {/* Icon shine effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/metric-card:translate-x-full transition-transform duration-700 rounded-2xl"></div>
-                </div>
-                <h4 className="text-white font-bold text-lg lg:text-xl xl:text-2xl transform group-hover/metric-card:translate-y-1 transition-transform duration-300">
-                  {metric.title}
-                </h4>
-                <p className="text-gray-500 text-sm lg:text-base xl:text-lg transform group-hover/metric-card:translate-x-2 transition-transform duration-500">
-                  {metric.description}
-                </p>
-                <span className="text-3xl lg:text-4xl xl:text-5xl font-black text-white mt-2 lg:mt-3 transform group-hover/metric-card:scale-110 transition-transform duration-300">
-                  {metric.value}
-                </span>
-                
-                {/* Floating particles */}
-                <div className="absolute inset-0 overflow-hidden opacity-0 group-hover/metric-card:opacity-100 transition-opacity duration-500">
-                  {[...Array(8)].map((_, i) => (
-                    <div 
-                      key={i}
-                      className="absolute w-1 h-1 rounded-full bg-gradient-to-r from-blue-500/30 to-cyan-400/30 animate-float"
-                      style={{
-                        left: `${10 + i * 10}%`,
-                        top: `${20 + i * 5}%`,
-                        animationDelay: `${i * 0.2}s`,
-                        animationDuration: `${3 + i * 0.5}s`
-                      }}
-                    ></div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+        {/* Aggregated Performance Dashboard removed */}
       </div>
     </section>
   );

@@ -16,7 +16,6 @@ const Footer = () => {
     { label: 'Technical Consulting', icon: 'business_center' },
     { label: 'Web Development', icon: 'code' },
     { label: 'Mentorship', icon: 'school' },
-    { label: 'Speaking Engagements', icon: 'mic' },
   ];
 
   const techStack = ['React', 'TypeScript', 'Node.js', 'MongoDB', 'AWS', 'Docker', 'GraphQL'];
@@ -41,7 +40,7 @@ const Footer = () => {
               </div>
               <div>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white">LemiTech</h3>
-                <p className="text-xs text-slate-500 dark:text-gray-400">Systems Architecture</p>
+                <p className="text-xs text-slate-500 dark:text-gray-400">Senior Software Developer</p>
               </div>
             </div>
             <p className="text-sm text-slate-600 dark:text-gray-400 leading-relaxed">
@@ -49,7 +48,7 @@ const Footer = () => {
             </p>
             <div className="flex gap-3">
               <a
-                href="https://github.com/"
+                href="https://github.com/Lemijala"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
@@ -60,7 +59,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a
-                href="https://linkedin.com/"
+                href="https://linkedin.com/in/lemesa"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -82,7 +81,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a
-                href="mailto:lemesa@example.com"
+                href="mailto:tlemesagirma@gmail.com"
                 aria-label="Email"
                 className="size-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-gray-400 hover:text-primary hover:bg-primary/10 transition-colors"
               >
@@ -124,28 +123,35 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Newsletter */}
+          {/* Contact Info */}
           <div>
-            <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-4 uppercase tracking-wider">Stay Updated</h4>
-            <p className="text-sm text-slate-600 dark:text-gray-400 mb-4">
-              Subscribe for tech insights and updates.
-            </p>
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="space-y-3"
-            >
-              <input
-                type="email"
-                placeholder="Your email"
-                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-[#282e39] bg-slate-50 dark:bg-[#111318] text-slate-900 dark:text-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 text-sm transition-colors"
-              />
-              <button
-                type="submit"
-                className="w-full py-2 px-4 bg-primary hover:bg-blue-600 text-white font-medium rounded-lg transition-colors text-sm"
-              >
-                Subscribe
-              </button>
-            </form>
+            <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-4 uppercase tracking-wider">Get In Touch</h4>
+            <ul className="space-y-3">
+              <li>
+                <a href="mailto:tlemesagirma@gmail.com" className="text-sm text-slate-600 dark:text-gray-400 hover:text-primary transition-colors flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[14px] text-primary/70">mail</span>
+                  tlemesagirma@gmail.com
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/Lemijala" target="_blank" rel="noopener noreferrer" className="text-sm text-slate-600 dark:text-gray-400 hover:text-primary transition-colors flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[14px] text-primary/70">code</span>
+                  github.com/Lemijala
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/lemesa" target="_blank" rel="noopener noreferrer" className="text-sm text-slate-600 dark:text-gray-400 hover:text-primary transition-colors flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[14px] text-primary/70">link</span>
+                  linkedin.com/in/lemesa
+                </a>
+              </li>
+              <li>
+                <span className="text-sm text-slate-600 dark:text-gray-400 flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[14px] text-primary/70">location_on</span>
+                  Addis Ababa, Ethiopia
+                </span>
+              </li>
+            </ul>
           </div>
         </div>
 

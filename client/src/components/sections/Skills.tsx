@@ -1,7 +1,8 @@
 // File path: src/components/sections/Skills.tsx
 
 import { useState, useEffect } from 'react';
-import { SkillsSectionData, defaultSkillsData } from '../../types/skills';
+import type { SkillsSectionData } from '../../types/skills';
+import { defaultSkillsData } from '../../types/skills';
 
 const Skills = () => {
   const [data] = useState<SkillsSectionData>(defaultSkillsData);
@@ -82,7 +83,7 @@ const Skills = () => {
                 Technical Expertise
               </span>
             </div>
-            <h1 className="text-white text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black leading-tight tracking-tight group-hover/header:translate-x-1 transition-transform duration-300">
+            <h1 className="text-slate-900 dark:text-white text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black leading-tight tracking-tight group-hover/header:translate-x-1 transition-transform duration-300">
               {data.title}
             </h1>
             <p className="text-slate-400 text-base lg:text-lg font-normal max-w-2xl lg:max-w-3xl border-l-2 border-blue-500/30 pl-4 py-1 transform group-hover/header:translate-x-2 transition-transform duration-500">
@@ -99,34 +100,34 @@ const Skills = () => {
         </div>
 
         {/* Animated Filters */}
-        <div className="flex overflow-x-auto pb-4 mb-6 lg:mb-8 scrollbar-hide">
-          <div className="flex gap-4 lg:gap-6 w-full min-w-max">
+        <div className="mb-6 lg:mb-8">
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3 lg:gap-6 w-full">
             {data.filters.map((filter) => (
               <button
                 key={filter.id}
                 data-filter={filter.id}
                 onClick={() => handleFilterClick(filter.id)}
-                className="group relative flex flex-col items-center justify-center pb-4 transition-all duration-300"
+                className="group relative flex flex-col items-center justify-center pb-4 transition-all duration-300 w-full sm:w-auto"
               >
                 {/* Animated background */}
                 <div className={`absolute inset-0 rounded-xl -z-10 transition-all duration-300 ${
                   activeFilter === filter.id 
                     ? 'bg-gradient-to-r from-blue-500/20 to-cyan-400/20 border border-blue-500/30 shadow-lg shadow-blue-500/20' 
-                    : 'bg-surface-dark/50 hover:bg-surface-dark border border-border-dark/50'
+                    : 'bg-gray-100 dark:bg-surface-dark/50 hover:bg-gray-200 dark:hover:bg-surface-dark border border-gray-200 dark:border-border-dark/50'
                 }`}></div>
                 
                 <div className="px-4 lg:px-6 py-2 lg:py-3">
                   <span className={`text-sm lg:text-base font-bold px-2 transition-all duration-300 relative ${
                     activeFilter === filter.id 
                       ? 'text-white bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent' 
-                      : 'text-slate-400 group-hover:text-white'
+                      : 'text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white'
                   }`}>
                     {filter.label}
                     {filter.count && (
                       <span className={`ml-1.5 text-xs px-1.5 py-0.5 rounded-full transition-all duration-300 ${
                         activeFilter === filter.id 
                           ? 'bg-gradient-to-r from-blue-500 to-cyan-400 text-white' 
-                          : 'bg-slate-800 text-slate-400 group-hover:bg-slate-700 group-hover:text-white'
+                          : 'bg-gray-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 group-hover:bg-gray-300 dark:group-hover:bg-slate-700 group-hover:text-slate-900 dark:group-hover:text-white'
                       }`}>
                         {filter.count}
                       </span>
@@ -139,7 +140,7 @@ const Skills = () => {
                   className={`absolute bottom-0 h-[3px] w-full rounded-t-sm transition-all duration-500 ${
                     activeFilter === filter.id 
                       ? 'bg-gradient-to-r from-blue-500 to-cyan-400 shadow-[0_0_10px_rgba(59,130,246,0.5)]' 
-                      : 'bg-transparent group-hover:bg-slate-700'
+                      : 'bg-transparent group-hover:bg-gray-300 dark:group-hover:bg-slate-700'
                   }`}
                 ></span>
                 
@@ -152,15 +153,78 @@ const Skills = () => {
           </div>
         </div>
 
-        {/* Enhanced Matrix Table */}
-        <div className="bg-surface-dark/70 backdrop-blur-sm rounded-2xl xl:rounded-3xl border border-border-dark/50 overflow-hidden shadow-2xl shadow-blue-500/5 hover:shadow-blue-500/10 transition-all duration-500 group/table">
+        {/* Leadership & Soft Skills Badges */}
+        <div className="mb-6 lg:mb-8 flex flex-wrap gap-2">
+          {[
+            { icon: 'groups', label: 'Team Leadership', color: 'text-purple-500 bg-purple-500/10 border-purple-500/20' },
+            { icon: 'architecture', label: 'System Design', color: 'text-blue-500 bg-blue-500/10 border-blue-500/20' },
+            { icon: 'school', label: 'Mentoring', color: 'text-green-500 bg-green-500/10 border-green-500/20' },
+            { icon: 'manage_accounts', label: 'Technical Leadership', color: 'text-cyan-500 bg-cyan-500/10 border-cyan-500/20' },
+            { icon: 'rate_review', label: 'Code Review', color: 'text-yellow-500 bg-yellow-500/10 border-yellow-500/20' },
+            { icon: 'hub', label: 'Cross-team Collaboration', color: 'text-orange-500 bg-orange-500/10 border-orange-500/20' },
+          ].map(({ icon, label, color }) => (
+            <span key={label} className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border ${color} transition-all duration-300 hover:scale-105`}>
+              <span className="material-symbols-outlined text-[14px]">{icon}</span>
+              {label}
+            </span>
+          ))}
+        </div>
+
+        {/* Mobile Card Grid — visible only on small screens */}
+        <div className="md:hidden grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          {filteredSkills.map((skill) => (
+            <div
+              key={skill.id}
+              className="bg-white dark:bg-[#162032] backdrop-blur-sm rounded-2xl border border-gray-200 dark:border-[#282e39] p-4 flex flex-col gap-3 shadow-lg"
+            >
+              {/* Icon + Name */}
+              <div className="flex items-center gap-3">
+                <div className={`size-10 rounded-xl bg-gradient-to-br from-[#1a1d24] to-[#151820] border border-border-dark/50 flex items-center justify-center flex-shrink-0 ${skill.iconColor}`}>
+                  <span className="material-symbols-outlined text-[20px]">{skill.icon}</span>
+                </div>
+                <div className="min-w-0">
+                  <p className="text-slate-900 dark:text-white text-sm font-bold truncate">{skill.name}</p>
+                  <p className="text-slate-500 text-xs truncate">{skill.description}</p>
+                </div>
+              </div>
+
+              {/* Proficiency bar */}
+              <div className="flex flex-col gap-1">
+                <div className="flex justify-between text-xs">
+                  <span className="text-slate-400">{skill.level}</span>
+                  <span className="text-primary-blue font-bold">{skill.proficiency}%</span>
+                </div>
+                <div className="w-full h-2 bg-slate-800/50 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 rounded-full"
+                    style={{ width: `${skill.proficiency}%`, transition: 'width 1s cubic-bezier(0.175, 0.885, 0.32, 1.275)' }}
+                  ></div>
+                </div>
+              </div>
+
+              {/* Experience + Scale badges */}
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <span className="text-xs text-slate-600 dark:text-slate-300 font-mono bg-gray-100 dark:bg-slate-800/50 px-2 py-1 rounded-lg border border-gray-200 dark:border-slate-700/50">
+                  {skill.experience}
+                </span>
+                <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs font-bold ${skill.scale.color}`}>
+                  <span className="material-symbols-outlined text-[14px]">{skill.scale.icon}</span>
+                  {skill.scale.label}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Enhanced Matrix Table — hidden on mobile, visible md+ */}
+        <div className="hidden md:block bg-white dark:bg-[#162032] backdrop-blur-sm rounded-2xl xl:rounded-3xl border border-gray-200 dark:border-[#282e39] overflow-hidden shadow-2xl shadow-blue-500/5 hover:shadow-blue-500/10 transition-all duration-500 group/table">
           {/* Animated header glow */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-0 group-hover/table:opacity-100 transition-opacity duration-500"></div>
           
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full min-w-[800px] lg:min-w-[1000px] xl:min-w-[1200px] text-left border-collapse">
               <thead>
-                <tr className="bg-gradient-to-r from-[#151820] to-[#1a1d24] border-b border-border-dark/50">
+                <tr className="bg-gray-50 dark:bg-[#0f1623] border-b border-gray-200 dark:border-[#282e39]">
                   <th className="px-6 lg:px-8 py-4 lg:py-5 text-xs font-bold text-slate-400 uppercase tracking-wider w-[25%] group/th">
                     <div className="flex items-center gap-2">
                       <span className="material-symbols-outlined text-blue-500/70 text-base">terminal</span>
@@ -205,8 +269,8 @@ const Skills = () => {
                     key={skill.id}
                     onMouseEnter={() => handleSkillHover(skill.id)}
                     onMouseLeave={() => setHoveredSkill(null)}
-                    className={`group/row hover:bg-white/[0.02] transition-all duration-300 ${
-                      index % 2 === 1 ? 'bg-[#171a21]/30' : ''
+                    className={`group/row hover:bg-blue-50/50 dark:hover:bg-white/[0.02] transition-all duration-300 ${
+                      index % 2 === 1 ? 'bg-gray-50/80 dark:bg-[#0f1623]/60' : ''
                     }`}
                     style={{
                       transform: hoveredSkill === skill.id ? 'translateY(-2px)' : 'translateY(0)',
@@ -223,7 +287,7 @@ const Skills = () => {
                           <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-blue-500/10 to-cyan-400/10 opacity-0 group-hover/row:opacity-100 transition-opacity duration-300"></div>
                         </div>
                         <div className="flex-1">
-                          <p className="text-white text-sm lg:text-base font-bold group-hover/row:text-blue-400 transition-colors duration-300">
+                          <p className="text-slate-900 dark:text-white text-sm lg:text-base font-bold group-hover/row:text-blue-400 transition-colors duration-300">
                             {skill.name}
                           </p>
                           <p className="text-slate-500 text-xs lg:text-sm group-hover/row:text-slate-400 transition-colors duration-300">
@@ -246,7 +310,7 @@ const Skills = () => {
                     >
                       <div className="flex flex-col gap-2 lg:gap-3">
                         <div className="flex justify-between text-xs lg:text-sm">
-                          <span className="text-white font-medium group-hover/row:text-blue-300 transition-colors duration-300">
+                          <span className="text-slate-900 dark:text-white font-medium group-hover/row:text-blue-300 transition-colors duration-300">
                             {skill.level}
                           </span>
                           <span className={`font-bold transition-all duration-500 ${
@@ -289,7 +353,7 @@ const Skills = () => {
                     </td>
                     
                     <td className="px-6 lg:px-8 py-4 lg:py-5">
-                      <div className="text-sm lg:text-base text-slate-300 font-mono bg-gradient-to-r from-slate-800/30 to-slate-900/30 px-3 py-2 rounded-lg border border-slate-700/50 group-hover/row:border-blue-500/30 group-hover/row:bg-blue-500/5 transition-all duration-300">
+                      <div className="text-sm lg:text-base text-slate-700 dark:text-slate-300 font-mono bg-gray-100 dark:bg-[#0f1623] px-3 py-2 rounded-lg border border-gray-200 dark:border-[#282e39] group-hover/row:border-blue-500/30 group-hover/row:bg-blue-50 dark:group-hover/row:bg-blue-500/5 transition-all duration-300">
                         {skill.experience}
                       </div>
                     </td>
@@ -328,7 +392,7 @@ const Skills = () => {
           </div>
           
           {/* Animated table footer */}
-          <div className="bg-gradient-to-r from-transparent via-blue-500/10 to-transparent px-6 lg:px-8 py-3 lg:py-4 border-t border-border-dark/50 flex justify-between items-center">
+          <div className="bg-gradient-to-r from-transparent via-blue-500/10 to-transparent px-6 lg:px-8 py-3 lg:py-4 border-t border-gray-200 dark:border-[#282e39] flex justify-between items-center">
             <div className="flex items-center gap-2 text-xs lg:text-sm text-slate-500">
               <span className="material-symbols-outlined text-base text-blue-500/70">info</span>
               <span>Showing {filteredSkills.length} of {data.skills.length} skills</span>
@@ -344,17 +408,18 @@ const Skills = () => {
             </div>
           </div>
         </div>
+        {/* end hidden md:block table wrapper */}
 
         {/* Enhanced Certifications Section */}
         <div className="flex flex-col gap-6 lg:gap-8 pt-8 lg:pt-12">
           <div className="flex items-center justify-between">
-            <h2 className="text-white text-2xl lg:text-3xl xl:text-4xl font-bold leading-tight group/title">
+            <h2 className="text-slate-900 dark:text-white text-2xl lg:text-3xl xl:text-4xl font-bold leading-tight group/title">
               <span className="relative inline-block">
                 Professional Certifications
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 group-hover/title:w-full transition-all duration-700"></span>
               </span>
             </h2>
-            <div className="hidden lg:flex items-center gap-2 text-slate-500 text-sm bg-surface-dark/50 px-3 py-1.5 rounded-lg border border-border-dark/50">
+            <div className="hidden lg:flex items-center gap-2 text-slate-500 text-sm bg-white dark:bg-[#162032] px-3 py-1.5 rounded-lg border border-gray-200 dark:border-[#282e39]">
               <span className="material-symbols-outlined text-base text-green-500/70">verified</span>
               <span>All certifications are verified and current</span>
             </div>
@@ -364,7 +429,7 @@ const Skills = () => {
             {data.certifications.map((cert) => (
               <div 
                 key={cert.id}
-                className="group/cert relative bg-gradient-to-br from-surface-dark/80 to-surface-dark/60 rounded-2xl xl:rounded-3xl border border-border-dark/50 p-5 lg:p-6 xl:p-7 flex flex-col gap-4 lg:gap-5 hover:border-gradient-to-r hover:from-blue-500/50 hover:to-cyan-400/50 transition-all duration-500 shadow-lg hover:shadow-2xl hover:shadow-blue-500/10 transform hover:-translate-y-1"
+                className="group/cert relative bg-white dark:bg-[#162032] rounded-2xl xl:rounded-3xl border border-gray-200 dark:border-[#282e39] p-5 lg:p-6 xl:p-7 flex flex-col gap-4 lg:gap-5 hover:border-blue-500/30 transition-all duration-500 shadow-lg hover:shadow-2xl hover:shadow-blue-500/10 transform hover:-translate-y-1"
               >
                 {/* Certificate glow */}
                 <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 rounded-2xl xl:rounded-3xl opacity-0 group-hover/cert:opacity-100 blur-xl transition-opacity duration-500 -z-10"></div>
@@ -387,7 +452,7 @@ const Skills = () => {
                 </div>
                 
                 <div className="flex-1">
-                  <h3 className="text-white text-lg lg:text-xl xl:text-2xl font-bold group-hover/cert:text-gradient-to-r group-hover/cert:from-blue-400 group-hover/cert:to-cyan-300 transition-all duration-300">
+                  <h3 className="text-slate-900 dark:text-white text-lg lg:text-xl xl:text-2xl font-bold group-hover/cert:text-gradient-to-r group-hover/cert:from-blue-400 group-hover/cert:to-cyan-300 transition-all duration-300">
                     {cert.title}
                   </h3>
                   <p className="text-slate-400 text-sm lg:text-base mt-1 lg:mt-2 transform group-hover/cert:translate-x-2 transition-transform duration-500">
@@ -395,7 +460,7 @@ const Skills = () => {
                   </p>
                 </div>
                 
-                <div className="pt-4 lg:pt-5 border-t border-border-dark/30 mt-auto flex items-center justify-between group/footer">
+                <div className="pt-4 lg:pt-5 border-t border-gray-200 dark:border-[#282e39] mt-auto flex items-center justify-between group/footer">
                   <span className="text-xs lg:text-sm text-slate-500 group-hover/footer:text-slate-400 transition-colors duration-300">
                     Issued: {cert.issueDate}
                   </span>

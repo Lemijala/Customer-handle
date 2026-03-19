@@ -1,6 +1,7 @@
 // File path: src/App.tsx
 
 import Layout from './components/common/Layout';
+import Reveal from './components/common/Reveal';
 import Hero from './components/sections/Hero';
 import About from './components/sections/About';
 import Skills from './components/sections/Skills';
@@ -12,32 +13,53 @@ import Contact from './components/sections/Contact';
 function App() {
   return (
     <Layout>
+      {/* Hero */}
       <section id="home">
-        <Hero />
+        <Reveal direction="up" duration={1500} delay={100}>
+          <Hero />
+        </Reveal>
       </section>
 
+      {/* About */}
       <section id="about">
-        <About />
+        <Reveal direction="left" duration={1500} delay={100}>
+          <About />
+        </Reveal>
       </section>
 
+      {/* Skills */}
       <section id="skills">
-        <Skills />
+        <Reveal direction="right" duration={1500} delay={100}>
+          <Skills />
+        </Reveal>
       </section>
 
+      {/* Case Studies */}
       <section id="case-studies">
-        <CaseStudies />
+        <Reveal direction="zoom" duration={1600} delay={100}>
+          <CaseStudies />
+        </Reveal>
       </section>
 
+      {/* Insights */}
       <section id="insights">
-        <Insights />
+        <Reveal direction="up" duration={1500} delay={100}>
+          <Insights />
+        </Reveal>
       </section>
 
+      {/* Artifacts */}
       <section id="artifacts">
-        <Artifacts />
+        <Reveal direction="left" duration={1500} delay={100}>
+          <Artifacts />
+        </Reveal>
       </section>
 
+      {/* Contact */}
       <section id="contact">
-        <Contact />
+        <Reveal direction="zoom" duration={1600} delay={100}>
+          <Contact />
+        </Reveal>
       </section>
     </Layout>
   );

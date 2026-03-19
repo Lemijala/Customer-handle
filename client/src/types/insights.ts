@@ -70,7 +70,7 @@ export const defaultInsightsData: InsightsSectionData = {
       title: "Scaling Node.js Microservices",
       source: "Medium",
       sourceIcon: "logo_dev",
-      date: "Oct 24, 2023",
+      date: "Jan 15, 2025",
       readTime: "8 min read",
       excerpt: "A deep dive into managing high-throughput systems with Node.js clusters, handling backpressure, and optimizing garbage collection.",
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAcq9Kvrr94jKcRrxa0cVQdsXZQxvCtNH3RGpdM2Tm2aCP_CHdkRIbCDn00ia0x8VSqbnV7AhvftrCIfaAKUoIkaZb4hJvELEzOFLhpCFPM_cXkD4aJYuL47pttrtRK23vZ9PSRjQEWtuYtQDHStSY2p-VpSuwXd84Q5E8zB8gKLaxjGxDDvANNMUxzxE5nC64gtINwfP2qqzTHw6TBx6uKSRYFeWGcNUbhAmfmh9tco79SgiWyPdDHjLQXm2wObMOgtygrvLb11jJy"
@@ -80,19 +80,19 @@ export const defaultInsightsData: InsightsSectionData = {
       title: "The Myth of Perfect Code",
       source: "Dev.to",
       sourceIcon: "code",
-      date: "Sep 12, 2023",
+      date: "Mar 08, 2025",
       readTime: "5 min read",
       excerpt: "Why striving for perfection kills velocity. Embracing technical debt strategically and understanding the 'Good Enough' principle.",
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuApa5xb8ERRdVuz81mFHIZV_A5HHuL9lbAx7jeMNrQzvHIOzkG8mNoAUzMd3JnFmYFhSBM1ZxEpazZk4QZP_A1Y8FA-ozPszvBrJ6pvOtaJUf6hUnkqc4DO4DxxbxErrUz0MKRtVBqAjpLrVoCQotp7Drktjtf7tVsRJf5COdctQKSm56xcHdrtXs22LPj-dvRQ5IAsRLP4kTvl21Stnlk153-RIzOGH9f7BJmwOnCVg1jkBJtCwigNizVSsWDgXYYjiQXhKTiWTHiP"
     },
     {
       id: 3,
-      title: "Rust for JS Developers",
+      title: "Building REST APIs with Node.js & TypeScript",
       source: "Blog",
       sourceIcon: "person",
-      date: "Aug 05, 2023",
-      readTime: "12 min read",
-      excerpt: "A comprehensive guide for JavaScript developers looking to add Rust to their toolbelt. Why you should learn it today.",
+      date: "May 20, 2025",
+      readTime: "10 min read",
+      excerpt: "A practical guide to structuring scalable Express APIs with TypeScript, covering routing, middleware, validation, and error handling patterns.",
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDI3ZhpjgB9c48XTVZpNnLOJPQI0WayETp7jg9usAyKBWuioHuhm4Hsh6yfIOPWhUAPAamjnotlU4KNSFZKSNIV5aG7Je5e_MY1S3C0s1XK0ABhnf2PDXgSaWGnNdPnrfDV8XMq3Ll3HiJF-3qmIoqI-roYDA7IUghWcu9FLKl9LYnBe9dNdMhQo2oufa76hSX-JJ1Fvg1SH0RHp33yQu-bh9vKCXrrJd1pVwMtor__nW27zoSbCDOc0fCqvClK1Or665Zp47vVcWEz"
     }
   ],
@@ -165,7 +165,7 @@ export const defaultInsightsData: InsightsSectionData = {
   ],
   footer: {
     name: "Lemesa Girma",
-    title: "Senior Software Engineer & Distributed Systems Architect",
+    title: "Senior Software Developer",
     socialLinks: [
       {
         platform: "Twitter",

@@ -45,8 +45,8 @@ export interface SkillsSectionData {
 
 export const defaultSkillsData: SkillsSectionData = {
   title: "Technical Competency Matrix",
-  description: "A quantitative breakdown of technical proficiency, scale management, and professional certifications across 10+ years of enterprise engineering.",
-  lastUpdated: "Oct 2023",
+  description: "A quantitative breakdown of technical proficiency, scale management, and professional certifications across 4 years of software development.",
+  lastUpdated: "Mar 2026",
   filters: [
     { id: 'all', label: 'All' },
     { id: 'cloud', label: 'Cloud Infrastructure' },
@@ -61,9 +61,9 @@ export const defaultSkillsData: SkillsSectionData = {
       description: "Frontend Architecture",
       proficiency: 95,
       level: "Expert",
-      experience: "6 Years",
+      experience: "4 Years",
       scale: {
-        label: "1M+ MAU",
+        label: "Production Apps",
         color: "bg-primary/10 border-primary/20 text-primary",
         icon: "groups"
       },
@@ -75,11 +75,11 @@ export const defaultSkillsData: SkillsSectionData = {
       name: "AWS Architecture",
       category: "cloud",
       description: "Cloud Infrastructure",
-      proficiency: 90,
+      proficiency: 85,
       level: "Advanced",
-      experience: "8 Years",
+      experience: "3 Years",
       scale: {
-        label: "50+ Microservices",
+        label: "Cloud Deployments",
         color: "bg-emerald-500/10 border-emerald-500/20 text-emerald-400",
         icon: "hub"
       },
@@ -91,11 +91,11 @@ export const defaultSkillsData: SkillsSectionData = {
       name: "Node.js / Backend",
       category: "backend",
       description: "Server-side runtime",
-      proficiency: 85,
+      proficiency: 90,
       level: "Advanced",
-      experience: "7 Years",
+      experience: "4 Years",
       scale: {
-        label: "500k DAU",
+        label: "REST & WebSocket APIs",
         color: "bg-purple-500/10 border-purple-500/20 text-purple-400",
         icon: "monitoring"
       },
@@ -109,14 +109,30 @@ export const defaultSkillsData: SkillsSectionData = {
       description: "Orchestration",
       proficiency: 80,
       level: "Proficient",
-      experience: "5 Years",
+      experience: "4 Years",
       scale: {
-        label: "20+ Clusters",
+        label: "Container Orchestration",
         color: "bg-orange-500/10 border-orange-500/20 text-orange-400",
         icon: "view_comfy_alt"
       },
       icon: "deployed_code",
       iconColor: "text-blue-300"
+    },
+    {
+      id: 6,
+      name: "Python",
+      category: "backend",
+      description: "Scripting & Automation",
+      proficiency: 82,
+      level: "Advanced",
+      experience: "4 Years",
+      scale: {
+        label: "Data & Automation",
+        color: "bg-yellow-500/10 border-yellow-500/20 text-yellow-400",
+        icon: "smart_toy"
+      },
+      icon: "code",
+      iconColor: "text-yellow-400"
     },
     {
       id: 5,
@@ -138,39 +154,39 @@ export const defaultSkillsData: SkillsSectionData = {
   certifications: [
     {
       id: 1,
-      title: "AWS Certified Solutions Architect",
-      subtitle: "Professional Level",
-      issuer: "Amazon Web Services",
+      title: "B.Sc. Information Technology",
+      subtitle: "GPA 3.6 / 4.0",
+      issuer: "Haramaya University",
       status: "Active",
-      issueDate: "Nov 2022",
-      icon: "cloud_circle",
-      gradientFrom: "from-orange-500/20",
-      gradientTo: "to-yellow-600/20",
-      iconColor: "text-orange-400"
+      issueDate: "2024",
+      icon: "school",
+      gradientFrom: "from-green-500/20",
+      gradientTo: "to-emerald-600/20",
+      iconColor: "text-green-400"
     },
     {
       id: 2,
-      title: "Certified Kubernetes Administrator",
-      subtitle: "CKA - Linux Foundation",
-      issuer: "Linux Foundation",
+      title: "Full-Stack Portfolio",
+      subtitle: "React · Node.js · AWS · Docker",
+      issuer: "Self-built & Deployed",
       status: "Active",
-      issueDate: "Mar 2023",
-      icon: "deployed_code",
+      issueDate: "2025",
+      icon: "rocket_launch",
       gradientFrom: "from-blue-500/20",
       gradientTo: "to-cyan-600/20",
       iconColor: "text-blue-400"
     },
     {
       id: 3,
-      title: "Google Professional Cloud Architect",
-      subtitle: "Google Cloud",
-      issuer: "Google",
+      title: "Open Source Contributor",
+      subtitle: "TypeScript · GitHub",
+      issuer: "github.com/Lemijala",
       status: "Active",
-      issueDate: "Jan 2023",
-      icon: "security",
-      gradientFrom: "from-red-500/20",
-      gradientTo: "to-rose-600/20",
-      iconColor: "text-red-400"
+      issueDate: "2025",
+      icon: "code",
+      gradientFrom: "from-purple-500/20",
+      gradientTo: "to-violet-600/20",
+      iconColor: "text-purple-400"
     }
   ]
 };

@@ -17,9 +17,9 @@
     scroll-padding-top: 5rem; /* Adjust based on your navbar height */
   }
   
-  /* Prevent horizontal scroll */
+  /* Prevent horizontal scroll — clip doesn't break position:sticky or slide animations */
   body {
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 }
 
@@ -214,8 +214,8 @@ section {
   animation: spin 1s linear infinite;
 }
 
-/* Smooth transition for theme changes */
-* {
+/* Smooth transition for theme changes — only bg and border, not transform/opacity */
+*:not([style*="transition"]) {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
@@ -300,7 +300,12 @@ body.no-scroll {
 }
 
 .animate-marquee-slower {
-  animation: marquee-slower 10s linear infinite; /* Changed from 60s to 20s */
+  animation: marquee-third 50s linear infinite;
+}
+
+@keyframes marquee-third {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
 }
 
 .animate-light-beam {
@@ -383,4 +388,133 @@ body.no-scroll {
 
 .animate-slide-up {
   animation: slide-up 0.6s ease-out forwards;
+}
+
+/* ── Scroll reveal base (Reveal.tsx uses inline styles, no extra CSS needed) ── */
+
+/* ── Missing animation classes used across section components ── */
+
+/* animate-float-slow / animate-float-slow-delayed are handled via tailwind.config.js */
+
+/* gradient-x text animation */
+.animate-gradient-x {
+  background-size: 200% auto;
+  animation: gradientX 4s ease infinite;
+}
+
+/* generic gradient shift */
+.animate-gradient {
+  background-size: 200% auto;
+  animation: gradientShift 6s ease infinite;
+}
+
+@keyframes gradientX {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+/* slide-in used in About section */
+.animate-slide-in {
+  animation: slideInLeft 0.6s ease-out forwards;
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* spin-slow used in About core values */
+.animate-spin-slow {
+  animation: spin 6s linear infinite;
+}
+
+/* border-l-3 / border-l-4 shim (Tailwind v3 doesn't include border-l-3) */
+.border-l-3 { border-left-width: 3px; }
+.border-l-4 { border-left-width: 4px; }
+
+/* ── Reveal animation polish ── */
+/* Prevent flash of unstyled content before IntersectionObserver fires */
+[data-reveal] {
+  opacity: 0;
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Global Responsive Fixes ── */
+
+/* Prevent any element from causing horizontal scroll */
+img, video, canvas, svg, iframe {
+  max-width: 100%;
+}
+
+/* Fluid typography — scales smoothly between mobile and desktop */
+:root {
+  --text-xs:   clamp(0.65rem,  1.5vw, 0.75rem);
+  --text-sm:   clamp(0.75rem,  2vw,   0.875rem);
+  --text-base: clamp(0.875rem, 2.5vw, 1rem);
+  --text-lg:   clamp(1rem,     3vw,   1.125rem);
+  --text-xl:   clamp(1.1rem,   3.5vw, 1.25rem);
+  --text-2xl:  clamp(1.25rem,  4vw,   1.5rem);
+  --text-3xl:  clamp(1.5rem,   5vw,   1.875rem);
+  --text-4xl:  clamp(1.75rem,  6vw,   2.25rem);
+  --text-5xl:  clamp(2rem,     7vw,   3rem);
+  --text-6xl:  clamp(2.25rem,  8vw,   3.75rem);
+}
+
+/* Fluid section padding */
+section, .section-pad {
+  padding-left:  clamp(1rem, 4vw, 2rem);
+  padding-right: clamp(1rem, 4vw, 2rem);
+}
+
+/* Tables scroll horizontally on small screens */
+table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Code blocks don't overflow */
+pre, code {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Cards in grids never overflow their container */
+.grid > * {
+  min-width: 0;
+}
+
+/* Flex children don't overflow */
+.flex > * {
+  min-width: 0;
+}
+
+/* Mobile: reduce large translate distances so animations don't cause scroll */
+@media (max-width: 640px) {
+  /* Tighten reveal distances on small screens */
+  [style*="translateX(-100px)"] { transform: translateX(-40px) scale(0.97) !important; }
+  [style*="translateX(100px)"]  { transform: translateX(40px) scale(0.97) !important; }
+  [style*="translateY(90px)"]   { transform: translateY(40px) scale(0.97) !important; }
+}
+
+/* Ensure the mobile navbar menu doesn't overflow */
+@media (max-width: 768px) {
+  .stagger-animate {
+    max-height: calc(100vh - 5rem);
+    overflow-y: auto;
+  }
 }

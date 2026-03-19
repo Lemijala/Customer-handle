@@ -125,7 +125,7 @@ export const defaultAboutData: AboutSectionData = {
     title: "Senior Developer",
     image: "/profile.png",
     location: "Addis Ababa, Ethiopia",
-    email: "lemesa@example.com"
+    email: "tlemesagirma@gmail.com"
   },
   education: {
     institution: "Haramaya University",
@@ -135,46 +135,39 @@ export const defaultAboutData: AboutSectionData = {
   certifications: [
     {
       id: 1,
-      title: "AWS Certified",
-      provider: "Solutions Architect",
-      icon: "cloud",
-      iconColor: "#FF9900"
+      title: "B.Sc. Information Technology",
+      provider: "Haramaya University",
+      icon: "school",
+      iconColor: "#4CAF50"
     },
     {
       id: 2,
-      title: "Google Cloud",
-      provider: "Professional Engineer",
-      icon: "cloud_circle",
-      iconColor: "#4285F4"
-    },
-    {
-      id: 3,
-      title: "Kubernetes",
-      provider: "CKA Administrator",
-      icon: "anchor",
-      iconColor: "#326CE5"
+      title: "Open Source Projects",
+      provider: "github.com/Lemijala",
+      icon: "code",
+      iconColor: "#6e40c9"
     }
   ],
   recognitions: [
     {
       id: 1,
-      title: "Employee of the Year",
-      organization: "TechCorp Solutions",
-      year: "2022",
+      title: "Open Source Contributor",
+      organization: "GitHub",
+      year: "2025",
       isHighlighted: true
     },
     {
       id: 2,
-      title: "Innovation Hackathon Winner",
-      organization: "FinTech Global",
-      year: "2021",
+      title: "Full-Stack Portfolio Launch",
+      organization: "Self-built & Deployed",
+      year: "2025",
       isHighlighted: false
     },
     {
       id: 3,
-      title: "Top Mentor Award",
-      organization: "DevCommunity",
-      year: "2023",
+      title: "Haramaya University Dean's List",
+      organization: "Haramaya University",
+      year: "2024",
       isHighlighted: false
     }
   ]

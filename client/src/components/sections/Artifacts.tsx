@@ -1,6 +1,14 @@
 // File path: src/components/sections/Artifacts.tsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Reveal from '../common/Reveal';
+
+interface GitHubStats {
+  repos: number;
+  topLang: string;
+  followers: number;
+  following: number;
+}
 
 interface Diagram {
   id: number;
@@ -25,6 +33,25 @@ const Artifacts: React.FC = () => {
   const [hoveredDiagram, setHoveredDiagram] = useState<number | null>(null);
   const [hoveredDocument, setHoveredDocument] = useState<number | null>(null);
   const [hoveredProof, setHoveredProof] = useState<string | null>(null);
+  const [ghStats, setGhStats] = useState<GitHubStats | null>(null);
+
+  useEffect(() => {
+    const fetchGitHub = async () => {
+      try {
+        const [userRes, reposRes] = await Promise.all([
+          fetch('https://api.github.com/users/Lemijala'),
+          fetch('https://api.github.com/users/Lemijala/repos?per_page=100')
+        ]);
+        const user = await userRes.json();
+        const repos = await reposRes.json();
+        const langCount: Record<string, number> = {};
+        repos.forEach((r: { language?: string }) => { if (r.language) langCount[r.language] = (langCount[r.language] || 0) + 1; });
+        const topLang = Object.entries(langCount).sort((a, b) => b[1] - a[1])[0]?.[0] ?? 'TypeScript';
+        setGhStats({ repos: user.public_repos, topLang, followers: user.followers, following: user.following });
+      } catch { /* silently fail */ }
+    };
+    fetchGitHub();
+  }, []);
 
   const diagrams: Diagram[] = [
     {
@@ -147,8 +174,8 @@ const Artifacts: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {diagrams.map((diagram, index) => (
+              <Reveal key={diagram.id} direction={index % 2 === 0 ? 'left' : 'right'} delay={index * 130} duration={1200}>
               <div 
-                key={diagram.id}
                 onMouseEnter={() => setHoveredDiagram(diagram.id)}
                 onMouseLeave={() => setHoveredDiagram(null)}
                 className="group relative overflow-hidden rounded-xl bg-card-light dark:bg-card-dark border border-border-muted dark:border-[#282e39] hover:dark:border-blue-500/50 transition-all duration-500 shadow-md hover:shadow-lg hover:shadow-blue-500/10 cursor-pointer"
@@ -216,122 +243,8 @@ const Artifacts: React.FC = () => {
                   ))}
                 </div>
               </div>
+              </Reveal>
             ))}
-          </div>
-        </section>
-
-        {/* Section 2: Code Proficiency */}
-        <section className="mt-12 px-4 md:px-8 lg:px-12 animate-slide-in" style={{animationDelay: '0.2s'}}>
-          <div className="flex items-center justify-between pb-3 pt-5 border-b border-[#282e39]/50 mb-6 group/title">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center size-8 rounded-lg bg-gradient-to-br from-green-500/20 to-green-500/5 border border-green-500/20 text-green-500 group-hover/title:scale-110 group-hover/title:rotate-6 transition-all duration-300">
-                <span className="material-symbols-outlined !text-[20px]">code</span>
-              </div>
-              <h2 className="text-white text-[22px] md:text-2xl font-bold leading-tight tracking-[-0.015em]">
-                Code Proficiency
-              </h2>
-            </div>
-            <div className="flex gap-2">
-              {['Rust', 'Go', 'GraphQL'].map((tech, index) => (
-                <span 
-                  key={tech}
-                  className="px-2 md:px-3 py-1 rounded text-xs md:text-sm font-mono transform hover:scale-105 transition-all duration-300 animate-slide-up"
-                  style={{
-                    background: index === 0 ? 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.1))' :
-                               index === 1 ? 'linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(251, 191, 36, 0.1))' :
-                                             'linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(236, 72, 153, 0.1))',
-                    color: index === 0 ? '#60a5fa' : 
-                          index === 1 ? '#fbbf24' : 
-                                        '#f472b6',
-                    animationDelay: `${0.3 + index * 0.1}s`
-                  }}
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-          
-          {/* Code Editor Mockup - Enhanced */}
-          <div className="w-full bg-code-bg rounded-xl overflow-hidden border border-[#282e39] shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 group/editor transform hover:-translate-y-1">
-            {/* Glow effect */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-transparent rounded-xl opacity-0 group-hover/editor:opacity-100 blur-xl transition-opacity duration-500 -z-10"></div>
-            
-            {/* Editor Header */}
-            <div className="bg-[#161b22] px-4 md:px-6 py-3 flex items-center justify-between border-b border-[#282e39] group/header">
-              <div className="flex gap-2">
-                {['#ff5f56', '#ffbd2e', '#27c93f'].map((color, i) => (
-                  <div 
-                    key={i}
-                    className="w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 group-hover/header:scale-110"
-                    style={{ backgroundColor: color }}
-                  ></div>
-                ))}
-              </div>
-              
-              <div className="flex gap-1 text-xs md:text-sm font-mono text-gray-400 bg-black/30 p-1 rounded">
-                {['payment_processor.rs', 'schema.graphql', 'worker.go'].map((file, i) => (
-                  <div 
-                    key={file}
-                    className={`px-3 md:px-4 py-1 rounded cursor-pointer transition-all duration-300 ${
-                      i === 0 
-                        ? 'bg-[#282e39] text-white transform scale-105 shadow-lg' 
-                        : 'hover:text-white hover:bg-gray-800/50'
-                    }`}
-                  >
-                    {file}
-                  </div>
-                ))}
-              </div>
-              
-              <div className="flex gap-3 text-gray-400">
-                {['content_copy', 'settings'].map((icon, i) => (
-                  <span 
-                    key={icon}
-                    className="material-symbols-outlined text-[16px] md:text-[18px] cursor-pointer hover:text-white transition-colors duration-300 hover:scale-110"
-                  >
-                    {icon}
-                  </span>
-                ))}
-              </div>
-            </div>
-            
-            {/* Editor Content */}
-            <div className="p-4 md:p-6 overflow-x-auto code-scroll bg-gradient-to-br from-gray-900 to-gray-950">
-              <pre className="font-mono text-sm md:text-base leading-relaxed text-gray-300">
-                <code className="animate-slide-in" style={{animationDelay: '0.4s'}}>
-                  <span className="text-gray-500">1</span>  <span className="text-[#ff7b72] italic">// Implementation of the robust payment processing trait</span><br />
-                  <span className="text-gray-500">2</span>  <span className="text-[#ff7b72]">use</span> async_trait::async_trait;<br />
-                  <span className="text-gray-500">3</span>  <span className="text-[#ff7b72]">use</span> crate::domain:{"{"}Payment, PaymentResult, Error{"}"};<br />
-                  <span className="text-gray-500">4</span>  <br />
-                  <span className="text-gray-500">5</span>  <span className="text-[#d2a8ff]">#[async_trait]</span><br />
-                  <span className="text-gray-500">6</span>  <span className="text-[#ff7b72]">pub trait</span> <span className="text-[#d2a8ff]">PaymentGateway</span> {"{"}<br />
-                  <span className="text-gray-500">7</span>      <span className="text-[#ff7b72]">async fn</span> <span className="text-[#d2a8ff]">process</span>(&amp;<span className="text-[#ff7b72]">self</span>, payment: Payment) -&gt; <span className="text-[#ff7b72]">Result</span>&lt;PaymentResult, Error&gt;;<br />
-                  <span className="text-gray-500">8</span>  {"}"}<br />
-                  <span className="text-gray-500">9</span>  <br />
-                  <span className="text-gray-500">10</span> <span className="text-[#ff7b72]">pub struct</span> <span className="text-[#d2a8ff]">StripeProcessor</span> {"{"}<br />
-                  <span className="text-gray-500">11</span>     client: Client,<br />
-                  <span className="text-gray-500">12</span>     retry_policy: RetryPolicy,<br />
-                  <span className="text-gray-500">13</span> {"}"}<br />
-                  <span className="text-gray-500">14</span> <br />
-                  <span className="text-gray-500">15</span> <span className="text-[#ff7b72]">impl</span> StripeProcessor {"{"}<br />
-                  <span className="text-gray-500">16</span>     <span className="text-[#ff7b72]">pub fn</span> <span className="text-[#d2a8ff]">new</span>(api_key: String) -&gt; <span className="text-[#ff7b72]">Self</span> {"{"}<br />
-                  <span className="text-gray-500">17</span>         <span className="text-[#79c0ff]">println!</span>(<span className="text-[#a5d6ff]">"Initializing Secure Stripe Processor"</span>);<br />
-                  <span className="text-gray-500">18</span>         <span className="text-[#ff7b72]">Self</span> {"{"} <br />
-                  <span className="text-gray-500">19</span>             client: Client::new(api_key),<br />
-                  <span className="text-gray-500">20</span>             retry_policy: RetryPolicy::exponential_backoff(<span className="text-[#79c0ff]">3</span>)<br />
-                  <span className="text-gray-500">21</span>         {"}"}<br />
-                  <span className="text-gray-500">22</span>     {"}"}<br />
-                  <span className="text-gray-500">23</span> {"}"}
-                </code>
-              </pre>
-              
-              {/* Typewriter cursor */}
-              <div className="flex items-center gap-2 mt-4">
-                <div className="w-3 h-5 bg-green-500 animate-pulse"></div>
-                <span className="text-green-400 text-sm font-mono">Compiled successfully ✓</span>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -348,8 +261,8 @@ const Artifacts: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {documents.map((doc, index) => (
+              <Reveal key={doc.id} direction="zoom" delay={index * 150} duration={1200}>
               <div 
-                key={doc.id}
                 onMouseEnter={() => setHoveredDocument(doc.id)}
                 onMouseLeave={() => setHoveredDocument(null)}
                 className="bg-card-light dark:bg-card-dark border border-border-muted dark:border-[#282e39] hover:dark:border-blue-500/50 rounded-lg p-4 md:p-6 flex items-start gap-4 transition-all group cursor-pointer transform hover:-translate-y-2"
@@ -406,6 +319,7 @@ const Artifacts: React.FC = () => {
                   <div className="mt-3 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 group-hover:w-full transition-all duration-700"></div>
                 </div>
               </div>
+              </Reveal>
             ))}
           </div>
         </section>
@@ -421,7 +335,7 @@ const Artifacts: React.FC = () => {
             </h2>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* LinkedIn Recommendation */}
             <div 
               onMouseEnter={() => setHoveredProof('linkedin')}
@@ -438,14 +352,8 @@ const Artifacts: React.FC = () => {
               
               {/* Profile with glow */}
               <div className="flex items-center gap-3 mb-4 relative">
-                <div className="relative">
-                  <img 
-                    alt="Portrait of Lemesa Girma" 
-                    className="w-12 h-12 md:w-14 md:h-14 rounded-full object-cover border-2 border-primary group-hover:border-4 transition-all duration-300"
-                    src="/profile.png" 
-                  />
-                  {/* Profile glow */}
-                  <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-blue-500/20 to-cyan-400/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
+                <div className="size-12 md:size-14 rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border-2 border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-lg flex-shrink-0">
+                  JC
                 </div>
                 <div>
                   <p className="text-slate-900 dark:text-white font-bold text-base md:text-lg transform group-hover:translate-x-1 transition-transform duration-300">
@@ -480,6 +388,56 @@ const Artifacts: React.FC = () => {
               </div>
             </div>
 
+            {/* Testimonial 2 */}
+            <div
+              onMouseEnter={() => setHoveredProof('testimonial2')}
+              onMouseLeave={() => setHoveredProof(null)}
+              className="bg-card-light dark:bg-card-dark border border-border-muted dark:border-[#282e39] rounded-xl p-6 relative overflow-hidden group transform hover:-translate-y-2 transition-all duration-500 cursor-pointer"
+              style={{ transform: hoveredProof === 'testimonial2' ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)' }}
+            >
+              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
+                <span className="material-symbols-outlined text-6xl animate-float-slow">format_quote</span>
+              </div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="size-12 md:size-14 rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-2 border-purple-500/30 flex items-center justify-center text-purple-400 font-bold text-lg flex-shrink-0">SR</div>
+                <div>
+                  <p className="text-slate-900 dark:text-white font-bold text-base md:text-lg">Sara Reeves</p>
+                  <p className="text-xs md:text-sm text-gray-400">Engineering Manager, LogiCore</p>
+                </div>
+              </div>
+              <p className="text-slate-600 dark:text-gray-300 text-sm md:text-base italic leading-relaxed mb-4 transform group-hover:translate-x-2 transition-transform duration-500">
+                "Rare to find a developer who can own both architecture decisions and hands-on delivery. He mentored junior engineers while shipping a real-time dashboard that cut our incident response time from 24 hours to minutes."
+              </p>
+              <div className="flex gap-1">
+                {[...Array(5)].map((_, i) => <span key={i} className="material-symbols-outlined text-yellow-400 text-[16px]">star</span>)}
+              </div>
+            </div>
+
+            {/* Testimonial 3 */}
+            <div
+              onMouseEnter={() => setHoveredProof('testimonial3')}
+              onMouseLeave={() => setHoveredProof(null)}
+              className="bg-card-light dark:bg-card-dark border border-border-muted dark:border-[#282e39] rounded-xl p-6 relative overflow-hidden group transform hover:-translate-y-2 transition-all duration-500 cursor-pointer"
+              style={{ transform: hoveredProof === 'testimonial3' ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)' }}
+            >
+              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
+                <span className="material-symbols-outlined text-6xl animate-float-slow">format_quote</span>
+              </div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="size-12 md:size-14 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-2 border-cyan-500/30 flex items-center justify-center text-cyan-400 font-bold text-lg flex-shrink-0">DM</div>
+                <div>
+                  <p className="text-slate-900 dark:text-white font-bold text-base md:text-lg">Daniel Mekonnen</p>
+                  <p className="text-xs md:text-sm text-gray-400">Lead Architect, FinBridge</p>
+                </div>
+              </div>
+              <p className="text-slate-600 dark:text-gray-300 text-sm md:text-base italic leading-relaxed mb-4 transform group-hover:translate-x-2 transition-transform duration-500">
+                "His microservices migration plan was the most thorough I've reviewed. He reduced our deployment cycle from 4 hours to 15 minutes and the system has maintained 99.99% uptime ever since."
+              </p>
+              <div className="flex gap-1">
+                {[...Array(5)].map((_, i) => <span key={i} className="material-symbols-outlined text-yellow-400 text-[16px]">star</span>)}
+              </div>
+            </div>
+
             {/* GitHub Activity */}
             <div 
               onMouseEnter={() => setHoveredProof('github')}
@@ -494,7 +452,7 @@ const Artifacts: React.FC = () => {
                   GitHub Activity
                 </h3>
                 <span className="text-green-400 text-xs md:text-sm font-mono px-2 md:px-3 py-1 rounded bg-gradient-to-r from-green-500/20 to-green-600/10 transform group-hover:scale-105 transition-all duration-300 shadow-lg shadow-green-500/20">
-                  2,400 contribs
+                  {ghStats ? `${ghStats.repos} repos` : '— repos'}
                 </span>
               </div>
               
@@ -536,8 +494,8 @@ const Artifacts: React.FC = () => {
               </div>
               
               <div className="mt-auto pt-4 border-t border-[#282e39] flex justify-between text-xs md:text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                <span className="transform group-hover:translate-x-1 transition-transform duration-300">Top Lang: Rust (65%)</span>
-                <span className="transform group-hover:-translate-x-1 transition-transform duration-300">Pull Requests: 142</span>
+                <span className="transform group-hover:translate-x-1 transition-transform duration-300">Top Lang: {ghStats?.topLang ?? '—'}</span>
+                <span className="transform group-hover:-translate-x-1 transition-transform duration-300">Repos: {ghStats?.repos ?? '—'}</span>
               </div>
               
               {/* Git branch animation */}
@@ -549,61 +507,6 @@ const Artifacts: React.FC = () => {
             </div>
 
             {/* Patent Portfolio */}
-            <div 
-              onMouseEnter={() => setHoveredProof('patent')}
-              onMouseLeave={() => setHoveredProof(null)}
-              className="bg-gradient-to-br from-[#1a202c] to-[#2d3748] border border-yellow-600/30 rounded-xl p-6 relative overflow-hidden group transform hover:-translate-y-2 transition-all duration-500 cursor-pointer"
-              style={{
-                transform: hoveredProof === 'patent' ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)'
-              }}
-            >
-              {/* Animated glow */}
-              <div className="absolute -right-4 -top-4 w-24 h-24 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 rounded-full blur-2xl group-hover:scale-150 transition-all duration-700"></div>
-              
-              <div className="flex items-center gap-3 mb-4 relative z-10">
-                <div className="bg-gradient-to-br from-yellow-400 to-yellow-600 p-2 md:p-3 rounded-lg text-black shadow-lg group-hover:scale-110 transition-all duration-300">
-                  <span className="material-symbols-outlined text-lg md:text-xl group-hover:rotate-12 transition-transform duration-300">
-                    workspace_premium
-                  </span>
-                </div>
-                <h3 className="text-white font-bold text-base md:text-lg transform group-hover:translate-x-1 transition-transform duration-300">
-                  Patent Portfolio
-                </h3>
-              </div>
-              
-              <div className="mb-4 relative z-10">
-                <p className="text-xs md:text-sm text-yellow-500 font-mono mb-1 transform group-hover:translate-x-1 transition-transform duration-300">
-                  US PATENT #10,234,567
-                </p>
-                <p className="text-white text-sm md:text-base font-medium transform group-hover:translate-x-2 transition-transform duration-500">
-                  "Algorithmic Data Sharding in Distributed Databases"
-                </p>
-              </div>
-              
-              <div className="flex items-center gap-2 text-gray-400 text-xs md:text-sm group-hover:text-gray-300 transition-colors duration-300">
-                <span className="material-symbols-outlined text-[14px] md:text-[16px] text-green-500 animate-pulse">
-                  verified
-                </span>
-                Granted: Mar 2022
-              </div>
-              
-              <button className="mt-4 w-full py-2 md:py-3 rounded-lg bg-[#282e39] hover:bg-gradient-to-r hover:from-yellow-600/20 hover:to-orange-600/20 text-white text-xs md:text-sm font-bold transition-all duration-300 border border-yellow-600/20 hover:border-yellow-500/40 transform hover:-translate-y-0.5">
-                View Filing
-              </button>
-              
-              {/* Patent seal animation */}
-              <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <div 
-                      key={i}
-                      className="w-1 h-1 rounded-full bg-gradient-to-br from-yellow-500 to-orange-400 animate-pulse"
-                      style={{ animationDelay: `${i * 0.1}s` }}
-                    ></div>
-                  ))}
-                </div>
-              </div>
-            </div>
           </div>
         </section>
       </div>

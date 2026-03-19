@@ -1,7 +1,8 @@
 // File path: src/components/sections/About.tsx
 
 import { useState } from 'react';
-import { AboutSectionData, defaultAboutData } from '../../types/about';
+import type { AboutSectionData } from '../../types/about';
+import { defaultAboutData } from '../../types/about';
 
 const About = () => {
   const [data] = useState<AboutSectionData>(defaultAboutData);
@@ -173,7 +174,7 @@ const About = () => {
                     key={value.id}
                     onMouseEnter={() => setHoveredValue(value.id)}
                     onMouseLeave={() => setHoveredValue(null)}
-                    className="group relative overflow-hidden rounded-xl xl:rounded-2xl bg-gradient-to-br from-white/90 to-white/70 dark:from-gray-800/90 dark:to-gray-900/70 border border-gray-200/50 dark:border-gray-700/50 hover:border-gradient-to-r hover:from-blue-500/30 hover:to-cyan-400/30 transition-all duration-500 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transform hover:-translate-y-1"
+                    className="group relative rounded-xl xl:rounded-2xl bg-gradient-to-br from-white/90 to-white/70 dark:from-gray-800/90 dark:to-gray-900/70 border border-gray-200/50 dark:border-gray-700/50 hover:border-blue-500/30 transition-all duration-500 shadow-lg hover:shadow-xl hover:shadow-blue-500/20 p-5 lg:p-6"
                     style={{
                       transform: hoveredValue === value.id ? 'translateY(-4px) scale(1.02)' : 'translateY(0) scale(1)',
                       transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
@@ -190,7 +191,7 @@ const About = () => {
                     </div>
                     
                     {/* Icon container with 3D effect */}
-                    <div className="relative z-10 text-gradient-to-r from-blue-500 to-cyan-400 mb-2 lg:mb-3 transform group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300">
+                    <div className="relative z-10 text-gradient-to-r from-blue-500 to-cyan-400 mb-3 lg:mb-4 transform group-hover:scale-110 transition-all duration-300">
                       <div className="relative">
                         <span className="material-symbols-outlined !text-[28px] lg:!text-[30px] xl:!text-[32px] relative z-10">
                           {value.icon}
@@ -230,82 +231,6 @@ const About = () => {
 
           {/* Right Column: Sidebar with enhanced animations */}
           <aside className="w-full lg:w-[400px] xl:w-[420px] flex-shrink-0 flex flex-col gap-6 xl:gap-8">
-            {/* Profile Summary with floating effect */}
-            <div className="relative bg-gradient-to-br from-white/95 to-white/90 dark:from-gray-800/95 dark:to-gray-900/90 border border-gray-200/50 dark:border-gray-700/50 rounded-xl xl:rounded-2xl p-6 lg:p-7 xl:p-8 flex flex-col items-center text-center shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 group transform hover:-translate-y-1">
-              {/* Animated border */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 rounded-xl xl:rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 -z-10"></div>
-              
-              {/* Profile image with glow */}
-              <div className="relative mb-4 lg:mb-5 xl:mb-6">
-                <img
-                  src={data.profile.image}
-                  alt="Portrait of Lemesa Girma"
-                  className="size-24 lg:size-28 xl:size-32 rounded-full object-cover ring-4 ring-white dark:ring-gray-900 group-hover:ring-8 transition-all duration-300 shadow-xl"
-                />
-                {/* Profile image glow */}
-                <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-blue-500/30 to-cyan-400/30 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
-                {/* Status indicator */}
-                <div className="absolute bottom-2 right-2 size-3 lg:size-4 rounded-full bg-gradient-to-r from-green-500 to-emerald-400 ring-2 ring-white dark:ring-gray-900 animate-pulse shadow-lg shadow-green-500/50"></div>
-              </div>
-              
-              <h3 className="text-xl lg:text-2xl xl:text-3xl font-bold text-gray-900 dark:text-white mb-1 lg:mb-2 transform group-hover:scale-105 transition-transform duration-300">
-                {data.profile.name}
-              </h3>
-              <p className="text-gradient-to-r from-blue-500 to-cyan-400 font-medium text-base lg:text-lg xl:text-xl mb-4 lg:mb-5 transform group-hover:translate-y-1 transition-transform duration-300">
-                {data.profile.title}
-              </p>
-              
-              {/* Animated separator */}
-              <div className="relative w-full my-3 lg:my-4">
-                <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent"></div>
-                <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 size-2 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 group-hover:scale-150 transition-transform duration-300"></div>
-              </div>
-              
-              <div className="w-full flex flex-col gap-3 lg:gap-4 mt-3 lg:mt-4 text-left">
-                <div className="flex items-center gap-3 text-base lg:text-lg xl:text-lg text-gray-600 dark:text-gray-400 group/item hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300">
-                  <span className="material-symbols-outlined text-lg lg:text-xl xl:text-2xl text-blue-500/70 group-hover/item:text-blue-500 group-hover/item:scale-110 transition-all duration-300">
-                    location_on
-                  </span>
-                  <span className="transform group-hover/item:translate-x-1 transition-transform duration-300">
-                    {data.profile.location}
-                  </span>
-                </div>
-                <div className="flex items-center gap-3 text-base lg:text-lg xl:text-lg text-gray-600 dark:text-gray-400 group/item hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300">
-                  <span className="material-symbols-outlined text-lg lg:text-xl xl:text-2xl text-blue-500/70 group-hover/item:text-blue-500 group-hover/item:scale-110 transition-all duration-300">
-                    mail
-                  </span>
-                  <span className="transform group-hover/item:translate-x-1 transition-transform duration-300">
-                    {data.profile.email}
-                  </span>
-                </div>
-              </div>
-              
-              {/* Animated button */}
-              <button className="w-full mt-6 lg:mt-7 xl:mt-8 relative overflow-hidden flex items-center justify-center rounded-lg h-10 lg:h-12 xl:h-14 bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500 text-white text-base lg:text-lg xl:text-xl font-bold transition-all duration-500 group/btn shadow-lg hover:shadow-xl hover:shadow-blue-500/30 transform hover:-translate-y-0.5">
-                {/* Button shine effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000"></div>
-                {/* Button particles */}
-                <div className="absolute inset-0 overflow-hidden opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300">
-                  {[...Array(5)].map((_, i) => (
-                    <div 
-                      key={i}
-                      className="absolute w-1 h-1 rounded-full bg-white/50 animate-float"
-                      style={{
-                        left: `${10 + i * 15}%`,
-                        top: '20%',
-                        animationDelay: `${i * 0.1}s`,
-                        animationDuration: '1s'
-                      }}
-                    ></div>
-                  ))}
-                </div>
-                <span className="relative z-10">Contact Me</span>
-                <span className="material-symbols-outlined ml-2 relative z-10 group-hover/btn:translate-x-1 group-hover/btn:rotate-12 transition-all duration-300">
-                  arrow_forward
-                </span>
-              </button>
-            </div>
-
             {/* Education card with diploma animation */}
             <div className="bg-gradient-to-br from-white/95 to-white/90 dark:from-gray-800/95 dark:to-gray-900/90 border border-gray-200/50 dark:border-gray-700/50 rounded-xl xl:rounded-2xl p-6 lg:p-7 xl:p-8 shadow-xl hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-500 group">
               <h4 className="text-base lg:text-lg xl:text-xl font-bold uppercase tracking-wider text-gray-500 mb-4 lg:mb-5 xl:mb-6 flex items-center gap-2 lg:gap-3 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-300">

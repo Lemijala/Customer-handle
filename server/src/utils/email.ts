@@ -1,15 +1,5 @@
 import nodemailer from 'nodemailer';
 
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-  port: Number(process.env.EMAIL_PORT) || 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
-
 interface ContactEmailOptions {
   name: string;
   email: string;
@@ -19,7 +9,17 @@ interface ContactEmailOptions {
 }
 
 export const sendContactEmail = async (data: ContactEmailOptions): Promise<void> => {
-  // Notify owner
+
+  const transporter = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+    port: Number(process.env.EMAIL_PORT) || 587,
+    secure: false,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
   await transporter.sendMail({
     from: process.env.EMAIL_FROM,
     to: process.env.EMAIL_TO,
@@ -38,7 +38,6 @@ export const sendContactEmail = async (data: ContactEmailOptions): Promise<void>
     `,
   });
 
-  // Auto-reply to sender
   await transporter.sendMail({
     from: process.env.EMAIL_FROM,
     to: data.email,

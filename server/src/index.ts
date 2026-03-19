@@ -3,11 +3,14 @@ import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
+import path from 'path';
+
+// Load .env relative to this file, not the cwd
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
 import connectDB from './utils/db';
 import routes from './routes';
 import { errorHandler } from './middleware/errorHandler';
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
