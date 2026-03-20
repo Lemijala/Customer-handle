@@ -98,17 +98,6 @@ const Insights = () => {
                 </div>
                 <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Published Writing</h2>
               </div>
-              <a 
-                href="#" 
-                className="hidden sm:flex items-center gap-1 text-sm text-primary font-medium group/btn animate-slide-up"
-                style={{animationDelay: '0.1s'}}
-              >
-                View all articles 
-                <span className="material-symbols-outlined text-base group-hover/btn:translate-x-1 group-hover/btn:rotate-12 transition-all duration-300">
-                  arrow_forward
-                </span>
-              </a>
-            </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {data.articles.map((article, index) => (

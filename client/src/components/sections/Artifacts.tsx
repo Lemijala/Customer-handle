@@ -164,12 +164,6 @@ const Artifacts: React.FC = () => {
                 System Architecture
               </h2>
             </div>
-            <button className="text-primary text-sm font-bold hover:underline flex items-center gap-1 group/btn transform hover:translate-x-1 transition-transform duration-300">
-              View All Diagrams 
-              <span className="material-symbols-outlined text-base group-hover/btn:translate-x-1 transition-transform duration-300">
-                arrow_forward
-              </span>
-            </button>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
