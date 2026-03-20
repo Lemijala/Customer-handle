@@ -1,49 +1,14 @@
 // File path: src/components/sections/Hero.tsx
 
 import { useState, useEffect } from 'react';
-import type { Persona, TechStackItem, DashboardMetric } from '../../types/hero';
-import { defaultPersonas, defaultTechStack, defaultMetrics } from '../../types/hero';
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
-interface LiveStats {
-  uptime: string;
-  totalMessages: number;
-  memoryUsage: string;
-  cpuLoad: string;
-  dbStatus: string;
-  processUptime: number;
-  nodeVersion: string;
-  platform: string;
-  timestamp: string;
-}
+import type { TechStackItem } from '../../types/hero';
+import { defaultTechStack } from '../../types/hero';
 
 const Hero = () => {
-  const [personas, setPersonas] = useState<Persona[]>(defaultPersonas);
   const [techStack] = useState<TechStackItem[]>(defaultTechStack);
-  const [metrics] = useState<DashboardMetric[]>(defaultMetrics);
-  const [activePersona, setActivePersona] = useState<number>(1);
-  const [liveStats, setLiveStats] = useState<LiveStats | null>(null);
   const [ghRepos, setGhRepos] = useState<number | null>(null);
-  const [hoveredPersona, setHoveredPersona] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-
-  // Fetch real stats from backend
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const res = await fetch(`${API_URL}/api/stats`);
-        const data = await res.json();
-        if (data.success) setLiveStats(data.data);
-      } catch {
-        // silently fail — dashboard shows fallback values
-      }
-    };
-    fetchStats();
-    const interval = setInterval(fetchStats, 30000); // refresh every 30s
-    return () => clearInterval(interval);
-  }, []);
 
   // Profile picture — served from /public/profile.jpg
   const profilePictureUrl = "/profile.png";
@@ -56,53 +21,14 @@ const Hero = () => {
       .catch(() => {});
   }, []);
 
+  // Mouse parallax — desktop only
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
       if (!isMobile) setMousePosition({ x: e.clientX, y: e.clientY });
     };
     if (!isMobile) window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  const handlePersonaClick = (id: number) => {
-    setPersonas(personas.map(p => ({
-      ...p,
-      isActive: p.id === id
-    })));
-    setActivePersona(id);
-    
-    // Add animation effect
-    const button = document.querySelector(`[data-persona="${id}"]`);
-    if (button) {
-      button.classList.add('persona-click');
-      setTimeout(() => button.classList.remove('persona-click'), 300);
-    }
-  };
-
-  // Generate GitHub contribution graph with animation
-  const generateGitHubGraph = () => {
-    const cells = [];
-    const intensities = [5, 20, 60, 5, 40, 100, 5, 20, 5, 80, 40, 5, 20, 5, 60, 100, 100, 40, 5, 20, 5, 60, 100, 5, 20, 80, 5, 40, 60, 5, 20, 100];
-    
-    for (let i = 0; i < 32; i++) {
-      let bgClass = 'bg-white/5 group-hover/graph:bg-white/10';
-      if (intensities[i] > 75) bgClass = 'bg-gradient-to-b from-blue-500 to-cyan-400 group-hover/graph:from-blue-400 group-hover/graph:to-cyan-300';
-      else if (intensities[i] > 50) bgClass = 'bg-gradient-to-b from-blue-500/80 to-cyan-400/80 group-hover/graph:from-blue-400/80 group-hover/graph:to-cyan-300/80';
-      else if (intensities[i] > 25) bgClass = 'bg-gradient-to-b from-blue-500/40 to-cyan-400/40 group-hover/graph:from-blue-400/40 group-hover/graph:to-cyan-300/40';
-      else if (intensities[i] > 10) bgClass = 'bg-gradient-to-b from-blue-500/20 to-cyan-400/20 group-hover/graph:from-blue-400/20 group-hover/graph:to-cyan-300/20';
-
-      cells.push(
-        <div 
-          key={i} 
-          className={`rounded-sm transition-all duration-300 hover:scale-110 hover:shadow-[0_0_10px_rgba(59,130,246,0.5)] ${bgClass}`}
-          style={{
-            animationDelay: `${i * 50}ms`,
-            animationDuration: '0.5s'
-          }}
-        ></div>
-      );
-    }
-    
-    return cells;
-  };
+  }, [isMobile]);
 
   // Duplicate tech stack for seamless animation
   const duplicatedTechStack = [...techStack, ...techStack, ...techStack];

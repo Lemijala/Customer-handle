@@ -21,6 +21,7 @@ const Contact: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', organization: '', inquiryType: '', message: '', rating: 0 });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [statusMsg, setStatusMsg] = useState('');
+  const [attempt, setAttempt] = useState(0);
 
   // Wake up the backend as soon as this section loads
   useEffect(() => {
@@ -43,8 +44,10 @@ const Contact: React.FC = () => {
     e.preventDefault();
     setStatus('loading');
     setStatusMsg('');
+    setAttempt(0);
 
-    const trySubmit = async (attempt: number): Promise<void> => {
+    const trySubmit = async (attemptNum: number): Promise<void> => {
+      setAttempt(attemptNum);
       try {
         const res = await fetch(`${API_URL}/api/contact`, {
           method: 'POST',
@@ -58,10 +61,10 @@ const Contact: React.FC = () => {
         setFormData({ name: '', email: '', organization: '', inquiryType: '', message: '', rating: 0 });
         setTimeout(() => setStatus('idle'), 4000);
       } catch (err: unknown) {
-        if (attempt < 2) {
-          // Wait 3s then retry (gives server time to wake up)
-          await new Promise(r => setTimeout(r, 3000));
-          return trySubmit(attempt + 1);
+        if (attemptNum < 3) {
+          const delay = attemptNum === 0 ? 5000 : attemptNum === 1 ? 15000 : 20000;
+          await new Promise(r => setTimeout(r, delay));
+          return trySubmit(attemptNum + 1);
         }
         setStatus('error');
         setStatusMsg('Server is waking up. Please try again in 30 seconds.');
@@ -157,7 +160,12 @@ const Contact: React.FC = () => {
                   <button type="submit" disabled={status === 'loading'}
                     className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-primary hover:bg-blue-600 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 px-8 rounded-xl transition-all shadow-lg shadow-blue-500/25 overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                    <span className="relative z-10">{status === 'loading' ? 'Sending...' : 'Submit'}</span>
+                    <span className="relative z-10">
+                      {status === 'loading'
+                        ? attempt === 0 ? 'Sending...'
+                        : `Retrying... (${attempt}/3)`
+                        : 'Submit'}
+                    </span>
                     <span className="material-symbols-outlined text-[20px] relative z-10 group-hover:translate-x-1 transition-transform">
                       {status === 'loading' ? 'hourglass_empty' : 'send'}
                     </span>
