@@ -1,27 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
-interface RecentContact {
-  _id: string;
-  name: string;
-  inquiryType?: string;
-  rating?: number;
-  createdAt: string;
-}
-
-interface LiveStats {
-  uptime: string;
-  totalMessages: number;
-  unreadMessages: number;
-  avgRating: number | null;
-  ratingCount: number;
-  recentContacts: RecentContact[];
-  memoryUsage: string;
-  cpuLoad: string;
-  dbStatus: string;
-  processUptime: number;
-}
 
 const StarRating: React.FC<{ value: number; onChange: (v: number) => void }> = ({ value, onChange }) => {
   const [hovered, setHovered] = useState(0);
@@ -38,35 +17,10 @@ const StarRating: React.FC<{ value: number; onChange: (v: number) => void }> = (
   );
 };
 
-const timeAgo = (dateStr: string) => {
-  const diff = Date.now() - new Date(dateStr).getTime();
-  const mins = Math.floor(diff / 60000);
-  if (mins < 1) return 'just now';
-  if (mins < 60) return `${mins}m ago`;
-  const hrs = Math.floor(mins / 60);
-  if (hrs < 24) return `${hrs}h ago`;
-  return `${Math.floor(hrs / 24)}d ago`;
-};
-
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', organization: '', inquiryType: '', message: '', rating: 0 });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [statusMsg, setStatusMsg] = useState('');
-  const [liveStats, setLiveStats] = useState<LiveStats | null>(null);
-
-  const fetchStats = async () => {
-    try {
-      const res = await fetch(`${API_URL}/api/stats`);
-      const data = await res.json();
-      if (data.success) setLiveStats(data.data);
-    } catch { /* silent */ }
-  };
-
-  useEffect(() => {
-    fetchStats();
-    const interval = setInterval(fetchStats, 20000);
-    return () => clearInterval(interval);
-  }, []);
 
   const timeSlots = [
     { id: 1, time: '09:00 AM', available: true },
@@ -95,7 +49,6 @@ const Contact: React.FC = () => {
       setStatus('success');
       setStatusMsg('Message received! I will get back to you within 24 hours.');
       setFormData({ name: '', email: '', organization: '', inquiryType: '', message: '', rating: 0 });
-      fetchStats();
       setTimeout(() => setStatus('idle'), 4000);
     } catch (err: unknown) {
       setStatus('error');
