@@ -327,7 +327,7 @@ const Hero = () => {
                   </div>
                   <div className="h-4 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent mx-1 md:mx-2"></div>
                   <span className="text-gradient-to-r from-blue-500 to-cyan-400 text-[10px] md:text-xs uppercase tracking-widest font-mono animate-gradient">
-                    Live System Status
+                    Skills &amp; Stats
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5 opacity-0 group-hover/dashboard:opacity-100 transition-opacity duration-500">
@@ -341,33 +341,40 @@ const Hero = () => {
                 </div>
               </div>
 
-              <div className="p-5 md:p-6">
-                <div className="grid grid-cols-2 gap-4">
+              <div className="p-5 md:p-6 space-y-4">
+                {/* Stats row */}
+                <div className="grid grid-cols-3 gap-3">
                   {[
-                    { label: 'System Uptime', value: liveStats?.uptime ?? '99.98%', badge: null },
-                    { label: 'Messages Received', value: liveStats?.totalMessages ?? '—', badge: 'live' },
-                    { label: 'Memory', value: liveStats?.memoryUsage ?? '—', badge: null },
-                    { label: 'DB', value: liveStats?.dbStatus ?? 'checking...', badge: null },
-                    {
-                      label: 'Server Up',
-                      value: liveStats
-                        ? liveStats.processUptime < 60
-                          ? `${liveStats.processUptime}s`
-                          : liveStats.processUptime < 3600
-                          ? `${Math.floor(liveStats.processUptime / 60)}m`
-                          : `${Math.floor(liveStats.processUptime / 3600)}h`
-                        : '—',
-                      badge: null,
-                    },
-                    { label: 'Node', value: liveStats?.nodeVersion ?? '—', badge: 'live' },
-                  ].map(({ label, value, badge }) => (
-                    <div key={label} className="flex flex-col gap-1 p-3 rounded-xl bg-gray-50 dark:bg-[#162032]/80 border border-gray-200 dark:border-white/5">
-                      <span className="text-[10px] uppercase tracking-wider text-gray-500 dark:text-gray-400">{label}</span>
-                      <div className="flex items-center gap-2">
-                        <span className="text-lg font-black font-mono text-slate-900 dark:text-white">{value}</span>
-                        {badge && (
-                          <span className="text-[10px] font-bold text-blue-500 bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded-full">{badge}</span>
-                        )}
+                    { value: '3+', label: 'Years Exp', icon: 'workspace_premium', color: 'from-blue-500 to-cyan-400' },
+                    { value: liveStats?.totalMessages != null ? String(liveStats.totalMessages) : '∞', label: 'Messages', icon: 'mail', color: 'from-purple-500 to-pink-400' },
+                    { value: '20+', label: 'Projects', icon: 'rocket_launch', color: 'from-orange-500 to-amber-400' },
+                  ].map(({ value, label, icon, color }) => (
+                    <div key={label} className="flex flex-col items-center gap-1 p-3 rounded-xl bg-gray-50 dark:bg-[#162032]/80 border border-gray-200 dark:border-white/5 group/stat hover:scale-105 transition-transform duration-300">
+                      <span className={`material-symbols-outlined text-[20px] bg-gradient-to-r ${color} bg-clip-text text-transparent`}>{icon}</span>
+                      <span className="text-xl font-black font-mono text-slate-900 dark:text-white">{value}</span>
+                      <span className="text-[9px] uppercase tracking-wider text-gray-500 dark:text-gray-400">{label}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Skill bars */}
+                <div className="space-y-2.5">
+                  {[
+                    { skill: 'React / TypeScript', pct: 92, color: 'from-blue-500 to-cyan-400' },
+                    { skill: 'Node.js / Express', pct: 88, color: 'from-green-500 to-emerald-400' },
+                    { skill: 'MongoDB / PostgreSQL', pct: 80, color: 'from-purple-500 to-violet-400' },
+                    { skill: 'Docker / Cloud', pct: 72, color: 'from-orange-500 to-amber-400' },
+                  ].map(({ skill, pct, color }) => (
+                    <div key={skill} className="space-y-1">
+                      <div className="flex justify-between items-center">
+                        <span className="text-[11px] font-medium text-gray-600 dark:text-gray-300">{skill}</span>
+                        <span className="text-[11px] font-bold font-mono text-gray-500 dark:text-gray-400">{pct}%</span>
+                      </div>
+                      <div className="h-1.5 w-full bg-gray-200 dark:bg-white/5 rounded-full overflow-hidden">
+                        <div
+                          className={`h-full bg-gradient-to-r ${color} rounded-full animate-expand-width shadow-sm`}
+                          style={{ width: `${pct}%`, animationDuration: '1.2s', animationFillMode: 'both' }}
+                        />
                       </div>
                     </div>
                   ))}

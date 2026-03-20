@@ -318,6 +318,15 @@ body.no-scroll {
 }
 
 /* Add these to your existing animations */
+
+@keyframes expand-width {
+  from { width: 0%; }
+}
+
+.animate-expand-width {
+  animation: expand-width 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
 @keyframes float-subtle {
   0%, 100% {
     transform: translateY(0);
