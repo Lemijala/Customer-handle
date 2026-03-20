@@ -96,9 +96,11 @@ const Contact: React.FC = () => {
       setStatusMsg('Message received! I will get back to you within 24 hours.');
       setFormData({ name: '', email: '', organization: '', inquiryType: '', message: '', rating: 0 });
       fetchStats();
+      setTimeout(() => setStatus('idle'), 4000);
     } catch (err: unknown) {
       setStatus('error');
       setStatusMsg(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
+      setTimeout(() => setStatus('idle'), 4000);
     }
   };
 
@@ -122,6 +124,20 @@ const Contact: React.FC = () => {
                 <span className="material-symbols-outlined text-primary">mail</span>
                 <h2 className="text-2xl font-bold tracking-tight">Contact Me</h2>
               </div>
+
+              {/* Toast */}
+              {status === 'success' && (
+                <div className="flex items-center gap-3 bg-green-500 text-white font-semibold text-sm px-5 py-4 rounded-xl shadow-lg shadow-green-500/30 mb-5 animate-fadeIn">
+                  <span className="material-symbols-outlined text-[20px]">check_circle</span>
+                  Message received! I will get back to you within 24 hours.
+                </div>
+              )}
+              {status === 'error' && (
+                <div className="flex items-center gap-3 bg-red-500 text-white font-semibold text-sm px-5 py-4 rounded-xl shadow-lg shadow-red-500/30 mb-5 animate-fadeIn">
+                  <span className="material-symbols-outlined text-[20px]">error</span>
+                  {statusMsg}
+                </div>
+              )}
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <label className="flex flex-col gap-2">
@@ -178,18 +194,6 @@ const Contact: React.FC = () => {
                       {status === 'loading' ? 'hourglass_empty' : 'send'}
                     </span>
                   </button>
-                  {status === 'success' && (
-                    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-green-500 text-white font-semibold text-sm px-5 py-4 rounded-2xl shadow-2xl shadow-green-500/40 animate-fadeIn">
-                      <span className="material-symbols-outlined text-[20px]">check_circle</span>
-                      Message received! I will get back to you within 24 hours.
-                    </div>
-                  )}
-                  {status === 'error' && (
-                    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-red-500 text-white font-semibold text-sm px-5 py-4 rounded-2xl shadow-2xl shadow-red-500/40 animate-fadeIn">
-                      <span className="material-symbols-outlined text-[20px]">error</span>
-                      {statusMsg}
-                    </div>
-                  )}
                 </div>
               </form>
             </div>
