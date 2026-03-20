@@ -1,18 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 
-// Replays every time the element enters/leaves the viewport
+const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
 export function useReveal(threshold = 0.1, rootMargin = '0px 0px -60px 0px') {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  // On mobile: start visible immediately — no hiding content
+  const [visible, setVisible] = useState(isMobile);
 
   useEffect(() => {
+    if (isMobile) return; // skip observer on mobile
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        // Toggle on scroll down AND scroll up
-        setVisible(entry.isIntersecting);
-      },
+      ([entry]) => setVisible(entry.isIntersecting),
       { threshold, rootMargin }
     );
     observer.observe(el);
