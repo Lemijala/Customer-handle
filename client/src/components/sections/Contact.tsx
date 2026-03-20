@@ -93,7 +93,7 @@ const Contact: React.FC = () => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Submission failed');
       setStatus('success');
-      setStatusMsg(data.message || 'Message sent!');
+      setStatusMsg('Message received! I will get back to you within 24 hours.');
       setFormData({ name: '', email: '', organization: '', inquiryType: '', message: '', rating: 0 });
       fetchStats();
     } catch (err: unknown) {
@@ -178,8 +178,18 @@ const Contact: React.FC = () => {
                       {status === 'loading' ? 'hourglass_empty' : 'send'}
                     </span>
                   </button>
-                  {status === 'success' && <p className="text-green-500 text-sm font-medium">{statusMsg}</p>}
-                  {status === 'error' && <p className="text-red-500 text-sm font-medium">{statusMsg}</p>}
+                  {status === 'success' && (
+                    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-green-500 text-white font-semibold text-sm px-5 py-4 rounded-2xl shadow-2xl shadow-green-500/40 animate-fadeIn">
+                      <span className="material-symbols-outlined text-[20px]">check_circle</span>
+                      Message received! I will get back to you within 24 hours.
+                    </div>
+                  )}
+                  {status === 'error' && (
+                    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-red-500 text-white font-semibold text-sm px-5 py-4 rounded-2xl shadow-2xl shadow-red-500/40 animate-fadeIn">
+                      <span className="material-symbols-outlined text-[20px]">error</span>
+                      {statusMsg}
+                    </div>
+                  )}
                 </div>
               </form>
             </div>
