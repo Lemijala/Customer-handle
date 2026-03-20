@@ -24,6 +24,7 @@ const Hero = () => {
   const [metrics] = useState<DashboardMetric[]>(defaultMetrics);
   const [activePersona, setActivePersona] = useState<number>(1);
   const [liveStats, setLiveStats] = useState<LiveStats | null>(null);
+  const [ghRepos, setGhRepos] = useState<number | null>(null);
   const [hoveredPersona, setHoveredPersona] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -46,8 +47,14 @@ const Hero = () => {
   // Profile picture — served from /public/profile.jpg
   const profilePictureUrl = "/profile.png";
 
+  // Fetch GitHub repo count
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    fetch('https://api.github.com/users/Lemijala')
+      .then(r => r.json())
+      .then(d => { if (d.public_repos != null) setGhRepos(d.public_repos); })
+      .catch(() => {});
+  }, []);
+
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener('mousemove', handleMouseMove);
@@ -292,7 +299,7 @@ const Hero = () => {
                   </div>
                   <div className="h-4 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent mx-1 md:mx-2"></div>
                   <span className="text-gradient-to-r from-blue-500 to-cyan-400 text-[10px] md:text-xs uppercase tracking-widest font-mono animate-gradient">
-                    Skills &amp; Stats
+                    {ghRepos != null ? `${ghRepos} GitHub Repos` : 'Skills & Stats'}
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5 opacity-0 group-hover/dashboard:opacity-100 transition-opacity duration-500">
