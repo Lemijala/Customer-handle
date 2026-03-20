@@ -315,11 +315,10 @@ const Hero = () => {
 
               <div className="p-5 md:p-6 space-y-4">
                 {/* Stats row */}
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 gap-3">
                   {[
                     { value: '3+', label: 'Years Exp', icon: 'workspace_premium', color: 'from-blue-500 to-cyan-400' },
-                    { value: liveStats?.totalMessages != null ? String(liveStats.totalMessages) : '∞', label: 'Messages', icon: 'mail', color: 'from-purple-500 to-pink-400' },
-                    { value: '20+', label: 'Projects', icon: 'rocket_launch', color: 'from-orange-500 to-amber-400' },
+                    { value: ghRepos != null ? String(ghRepos) : '—', label: 'Projects', icon: 'rocket_launch', color: 'from-orange-500 to-amber-400' },
                   ].map(({ value, label, icon, color }) => (
                     <div key={label} className="flex flex-col items-center gap-1 p-3 rounded-xl bg-gray-50 dark:bg-[#162032]/80 border border-gray-200 dark:border-white/5 group/stat hover:scale-105 transition-transform duration-300">
                       <span className={`material-symbols-outlined text-[20px] bg-gradient-to-r ${color} bg-clip-text text-transparent`}>{icon}</span>
