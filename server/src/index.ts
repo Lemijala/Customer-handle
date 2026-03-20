@@ -19,7 +19,9 @@ const PORT = process.env.PORT || 5000;
 connectDB();
 
 // Middleware
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+}));
 app.use(cors({
   origin: (origin, callback) => {
     const allowed = (process.env.CLIENT_URL || 'http://localhost:5173').split(',').map(s => s.trim());
