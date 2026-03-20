@@ -62,7 +62,8 @@ const Contact: React.FC = () => {
         setTimeout(() => setStatus('idle'), 4000);
       } catch (err: unknown) {
         if (attemptNum < 3) {
-          const delay = attemptNum === 0 ? 5000 : attemptNum === 1 ? 15000 : 20000;
+          const delay = attemptNum === 0 ? 8000 : attemptNum === 1 ? 20000 : 25000;
+          setStatusMsg(`Server is waking up, retrying... (${attemptNum + 1}/3)`);
           await new Promise(r => setTimeout(r, delay));
           return trySubmit(attemptNum + 1);
         }
@@ -101,6 +102,12 @@ const Contact: React.FC = () => {
                 <div className="flex items-center gap-3 bg-green-500 text-white font-semibold text-sm px-5 py-4 rounded-xl shadow-lg shadow-green-500/30 mb-5 animate-fadeIn">
                   <span className="material-symbols-outlined text-[20px]">check_circle</span>
                   Message received! I will get back to you within 24 hours.
+                </div>
+              )}
+              {status === 'loading' && statusMsg && (
+                <div className="flex items-center gap-3 bg-blue-500/10 border border-blue-500/30 text-blue-400 font-medium text-sm px-5 py-4 rounded-xl mb-5">
+                  <span className="material-symbols-outlined text-[20px] animate-spin">autorenew</span>
+                  {statusMsg}
                 </div>
               )}
               {status === 'error' && (

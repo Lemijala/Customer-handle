@@ -4,11 +4,18 @@ import { useState, useEffect } from 'react';
 import type { TechStackItem } from '../../types/hero';
 import { defaultTechStack } from '../../types/hero';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const Hero = () => {
   const [techStack] = useState<TechStackItem[]>(defaultTechStack);
   const [ghRepos, setGhRepos] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
+  // Wake up Render backend immediately on app load
+  useEffect(() => {
+    fetch(`${API_URL}/api/health`).catch(() => {});
+  }, []);
 
   // Profile picture — served from /public/profile.jpg
   const profilePictureUrl = "/profile.png";
