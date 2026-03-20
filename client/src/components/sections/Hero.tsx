@@ -146,41 +146,6 @@ const Hero = () => {
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-12 xl:gap-16 2xl:gap-20">
           {/* Left Column: Hero Text & CTAs */}
           <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left space-y-8 md:space-y-10 lg:space-y-12">
-            {/* Persona Toggle with enhanced animation */}
-            <div className="inline-flex p-1 bg-gradient-to-r from-gray-800/50 to-gray-900/50 border border-white/10 rounded-2xl backdrop-blur-lg shadow-2xl shadow-black/30 group/persona">
-              <div className="relative flex items-center">
-                {/* Animated background */}
-                <div 
-                  className="absolute h-9 md:h-10 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-xl transition-all duration-500 ease-out shadow-lg shadow-blue-500/30"
-                  style={{
-                    width: `${100 / personas.length}%`,
-                    transform: `translateX(${personas.findIndex(p => p.isActive) * 100}%)`
-                  }}
-                ></div>
-                
-                {personas.map((persona) => (
-                  <button
-                    key={persona.id}
-                    data-persona={persona.id}
-                    onClick={() => handlePersonaClick(persona.id)}
-                    onMouseEnter={() => setHoveredPersona(persona.id)}
-                    onMouseLeave={() => setHoveredPersona(null)}
-                    className={`relative z-10 px-4 md:px-5 py-2 md:py-2.5 text-xs md:text-sm font-bold uppercase tracking-wider transition-all duration-300 ${
-                      persona.isActive
-                        ? 'text-slate-900 dark:text-white'
-                        : 'text-gray-500 hover:text-slate-900 dark:text-gray-400 dark:hover:text-white'
-                    }`}
-                  >
-                    {persona.name}
-                    {/* Hover indicator */}
-                    {hoveredPersona === persona.id && !persona.isActive && (
-                      <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 rounded-full bg-blue-500/50 animate-pulse"></div>
-                    )}
-                  </button>
-                ))}
-              </div>
-            </div>
-
             {/* Hero Content with Profile Picture */}
             <div className="space-y-4 md:space-y-6 w-full transform transition-transform duration-300"
               style={{
@@ -280,17 +245,6 @@ const Hero = () => {
                 <span>Currently building: <span className="text-slate-700 dark:text-gray-300 font-medium">AI-powered logistics platform</span></span>
               </div>
               <div className="flex flex-wrap gap-3 md:gap-4">
-              {/* Resume Download */}
-              <a
-                href="/resume.pdf"
-                download="Lemesa_Girma_Resume.pdf"
-                className="group relative inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105 active:scale-95 transition-all duration-300 overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                <span className="material-symbols-outlined text-[18px] relative z-10">download</span>
-                <span className="relative z-10 text-sm md:text-base">Resume</span>
-              </a>
-
               {/* Resume Download */}
               <a
                 href="/resume.pdf"
