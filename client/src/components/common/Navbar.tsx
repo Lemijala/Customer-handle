@@ -225,7 +225,7 @@ const Navbar = ({ dark, onToggleDark }: NavbarProps) => {
         }}></div>
       </div>
 
-      <div className="relative z-10 w-full px-4 md:px-8 lg:px-16">
+      <div className="relative z-10 w-full max-w-full px-4 md:px-8 lg:px-16 overflow-hidden">
         <div className="flex items-center justify-between h-14 md:h-16">
           {/* Logo with enhanced animation */}
           <button 
@@ -236,29 +236,8 @@ const Navbar = ({ dark, onToggleDark }: NavbarProps) => {
             {/* Glow effect container */}
             <div className="absolute -inset-3 rounded-2xl bg-gradient-to-br from-primary/20 to-cyan-400/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
             
-            <div className="logo-icon size-10 md:size-12 bg-gradient-to-br from-primary via-blue-500 to-cyan-400 rounded-xl md:rounded-2xl flex items-center justify-center shadow-2xl shadow-primary/30 group-hover:shadow-primary/50 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 relative">
-              {/* Animated border */}
-              <div className="absolute -inset-1 rounded-xl md:rounded-2xl border-2 border-primary/30 group-hover:border-primary/50 transition-all duration-500"></div>
-              
-              <span className="material-symbols-outlined text-[22px] md:text-[26px] text-white group-hover:scale-110 transition-transform duration-300">
-                terminal
-              </span>
-              
-              {/* Floating particles around logo */}
-              <div className="absolute inset-0 overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                {[...Array(6)].map((_, i) => (
-                  <div 
-                    key={i}
-                    className="absolute w-1 h-1 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 animate-float"
-                    style={{
-                      left: `${15 + i * 15}%`,
-                      top: `${20 + i * 5}%`,
-                      animationDelay: `${i * 0.2}s`,
-                      animationDuration: `${3 + i * 0.5}s`
-                    }}
-                  ></div>
-                ))}
-              </div>
+            <div className="logo-icon size-10 md:size-12 rounded-xl md:rounded-2xl overflow-hidden shadow-2xl shadow-primary/30 group-hover:shadow-primary/50 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 relative flex-shrink-0">
+              <img src="/logo.png" alt="Lemitech" className="w-full h-full object-cover" />
             </div>
             
             <div className="flex flex-col">
@@ -267,7 +246,7 @@ const Navbar = ({ dark, onToggleDark }: NavbarProps) => {
               </h2>
               <span className="text-[9px] md:text-[10px] text-gray-400 font-medium tracking-widest uppercase mt-0.5 opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-500 flex items-center gap-1">
                 <span className="w-2 h-px bg-gradient-to-r from-primary to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
-                Systems Architecture
+                Software Developer
                 <span className="w-2 h-px bg-gradient-to-r from-primary to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
               </span>
             </div>
