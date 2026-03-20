@@ -24,9 +24,13 @@ app.use(helmet({
 }));
 app.use(cors({
   origin: (origin, callback) => {
-    const allowed = (process.env.CLIENT_URL || 'http://localhost:5173').split(',').map(s => s.trim());
-    // allow requests with no origin (mobile apps, curl, etc.)
-    if (!origin || allowed.includes(origin)) return callback(null, true);
+    // Allow requests with no origin (mobile apps, curl, Render health checks)
+    if (!origin) return callback(null, true);
+    const allowed = (process.env.CLIENT_URL || 'https://customer-handle.vercel.app')
+      .split(',').map(s => s.trim());
+    if (allowed.includes(origin) || allowed.includes('*')) return callback(null, true);
+    // Also allow any vercel.app subdomain as fallback
+    if (origin.endsWith('.vercel.app')) return callback(null, true);
     callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
