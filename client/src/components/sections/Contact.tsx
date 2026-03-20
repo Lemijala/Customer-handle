@@ -128,7 +128,7 @@ const Contact: React.FC = () => {
                     <span className="text-sm font-medium text-slate-700 dark:text-gray-300">Name</span>
                     <input type="text" name="name" value={formData.name} onChange={handleInputChange}
                       className="w-full rounded-xl border border-gray-300 dark:border-[#3b4354] bg-slate-50 dark:bg-[#111318] text-slate-900 dark:text-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 h-12 px-4 placeholder:text-gray-400 transition-colors"
-                      placeholder="Jane Doe" />
+                      placeholder="Lemesa Girma" />
                   </label>
                   <label className="flex flex-col gap-2">
                     <span className="text-sm font-medium text-slate-700 dark:text-gray-300">Work Email</span>
