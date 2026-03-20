@@ -43,28 +43,33 @@ const Contact: React.FC = () => {
     e.preventDefault();
     setStatus('loading');
     setStatusMsg('');
-    try {
-      const res = await fetch(`${API_URL}/api/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, rating: formData.rating || undefined }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || 'Submission failed');
-      setStatus('success');
-      setStatusMsg('Message received! I will get back to you within 24 hours.');
-      setFormData({ name: '', email: '', organization: '', inquiryType: '', message: '', rating: 0 });
-      setTimeout(() => setStatus('idle'), 4000);
-    } catch (err: unknown) {
-      setStatus('error');
-      const msg = err instanceof Error ? err.message : '';
-      setStatusMsg(
-        msg.includes('fetch') || msg.includes('network') || msg === 'Failed to fetch'
-          ? 'Server is waking up, please try again in 30 seconds.'
-          : msg || 'Something went wrong. Please try again.'
-      );
-      setTimeout(() => setStatus('idle'), 6000);
-    }
+
+    const trySubmit = async (attempt: number): Promise<void> => {
+      try {
+        const res = await fetch(`${API_URL}/api/contact`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...formData, rating: formData.rating || undefined }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || 'Submission failed');
+        setStatus('success');
+        setStatusMsg('Message received! I will get back to you within 24 hours.');
+        setFormData({ name: '', email: '', organization: '', inquiryType: '', message: '', rating: 0 });
+        setTimeout(() => setStatus('idle'), 4000);
+      } catch (err: unknown) {
+        if (attempt < 2) {
+          // Wait 3s then retry (gives server time to wake up)
+          await new Promise(r => setTimeout(r, 3000));
+          return trySubmit(attempt + 1);
+        }
+        setStatus('error');
+        setStatusMsg('Server is waking up. Please try again in 30 seconds.');
+        setTimeout(() => setStatus('idle'), 6000);
+      }
+    };
+
+    await trySubmit(0);
   };
 
   return (
