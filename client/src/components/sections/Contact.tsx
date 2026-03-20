@@ -199,7 +199,7 @@ const Contact: React.FC = () => {
             </div>
           </div>
 
-          {/* Right: Status + Booking */}
+          {/* Right: Booking + Contact */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             {/* Book a Call */}
             <div className="bg-white dark:bg-[#162032] border border-gray-200 dark:border-[#282e39] rounded-2xl p-6 shadow-sm">
