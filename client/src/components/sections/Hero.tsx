@@ -291,6 +291,17 @@ const Hero = () => {
                 <span className="relative z-10 text-sm md:text-base">Resume</span>
               </a>
 
+              {/* Resume Download */}
+              <a
+                href="/resume.pdf"
+                download="Lemesa_Girma_Resume.pdf"
+                className="group relative inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105 active:scale-95 transition-all duration-300 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                <span className="material-symbols-outlined text-[18px] relative z-10">download</span>
+                <span className="relative z-10 text-sm md:text-base">Resume</span>
+              </a>
+
               {/* GitHub */}
               <a
                 href="https://github.com/Lemijala"
