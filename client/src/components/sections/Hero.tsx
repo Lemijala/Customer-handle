@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import type { TechStackItem } from '../../types/hero';
 import { defaultTechStack } from '../../types/hero';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_URL = import.meta.env.VITE_API_URL || 'https://lamitec.onrender.com';
 
 const Hero = () => {
   const [techStack] = useState<TechStackItem[]>(defaultTechStack);
