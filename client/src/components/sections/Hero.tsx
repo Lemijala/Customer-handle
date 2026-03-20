@@ -27,6 +27,7 @@ const Hero = () => {
   const [ghRepos, setGhRepos] = useState<number | null>(null);
   const [hoveredPersona, setHoveredPersona] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   // Fetch real stats from backend
   useEffect(() => {
@@ -55,9 +56,9 @@ const Hero = () => {
       .catch(() => {});
   }, []);
 
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      if (!isMobile) setMousePosition({ x: e.clientX, y: e.clientY });
     };
-    window.addEventListener('mousemove', handleMouseMove);
+    if (!isMobile) window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 

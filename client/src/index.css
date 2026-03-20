@@ -527,3 +527,28 @@ pre, code {
     overflow-y: auto;
   }
 }
+
+/* Mobile performance: reduce heavy animations */
+@media (max-width: 768px) {
+  .animate-float,
+  .animate-float-slow,
+  .animate-float-slow-delayed,
+  .animate-float-fast,
+  .animate-light-beam,
+  .animate-light-beam-delayed {
+    animation: none !important;
+  }
+
+  /* Smooth native scroll on iOS */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Disable blur effects on mobile (expensive) */
+  .backdrop-blur-xl,
+  .backdrop-blur-lg,
+  .backdrop-blur-sm {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
