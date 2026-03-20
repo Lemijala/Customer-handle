@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
@@ -21,6 +21,11 @@ const Contact: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', organization: '', inquiryType: '', message: '', rating: 0 });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [statusMsg, setStatusMsg] = useState('');
+
+  // Wake up the backend as soon as this section loads
+  useEffect(() => {
+    fetch(`${API_URL}/api/health`).catch(() => {});
+  }, []);
 
   const timeSlots = [
     { id: 1, time: '09:00 AM', available: true },
@@ -52,8 +57,13 @@ const Contact: React.FC = () => {
       setTimeout(() => setStatus('idle'), 4000);
     } catch (err: unknown) {
       setStatus('error');
-      setStatusMsg(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
-      setTimeout(() => setStatus('idle'), 4000);
+      const msg = err instanceof Error ? err.message : '';
+      setStatusMsg(
+        msg.includes('fetch') || msg.includes('network') || msg === 'Failed to fetch'
+          ? 'Server is waking up, please try again in 30 seconds.'
+          : msg || 'Something went wrong. Please try again.'
+      );
+      setTimeout(() => setStatus('idle'), 6000);
     }
   };
 
