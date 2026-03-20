@@ -221,8 +221,9 @@ const Skills = () => {
           {/* Animated header glow */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-0 group-hover/table:opacity-100 transition-opacity duration-500"></div>
           
-          <div className="overflow-x-auto custom-scrollbar">
-            <table className="w-full min-w-[800px] lg:min-w-[1000px] xl:min-w-[1200px] text-left border-collapse">
+          <div className="overflow-x-auto custom-scrollbar -mx-4 sm:mx-0">
+            <div className="min-w-[320px] px-4 sm:px-0">
+            <table className="w-full min-w-[600px] lg:min-w-[800px] text-left border-collapse">
               <thead>
                 <tr className="bg-gray-50 dark:bg-[#0f1623] border-b border-gray-200 dark:border-[#282e39]">
                   <th className="px-6 lg:px-8 py-4 lg:py-5 text-xs font-bold text-slate-400 uppercase tracking-wider w-[25%] group/th">
@@ -389,6 +390,7 @@ const Skills = () => {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
           
           {/* Animated table footer */}

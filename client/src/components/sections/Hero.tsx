@@ -104,8 +104,8 @@ const Hero = () => {
       {/* Animated Background Elements */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         {/* Floating gradient orbs */}
-        <div className="absolute top-1/4 -left-40 w-[800px] h-[800px] bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 rounded-full blur-3xl animate-float-slow opacity-30"></div>
-        <div className="absolute bottom-1/3 -right-40 w-[600px] h-[600px] bg-gradient-to-l from-blue-500/10 via-indigo-500/10 to-teal-500/10 rounded-full blur-3xl animate-float-slow-delayed opacity-30"></div>
+        <div className="absolute top-1/4 -left-40 w-[800px] h-[800px] bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 rounded-full blur-3xl animate-float-slow opacity-30 pointer-events-none select-none"></div>
+        <div className="absolute bottom-1/3 -right-40 w-[600px] h-[600px] bg-gradient-to-l from-blue-500/10 via-indigo-500/10 to-teal-500/10 rounded-full blur-3xl animate-float-slow-delayed opacity-30 pointer-events-none select-none"></div>
         
         {/* Particle system */}
         <div className="absolute inset-0">
@@ -142,7 +142,7 @@ const Hero = () => {
       </div>
 
       {/* Main Content Container */}
-      <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 lg:py-16 xl:py-20">
+      <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 lg:py-16 xl:py-20 overflow-hidden w-full">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-12 xl:gap-16 2xl:gap-20">
           {/* Left Column: Hero Text & CTAs */}
           <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left space-y-8 md:space-y-10 lg:space-y-12">
