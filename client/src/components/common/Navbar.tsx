@@ -22,6 +22,11 @@ const Navbar = ({ dark, onToggleDark }: NavbarProps) => {
     { label: 'Contact', id: 'contact', icon: 'mail' },
   ];
 
+  // Cleanup scroll lock on unmount
+  useEffect(() => {
+    return () => { document.body.classList.remove('no-scroll'); };
+  }, []);
+
   // Handle scroll effect ONLY for background changes and active section
   useEffect(() => {
     let ticking = false;
@@ -105,6 +110,7 @@ const Navbar = ({ dark, onToggleDark }: NavbarProps) => {
       
       setActiveSection(sectionId);
       setIsMenuOpen(false);
+      document.body.classList.remove('no-scroll');
     }
   };
 
@@ -187,8 +193,9 @@ const Navbar = ({ dark, onToggleDark }: NavbarProps) => {
 
   // Handle mobile menu toggle with enhanced animation
   const handleMenuToggle = () => {
-    setIsMenuOpen(!isMenuOpen);
-    if (!isMenuOpen) {
+    const opening = !isMenuOpen;
+    setIsMenuOpen(opening);
+    if (opening) {
       document.body.classList.add('no-scroll');
     } else {
       document.body.classList.remove('no-scroll');
