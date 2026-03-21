@@ -1,18 +1,24 @@
 import { useEffect, useRef, useState } from 'react';
 
-const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-
 export function useReveal(threshold = 0.1, rootMargin = '0px 0px -60px 0px') {
   const ref = useRef<HTMLDivElement>(null);
-  // On mobile: start visible immediately — no hiding content
-  const [visible, setVisible] = useState(isMobile);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (isMobile) return; // skip observer on mobile
+    // On mobile: immediately visible, no observer
+    if (window.innerWidth < 768) {
+      setVisible(true);
+      return;
+    }
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect(); // once visible, stay visible forever
+        }
+      },
       { threshold, rootMargin }
     );
     observer.observe(el);
