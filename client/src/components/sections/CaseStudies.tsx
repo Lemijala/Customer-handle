@@ -149,7 +149,7 @@ const CaseStudies = () => {
       </div>
 
       {/* Main Content Container */}
-      <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8">
         {/* Page Header with Expert Animations */}
         <section className="flex flex-col gap-4 lg:gap-6 mb-10 lg:mb-12 xl:mb-16 group/header">
           <div className="flex flex-col gap-2 lg:gap-3">

@@ -29,7 +29,7 @@ const About = () => {
       </div>
 
       {/* Main Layout Container */}
-      <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 xl:py-16">
+      <div className="relative z-10 max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-8 lg:py-12 xl:py-16">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 xl:gap-12">
           {/* Left Column: Main Narrative */}
           <main className="flex-1 flex flex-col gap-10 xl:gap-12 min-w-0">

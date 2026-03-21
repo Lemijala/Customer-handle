@@ -73,7 +73,7 @@ const Skills = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8">
         {/* Page Header with enhanced animation */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 lg:gap-6 pb-4 lg:pb-6 border-b border-border-dark/50 mb-6 lg:mb-8">
           <div className="flex flex-col gap-2 lg:gap-3 group/header">

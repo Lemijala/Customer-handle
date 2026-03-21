@@ -78,7 +78,7 @@ const Contact: React.FC = () => {
 
   return (
     <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white">
-      <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-10 py-8 sm:py-12">
+      <div className="w-full max-w-[1280px] mx-auto px-3 sm:px-6 py-8 sm:py-12">
         <div className="flex flex-col gap-4 mb-12">
           <h1 className="text-slate-900 dark:text-white text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-[-0.033em]">
             Let's Build Something <span className="text-primary">Scalable</span>

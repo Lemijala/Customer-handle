@@ -83,7 +83,7 @@ const Hero = () => {
       </div>
 
       {/* Main Content Container */}
-      <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 lg:py-16 xl:py-20 overflow-hidden w-full">
+      <div className="relative z-10 max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-8 md:py-12 lg:py-16 xl:py-20 overflow-hidden w-full">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-12 xl:gap-16 2xl:gap-20">
           {/* Left Column: Hero Text & CTAs */}
           <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left space-y-8 md:space-y-10 lg:space-y-12">

@@ -154,7 +154,7 @@ const Artifacts: React.FC = () => {
         </div>
 
         {/* Section 1: System Architecture */}
-        <section className="mt-8 px-4 md:px-8 lg:px-12 animate-slide-in" style={{animationDelay: '0.1s'}}>
+        <section className="mt-8 px-3 sm:px-6 md:px-8 lg:px-12 animate-slide-in" style={{animationDelay: '0.1s'}}>
           <div className="flex items-center justify-between pb-3 pt-5 border-b border-[#282e39]/50 mb-4 group/title">
             <div className="flex items-center gap-3">
               <div className="flex items-center justify-center size-8 rounded-lg bg-gradient-to-br from-blue-500/20 to-blue-500/5 border border-blue-500/20 text-blue-500 group-hover/title:scale-110 group-hover/title:rotate-6 transition-all duration-300">
@@ -243,7 +243,7 @@ const Artifacts: React.FC = () => {
         </section>
 
         {/* Section 3: Technical Writing */}
-        <section className="mt-12 px-4 md:px-8 lg:px-12 animate-slide-in" style={{animationDelay: '0.3s'}}>
+        <section className="mt-12 px-3 sm:px-6 md:px-8 lg:px-12 animate-slide-in" style={{animationDelay: '0.3s'}}>
           <div className="flex items-center gap-3 pb-3 border-b border-[#282e39]/50 mb-6 group/title">
             <div className="flex items-center justify-center size-8 rounded-lg bg-gradient-to-br from-purple-500/20 to-purple-500/5 border border-purple-500/20 text-purple-500 group-hover/title:scale-110 group-hover/title:rotate-6 transition-all duration-300">
               <span className="material-symbols-outlined !text-[20px]">description</span>
@@ -319,7 +319,7 @@ const Artifacts: React.FC = () => {
         </section>
 
         {/* Section 4: Verification & Proof */}
-        <section className="mt-12 px-4 md:px-8 lg:px-12 mb-12 animate-slide-in" style={{animationDelay: '0.4s'}}>
+        <section className="mt-12 px-3 sm:px-6 md:px-8 lg:px-12 mb-12 animate-slide-in" style={{animationDelay: '0.4s'}}>
           <div className="flex items-center gap-3 pb-3 border-b border-[#282e39]/50 mb-6 group/title">
             <div className="flex items-center justify-center size-8 rounded-lg bg-gradient-to-br from-yellow-500/20 to-yellow-500/5 border border-yellow-500/20 text-yellow-500 group-hover/title:scale-110 group-hover/title:rotate-6 transition-all duration-300">
               <span className="material-symbols-outlined !text-[20px]">verified</span>

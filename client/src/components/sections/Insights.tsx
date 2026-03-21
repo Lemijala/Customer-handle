@@ -28,7 +28,7 @@ const Insights = () => {
       {/* Main Content */}
       <main className="relative z-10 flex-grow flex flex-col items-center w-full">
         {/* Hero Section - Enhanced */}
-        <section className="w-full px-4 md:px-6 lg:px-8 py-12 md:py-16 lg:py-24">
+        <section className="w-full px-3 sm:px-6 md:px-6 lg:px-8 py-12 md:py-16 lg:py-24">
           <div className="max-w-[1400px] mx-auto">
             <div className="relative rounded-2xl overflow-hidden bg-gray-100 dark:bg-surface-dark min-h-[400px] flex items-center justify-center text-center p-6 md:p-8 lg:p-16">
               {/* Animated background */}
@@ -89,7 +89,7 @@ const Insights = () => {
         </section>
 
         {/* Published Writing Grid - Enhanced */}
-        <section className="w-full px-4 md:px-6 lg:px-8 py-8 md:py-12">
+        <section className="w-full px-3 sm:px-6 md:px-6 lg:px-8 py-8 md:py-12">
           <div className="max-w-[1400px] mx-auto">
             <div className="flex items-center justify-between mb-8 group/title animate-slide-in">
               <div className="flex items-center gap-3">
@@ -182,7 +182,7 @@ const Insights = () => {
         </section>
 
         {/* Engineering Principles - Enhanced */}
-        <section className="w-full px-4 md:px-6 lg:px-8 py-8 md:py-12 lg:py-16 bg-gray-50 dark:bg-surface-dark/50 border-y border-gray-200 dark:border-gray-800">
+        <section className="w-full px-3 sm:px-6 md:px-6 lg:px-8 py-8 md:py-12 lg:py-16 bg-gray-50 dark:bg-surface-dark/50 border-y border-gray-200 dark:border-gray-800">
           <div className="max-w-[1400px] mx-auto w-full">
             <div className="mb-8 md:mb-10 text-center md:text-left animate-slide-in">
               <div className="flex items-center gap-3 mb-2 group/title">
