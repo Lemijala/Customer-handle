@@ -552,3 +552,14 @@ pre, code {
     -webkit-backdrop-filter: none !important;
   }
 }
+
+/* ── Mobile: disable entry animations so content shows instantly ── */
+@media (max-width: 767px) {
+  .animate-slide-in,
+  .animate-slide-up,
+  .animate-gradient-shift {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
