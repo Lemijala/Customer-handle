@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/common/Layout';
 import Reveal from './components/common/Reveal';
 import Hero from './components/sections/Hero';
+import AdminLogin from './pages/AdminLogin';
+import AdminDashboard from './pages/AdminDashboard';
 
 const About = lazy(() => import('./components/sections/About'));
 const Skills = lazy(() => import('./components/sections/Skills'));
@@ -21,19 +23,28 @@ const SectionFallback = () => (
 function App() {
   return (
     <BrowserRouter>
-      <Layout>
-        <Suspense fallback={<SectionFallback />}>
-          <Routes>
-            <Route path="/" element={<Hero />} />
-            <Route path="/about" element={<Reveal direction="left" duration={1000} delay={0}><About /></Reveal>} />
-            <Route path="/skills" element={<Reveal direction="right" duration={1000} delay={0}><Skills /></Reveal>} />
-            <Route path="/case-studies" element={<Reveal direction="up" duration={1000} delay={0}><CaseStudies /></Reveal>} />
-            <Route path="/artifacts" element={<Reveal direction="up" duration={1000} delay={0}><Artifacts /></Reveal>} />
-            <Route path="/contact" element={<Reveal direction="up" duration={1000} delay={0}><Contact /></Reveal>} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </Suspense>
-      </Layout>
+      <Routes>
+        {/* Admin routes — no layout */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+
+        {/* Public routes — with layout */}
+        <Route path="/*" element={
+          <Layout>
+            <Suspense fallback={<SectionFallback />}>
+              <Routes>
+                <Route path="/" element={<Hero />} />
+                <Route path="/about" element={<Reveal direction="left" duration={1000} delay={0}><About /></Reveal>} />
+                <Route path="/skills" element={<Reveal direction="right" duration={1000} delay={0}><Skills /></Reveal>} />
+                <Route path="/case-studies" element={<Reveal direction="up" duration={1000} delay={0}><CaseStudies /></Reveal>} />
+                <Route path="/artifacts" element={<Reveal direction="up" duration={1000} delay={0}><Artifacts /></Reveal>} />
+                <Route path="/contact" element={<Reveal direction="up" duration={1000} delay={0}><Contact /></Reveal>} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </Suspense>
+          </Layout>
+        } />
+      </Routes>
     </BrowserRouter>
   );
 }

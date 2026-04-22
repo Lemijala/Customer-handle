@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import os from 'os';
 import mongoose from 'mongoose';
 import Contact from '../models/Contact';
+import Subscriber from '../models/Subscriber';
 
 const serverStartTime = Date.now();
 
@@ -13,6 +14,7 @@ export const getStats = async (_req: Request, res: Response): Promise<void> => {
 
     const totalMessages = await Contact.countDocuments();
     const unreadMessages = await Contact.countDocuments({ isRead: false });
+    const totalSubscribers = await Subscriber.countDocuments();
 
     // Average star rating from contacts that left a rating
     const ratingAgg = await Contact.aggregate([
@@ -45,6 +47,7 @@ export const getStats = async (_req: Request, res: Response): Promise<void> => {
         uptime: `${uptimePct}%`,
         totalMessages,
         unreadMessages,
+        totalSubscribers,
         avgRating,
         ratingCount,
         recentContacts,

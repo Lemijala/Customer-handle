@@ -14,9 +14,16 @@ const Hero = () => {
     fetch(`${API_URL}/api/health`).catch(() => {});
   }, []);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
+      try {
+        await fetch(`${API_URL}/api/subscribe`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+      } catch { /* silently fail */ }
       setSubscribed(true);
       setEmail('');
       setTimeout(() => setSubscribed(false), 3000);
