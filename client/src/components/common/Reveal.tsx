@@ -14,16 +14,17 @@ interface RevealProps {
 }
 
 const hidden: Record<Direction, CSSProperties> = {
-  left:  { opacity: 0, transform: 'translateX(-80px) scale(0.97)' },
-  right: { opacity: 0, transform: 'translateX(80px) scale(0.97)' },
-  up:    { opacity: 0, transform: 'translateY(70px) scale(0.97)' },
-  down:  { opacity: 0, transform: 'translateY(-70px) scale(0.97)' },
-  zoom:  { opacity: 0, transform: 'scale(0.72) translateY(30px)' },
+  left:  { opacity: 0, transform: 'translateX(-60px) scale(0.95)', filter: 'blur(4px)' },
+  right: { opacity: 0, transform: 'translateX(60px) scale(0.95)', filter: 'blur(4px)' },
+  up:    { opacity: 0, transform: 'translateY(50px) scale(0.95)', filter: 'blur(4px)' },
+  down:  { opacity: 0, transform: 'translateY(-50px) scale(0.95)', filter: 'blur(4px)' },
+  zoom:  { opacity: 0, transform: 'scale(0.8)', filter: 'blur(8px)' },
 };
 
 const shown: CSSProperties = {
   opacity: 1,
   transform: 'translateX(0) translateY(0) scale(1)',
+  filter: 'blur(0px)',
 };
 
 const Reveal = ({
@@ -39,7 +40,8 @@ const Reveal = ({
 
   const style: CSSProperties = {
     transition: `opacity ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms,
-                 transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
+                 transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms,
+                 filter ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
     ...(visible ? shown : hidden[direction]),
   };
 

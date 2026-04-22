@@ -1,6 +1,7 @@
 // File path: src/components/common/Navbar.tsx
 
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface NavbarProps {
   dark: boolean;
@@ -8,187 +9,63 @@ interface NavbarProps {
 }
 
 const Navbar = ({ dark, onToggleDark }: NavbarProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   const navItems = [
-    { label: 'Home', id: 'home', icon: 'home' },
-    { label: 'About', id: 'about', icon: 'person' },
-    { label: 'Experience', id: 'skills', icon: 'work' },
-    { label: 'Projects', id: 'case-studies', icon: 'folder' },
-    { label: 'Artifacts', id: 'artifacts', icon: 'code' },
-    { label: 'Contact', id: 'contact', icon: 'mail' },
+    { label: 'Home', id: 'home', path: '/', icon: 'home' },
+    { label: 'About', id: 'about', path: '/about', icon: 'person' },
+    { label: 'Experience', id: 'skills', path: '/skills', icon: 'work' },
+    { label: 'Projects', id: 'case-studies', path: '/case-studies', icon: 'folder' },
+    { label: 'Artifacts', id: 'artifacts', path: '/artifacts', icon: 'code' },
+    { label: 'Contact', id: 'contact', path: '/contact', icon: 'mail' },
   ];
+
+  const activeSection = navItems.find(item => item.path === location.pathname)?.id || 'home';
 
   // Cleanup scroll lock on unmount
   useEffect(() => {
     return () => { document.body.classList.remove('no-scroll'); };
   }, []);
 
-  // Handle scroll effect ONLY for background changes and active section
+  // Handle scroll effect for background changes
   useEffect(() => {
     let ticking = false;
-    
     const handleScroll = () => {
       if (!ticking) {
         ticking = true;
-        
         requestAnimationFrame(() => {
-          const scrollY = window.scrollY;
-          
-          // Update scrolled state with smoother transition
-          if (scrollY > 20) {
-            setIsScrolled(true);
-          } else {
-            setIsScrolled(false);
-          }
-
-          // Detect active section with better accuracy
-          const sections = navItems.map(item => ({
-            id: item.id,
-            element: document.getElementById(item.id)
-          }));
-
-          let currentActive = 'home';
-          let closestDistance = Infinity;
-          
-          for (const section of sections) {
-            if (section.element) {
-              const rect = section.element.getBoundingClientRect();
-              const distance = Math.abs(rect.top);
-              
-              if (rect.top <= 100 && rect.bottom >= 100) {
-                currentActive = section.id;
-                break;
-              }
-              
-              // Find closest section
-              if (distance < closestDistance) {
-                closestDistance = distance;
-                currentActive = section.id;
-              }
-            }
-          }
-
-          setActiveSection(currentActive);
+          setIsScrolled(window.scrollY > 20);
           ticking = false;
         });
       }
     };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    // Initial check
     handleScroll();
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Smooth scroll to section with animation
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      // Add ripple effect to clicked item
-      const clickedItem = document.querySelector(`[data-nav-item="${sectionId}"]`);
-      if (clickedItem) {
-        clickedItem.classList.add('active-click');
-        setTimeout(() => clickedItem.classList.remove('active-click'), 300);
-      }
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-      
-      setActiveSection(sectionId);
-      setIsMenuOpen(false);
-      document.body.classList.remove('no-scroll');
+    const item = navItems.find(n => n.id === sectionId);
+    if (item) {
+      navigate(item.path);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+    setIsMenuOpen(false);
+    document.body.classList.remove('no-scroll');
   };
 
-  // Handle logo click with enhanced animation
   const handleLogoClick = () => {
-    const logoIcon = document.querySelector('.logo-icon');
-    if (logoIcon) {
-      logoIcon.classList.add('logo-spin');
-      setTimeout(() => logoIcon.classList.remove('logo-spin'), 600);
-    }
-    
-    // Create ripple effect
-    const ripple = document.createElement('div');
-    ripple.style.cssText = `
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(59, 130, 246, 0.3);
-      transform: scale(0);
-      animation: ripple 0.6s linear;
-      pointer-events: none;
-    `;
-    
-    const logoBtn = document.querySelector('[data-logo-btn]');
-    if (logoBtn) {
-      const rect = logoBtn.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      const x = rect.left + rect.width / 2 - size / 2;
-      const y = rect.top + rect.height / 2 - size / 2;
-      
-      ripple.style.width = ripple.style.height = `${size}px`;
-      ripple.style.left = `${x}px`;
-      ripple.style.top = `${y}px`;
-      
-      document.body.appendChild(ripple);
-      setTimeout(() => ripple.remove(), 600);
-    }
-    
-    window.scrollTo({ 
-      top: 0, 
-      behavior: 'smooth' 
-    });
-    setActiveSection('home');
+    navigate('/');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Handle contact button click with enhanced animation
   const handleContactClick = () => {
-    const contactBtn = document.querySelector('.contact-button');
-    if (contactBtn) {
-      contactBtn.classList.add('button-pulse');
-      setTimeout(() => contactBtn.classList.remove('button-pulse'), 300);
-      
-      // Create particle burst
-      for (let i = 0; i < 8; i++) {
-        const particle = document.createElement('div');
-        particle.style.cssText = `
-          position: absolute;
-          width: 4px;
-          height: 4px;
-          background: linear-gradient(to right, #3b82f6, #06b6d4);
-          border-radius: 50%;
-          pointer-events: none;
-          opacity: 0;
-        `;
-        
-        const angle = (i / 8) * Math.PI * 2;
-        const distance = 40;
-        particle.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
-        particle.style.animation = `particleBurst 0.6s ease-out forwards`;
-        particle.style.animationDelay = `${i * 0.05}s`;
-        
-        contactBtn.appendChild(particle);
-        setTimeout(() => particle.remove(), 600);
-      }
-    }
-    
-    setTimeout(() => {
-      scrollToSection('contact');
-    }, 200);
+    navigate('/contact');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Handle mobile menu toggle with enhanced animation
@@ -233,7 +110,7 @@ const Navbar = ({ dark, onToggleDark }: NavbarProps) => {
       </div>
 
       <div className="relative z-10 w-full max-w-full px-4 md:px-8 lg:px-16 overflow-hidden">
-        <div className="flex items-center justify-between h-14 md:h-16">
+        <div className="flex items-center justify-center h-14 md:h-16 gap-8">
           {/* Logo with enhanced animation */}
           <button 
             data-logo-btn
@@ -362,18 +239,7 @@ const Navbar = ({ dark, onToggleDark }: NavbarProps) => {
               <div className="absolute inset-0 bg-gradient-to-b from-primary/0 via-primary/20 to-cyan-400/0 opacity-0 group-hover/separator:opacity-100 transition-opacity duration-500"></div>
             </div>
 
-            {/* GitHub link */}
-            <a
-              href="https://github.com/Lemijala"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub profile"
-              className="p-2 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300 group/gh"
-            >
-              <svg className="w-5 h-5 group-hover/gh:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-              </svg>
-            </a>
+
 
             {/* Dark mode toggle */}
             <button
@@ -527,19 +393,8 @@ const Navbar = ({ dark, onToggleDark }: NavbarProps) => {
                   </button>
                 ))}
                 
-                {/* Mobile GitHub + Dark Mode */}
+                {/* Mobile Dark Mode */}
                 <div className="flex items-center gap-3 px-4 pt-2 pb-1">
-                  <a
-                    href="https://github.com/Lemijala"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-300 text-sm font-medium"
-                  >
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-                    </svg>
-                    GitHub
-                  </a>
                   <button
                     onClick={onToggleDark}
                     className="ml-auto flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-300 text-sm font-medium"

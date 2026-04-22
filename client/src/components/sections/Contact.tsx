@@ -18,7 +18,7 @@ const StarRating: React.FC<{ value: number; onChange: (v: number) => void }> = (
 };
 
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', organization: '', inquiryType: '', message: '', rating: 0 });
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', organization: '', inquiryType: '', message: '', rating: 0 });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [statusMsg, setStatusMsg] = useState('');
   const [attempt, setAttempt] = useState(0);
@@ -58,7 +58,7 @@ const Contact: React.FC = () => {
         if (!res.ok) throw new Error(data.message || 'Submission failed');
         setStatus('success');
         setStatusMsg('Message received! I will get back to you within 24 hours.');
-        setFormData({ name: '', email: '', organization: '', inquiryType: '', message: '', rating: 0 });
+        setFormData({ name: '', email: '', phone: '', organization: '', inquiryType: '', message: '', rating: 0 });
         setTimeout(() => setStatus('idle'), 4000);
       } catch (err: unknown) {
         if (attemptNum < 3) {
@@ -79,9 +79,9 @@ const Contact: React.FC = () => {
   return (
     <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white">
       <div className="w-full max-w-[1280px] mx-auto px-3 sm:px-6 py-8 sm:py-12">
-        <div className="flex flex-col gap-4 mb-12">
+        <div className="flex flex-col gap-4 mb-12 items-center text-center">
           <h1 className="text-slate-900 dark:text-white text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-[-0.033em]">
-            Let's Build Something <span className="text-primary">Scalable</span>
+            The Best Way to Predict<br />the Future is to <span className="text-primary">Build It</span>
           </h1>
           <p className="text-slate-500 dark:text-gray-400 text-lg max-w-2xl">
             Reach out for consulting, speaking, or mentorship opportunities. I typically respond within 24 hours to professional inquiries.
@@ -133,6 +133,12 @@ const Contact: React.FC = () => {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <label className="flex flex-col gap-2">
+                    <span className="text-sm font-medium text-slate-700 dark:text-gray-300">Phone Number</span>
+                    <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange}
+                      className="w-full rounded-xl border border-gray-300 dark:border-[#3b4354] bg-slate-50 dark:bg-[#111318] text-slate-900 dark:text-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 h-12 px-4 placeholder:text-gray-400 transition-colors"
+                      placeholder="+251 900 000 000" />
+                  </label>
+                  <label className="flex flex-col gap-2">
                     <span className="text-sm font-medium text-slate-700 dark:text-gray-300">Organization</span>
                     <input type="text" name="organization" value={formData.organization} onChange={handleInputChange}
                       className="w-full rounded-xl border border-gray-300 dark:border-[#3b4354] bg-slate-50 dark:bg-[#111318] text-slate-900 dark:text-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 h-12 px-4 placeholder:text-gray-400 transition-colors"
@@ -182,42 +188,55 @@ const Contact: React.FC = () => {
             </div>
           </div>
 
-          {/* Right: Booking + Contact */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
-            {/* Book a Call */}
-            <div className="bg-white dark:bg-[#162032] border border-gray-200 dark:border-[#282e39] rounded-2xl p-6 shadow-sm">
-              <div className="flex items-center gap-3 mb-5">
-                <span className="material-symbols-outlined text-primary">calendar_month</span>
-                <h2 className="text-xl font-bold">Book a Call</h2>
-              </div>
-              <p className="text-sm text-slate-500 dark:text-gray-400 mb-4">Select an available time slot for a 30-minute discovery call.</p>
-              <div className="grid grid-cols-2 gap-3">
-                {timeSlots.map((slot) => (
-                  <button key={slot.id} disabled={!slot.available}
-                    className={`py-3 px-4 rounded-xl text-sm font-medium transition-all duration-300 ${
-                      slot.available
-                        ? 'bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-white hover:shadow-lg hover:shadow-primary/30'
-                        : 'bg-gray-100 dark:bg-gray-800/50 text-gray-400 border border-gray-200 dark:border-gray-700 cursor-not-allowed line-through'
-                    }`}>
-                    {slot.time}
-                  </button>
-                ))}
+          {/* Right: Location Images + Info */}
+          <div className="lg:col-span-5 flex flex-col gap-4">
+
+            {/* Addis Ababa */}
+            <div className="relative rounded-2xl overflow-hidden h-52 group">
+              <img src="/loc1.png" alt="Addis Ababa" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-1">
+                <span className="text-xs font-bold uppercase tracking-widest text-white/60">Office Location</span>
+                <div className="flex items-center gap-2 text-white font-bold text-lg">
+                  <span className="material-symbols-outlined text-[18px] text-primary">location_on</span>
+                  Addis Ababa, Ethiopia
+                </div>
               </div>
             </div>
 
-            {/* Direct Contact */}
-            <div className="bg-gradient-to-br from-primary/10 to-cyan-400/10 border border-primary/20 rounded-2xl p-6">
-              <h3 className="font-bold text-lg mb-3">Prefer direct contact?</h3>
-              <div className="flex flex-col gap-3">
-                <a href="mailto:tlemesagirma@gmail.com"
-                  className="flex items-center gap-3 text-sm text-slate-600 dark:text-gray-300 hover:text-primary transition-colors group">
-                  <span className="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">mail</span>
+            {/* Bule Hora */}
+            <div className="relative rounded-2xl overflow-hidden h-52 group">
+              <img src="/l2.png" alt="Bule Hora" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-1">
+                <span className="text-xs font-bold uppercase tracking-widest text-white/60">Branch Location</span>
+                <div className="flex items-center gap-2 text-white font-bold text-lg">
+                  <span className="material-symbols-outlined text-[18px] text-primary">location_on</span>
+                  Bule Hora, Ethiopia
+                </div>
+              </div>
+            </div>
+
+            {/* Contact Info */}
+            <div className="bg-white dark:bg-[#162032] border border-gray-200 dark:border-[#282e39] rounded-2xl p-5 flex flex-col gap-3">
+              <div className="flex items-center gap-3">
+                <span className="material-symbols-outlined text-primary text-[20px]">flag</span>
+                <span className="text-sm font-semibold text-slate-900 dark:text-white">Ethiopia</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="material-symbols-outlined text-primary text-[20px]">location_on</span>
+                <span className="text-sm text-slate-600 dark:text-gray-300">Addis Ababa, Ethiopia</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="material-symbols-outlined text-primary text-[20px]">mail</span>
+                <a href="mailto:tlemesagirma@gmail.com" className="text-sm text-slate-600 dark:text-gray-300 hover:text-primary transition-colors">
                   tlemesagirma@gmail.com
                 </a>
-                <a href="https://linkedin.com/in/lemesa" target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-sm text-slate-600 dark:text-gray-300 hover:text-primary transition-colors group">
-                  <span className="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">link</span>
-                  linkedin.com/in/lemesa
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="material-symbols-outlined text-primary text-[20px]">phone</span>
+                <a href="tel:+251914625479" className="text-sm text-slate-600 dark:text-gray-300 hover:text-primary transition-colors">
+                  +251 914 625 479
                 </a>
               </div>
             </div>
