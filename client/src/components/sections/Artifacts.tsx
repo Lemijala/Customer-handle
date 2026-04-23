@@ -186,11 +186,11 @@ const Artifacts = () => {
                 { label: 'Followers', value: ghStats?.followers ?? '—', icon: 'group', gradient: 'from-emerald-500 to-teal-400' },
                 { label: 'Total Stars', value: ghStats?.stars ?? '—', icon: 'star', gradient: 'from-orange-500 to-amber-400' },
               ].map((stat, i) => (
-                <div key={i} className="group flex flex-col items-center text-center gap-2 p-6 rounded-2xl bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                <div key={i} className="group flex flex-col items-center text-center gap-2 p-4 sm:p-6 rounded-2xl bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden">
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300`}>
                     <span className="material-symbols-outlined text-white text-[20px]">{stat.icon}</span>
                   </div>
-                  <span className={`text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r ${stat.gradient}`}>{stat.value}</span>
+                  <span className={`text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r ${stat.gradient} truncate w-full text-center`}>{stat.value}</span>
                   <span className="text-xs text-slate-500 dark:text-gray-400 font-medium">{stat.label}</span>
                 </div>
               ))}
