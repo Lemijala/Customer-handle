@@ -112,9 +112,27 @@ const Hero = () => {
           </Reveal>
         </div>
 
-        {/* Flag image */}
+        {/* Mobile image carousel — auto scrolling right to left */}
+        <div className="lg:hidden overflow-hidden mb-8 -mx-4">
+          <div className="flex gap-4" style={{ width: 'max-content', animation: 'marquee 15s linear infinite' }}>
+            {[
+              { src: '/pc-image.png', alt: 'Project preview' },
+              { src: '/lemtech-flag.png', alt: 'LemiTech' },
+              { src: '/left-side-mobile-screen.png', alt: 'Mobile App' },
+              { src: '/pc-image.png', alt: 'Project preview' },
+              { src: '/lemtech-flag.png', alt: 'LemiTech' },
+              { src: '/left-side-mobile-screen.png', alt: 'Mobile App' },
+            ].map((img, i) => (
+              <div key={i} className="flex-shrink-0 w-52 h-36 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
+                <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Flag image — desktop only */}
         <Reveal direction="zoom" duration={900} delay={200}>
-          <div className="max-w-lg mx-auto w-full rounded-2xl overflow-hidden bg-gray-900 aspect-video border border-gray-800 hover:scale-[1.02] transition-transform duration-300">
+          <div className="hidden lg:block max-w-lg mx-auto w-full rounded-2xl overflow-hidden bg-gray-900 aspect-video border border-gray-800 hover:scale-[1.02] transition-transform duration-300">
             <img src="/lemtech-flag.png" alt="LemiTech Flag" className="w-full h-full object-cover"
               onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
           </div>
