@@ -146,7 +146,7 @@ const Hero = () => {
                   ))}
                 </div>
                 <p className="text-xs text-slate-500 dark:text-gray-400">
-                  <span className="font-bold text-slate-900 dark:text-white">{(clientStats?.totalClients ?? 0) + 15}+</span> clients trust us
+                  <span className="font-bold text-slate-900 dark:text-white">{clientStats?.totalClients ?? 0}+</span> clients trust us
                 </p>
               </div>
             </div>
