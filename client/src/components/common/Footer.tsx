@@ -1,22 +1,23 @@
 // File path: src/components/common/Footer.tsx
 
+import { useNavigate } from 'react-router-dom';
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const navigate = useNavigate();
 
   const quickLinks = [
-    { label: 'Home', href: '#home' },
-    { label: 'About', href: '#about' },
-    { label: 'Experience', href: '#skills' },
-    { label: 'Projects', href: '#case-studies' },
-    { label: 'Artifacts', href: '#artifacts' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'Home', path: '/' },
+    { label: 'About', path: '/about' },
+    { label: 'Experience', path: '/skills' },
+    { label: 'Projects', path: '/case-studies' },
+    { label: 'Artifacts', path: '/artifacts' },
+    { label: 'Contact', path: '/contact' },
   ];
 
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id.replace('#', ''));
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handleNav = (path: string) => {
+    navigate(path);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -65,7 +66,7 @@ const Footer = () => {
               {quickLinks.map((link) => (
                 <li key={link.label}>
                   <button
-                    onClick={() => scrollToSection(link.href)}
+                    onClick={() => handleNav(link.path)}
                     className="text-sm text-slate-600 dark:text-gray-400 hover:text-primary transition-colors flex items-center gap-2"
                   >
                     <span className="material-symbols-outlined text-[14px]">chevron_right</span>
