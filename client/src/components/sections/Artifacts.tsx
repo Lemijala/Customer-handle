@@ -30,7 +30,7 @@ const Artifacts = () => {
           if (r.language) langCount[r.language] = (langCount[r.language] || 0) + 1;
           totalStars += r.stargazers_count || 0;
         });
-        const topLang = Object.entries(langCount).sort((a, b) => b[1] - a[1])[0]?.[0] ?? 'TypeScript';
+        const topLang = Object.entries(langCount).sort((a, b) => b[1] - a[1])[0]?.[0] ?? 'Python';
         setGhStats({ repos: user.public_repos, topLang, followers: user.followers, stars: totalStars });
       } catch { /* silently fail */ }
     };
