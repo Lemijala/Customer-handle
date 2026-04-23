@@ -68,12 +68,12 @@ const Navbar = ({ dark, onToggleDark }: NavbarProps) => {
           </button>
 
           {/* Nav links — each item its own pill */}
-          <nav className="hidden md:flex items-center gap-2">
+          <nav className="hidden md:flex items-center gap-1.5">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`relative flex items-center gap-1.5 px-4 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-300 border ${
+                className={`relative flex items-center gap-1.5 px-3 lg:px-4 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-300 border ${
                   activeSection === item.id
                     ? 'bg-gradient-to-r from-blue-500 to-cyan-400 text-white border-transparent shadow-lg shadow-blue-500/30'
                     : isScrolled
@@ -82,7 +82,7 @@ const Navbar = ({ dark, onToggleDark }: NavbarProps) => {
                 }`}
               >
                 <span className="material-symbols-outlined text-[15px]">{item.icon}</span>
-                {item.label}
+                <span className="hidden lg:inline">{item.label}</span>
               </button>
             ))}
           </nav>
@@ -102,10 +102,10 @@ const Navbar = ({ dark, onToggleDark }: NavbarProps) => {
           {/* Contact Me pill */}
           <button
             onClick={handleContactClick}
-            className="hidden md:flex items-center gap-2 bg-gradient-to-r from-blue-500 to-cyan-400 text-white text-sm font-bold px-5 py-2.5 rounded-2xl shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105 hover:-translate-y-0.5 active:scale-95 transition-all duration-300 flex-shrink-0"
+            className="hidden md:flex items-center gap-2 bg-gradient-to-r from-blue-500 to-cyan-400 text-white text-sm font-bold px-3 lg:px-5 py-2.5 rounded-2xl shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105 hover:-translate-y-0.5 active:scale-95 transition-all duration-300 flex-shrink-0"
           >
             <span className="material-symbols-outlined text-[16px]">mail</span>
-            Contact Me
+            <span className="hidden lg:inline">Contact Me</span>
           </button>
 
           {/* Mobile menu button */}
