@@ -1,41 +1,11 @@
 // File path: src/components/sections/Artifacts.tsx
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Reveal from '../common/Reveal';
 
-interface GitHubStats {
-  repos: number;
-  topLang: string;
-  followers: number;
-  stars: number;
-}
-
 const Artifacts = () => {
-  const [ghStats, setGhStats] = useState<GitHubStats | null>(null);
   const [hoveredRepo, setHoveredRepo] = useState<number | null>(null);
   const [hoveredTestimonial, setHoveredTestimonial] = useState<number | null>(null);
-
-  useEffect(() => {
-    const fetchGitHub = async () => {
-      try {
-        const [userRes, reposRes] = await Promise.all([
-          fetch('https://api.github.com/users/Lemijala'),
-          fetch('https://api.github.com/users/Lemijala/repos?per_page=100')
-        ]);
-        const user = await userRes.json();
-        const repos = await reposRes.json();
-        const langCount: Record<string, number> = {};
-        let totalStars = 0;
-        repos.forEach((r: { language?: string; stargazers_count?: number }) => {
-          if (r.language) langCount[r.language] = (langCount[r.language] || 0) + 1;
-          totalStars += r.stargazers_count || 0;
-        });
-        const topLang = Object.entries(langCount).sort((a, b) => b[1] - a[1])[0]?.[0] ?? 'Python';
-        setGhStats({ repos: user.public_repos, topLang, followers: user.followers, stars: totalStars });
-      } catch { /* silently fail */ }
-    };
-    fetchGitHub();
-  }, []);
 
   const repos = [
     {
@@ -169,32 +139,6 @@ const Artifacts = () => {
             <p className="text-slate-500 dark:text-gray-400 text-lg leading-relaxed max-w-2xl">
               Open source work, technical writing, and client testimonials — a transparent look at how LemiTech builds and thinks.
             </p>
-          </div>
-        </Reveal>
-
-        {/* GitHub Stats */}
-        <Reveal direction="up" duration={700} delay={0}>
-          <div className="flex flex-col gap-6">
-            <div className="flex items-center gap-3">
-              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 animate-pulse"></div>
-              <h2 className="text-2xl font-black text-slate-900 dark:text-white">GitHub Activity</h2>
-            </div>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {[
-                { label: 'Public Repos', value: ghStats?.repos ?? '—', icon: 'folder', gradient: 'from-blue-500 to-cyan-400' },
-                { label: 'Top Language', value: ghStats?.topLang ?? '—', icon: 'code', gradient: 'from-violet-500 to-purple-400' },
-                { label: 'Followers', value: ghStats?.followers ?? '—', icon: 'group', gradient: 'from-emerald-500 to-teal-400' },
-                { label: 'Total Stars', value: ghStats?.stars ?? '—', icon: 'star', gradient: 'from-orange-500 to-amber-400' },
-              ].map((stat, i) => (
-                <div key={i} className="group flex flex-col items-center text-center gap-2 p-4 sm:p-6 rounded-2xl bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300`}>
-                    <span className="material-symbols-outlined text-white text-[20px]">{stat.icon}</span>
-                  </div>
-                  <span className={`text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r ${stat.gradient} truncate w-full text-center`}>{stat.value}</span>
-                  <span className="text-xs text-slate-500 dark:text-gray-400 font-medium">{stat.label}</span>
-                </div>
-              ))}
-            </div>
           </div>
         </Reveal>
 

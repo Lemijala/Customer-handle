@@ -398,46 +398,67 @@ const About = () => {
                 bio: 'Strategic leader and Engineering Lead, with expertise in technology and business development.',
                 email: 'tlemesagirma@gmail.com',
                 photo: '/p3.jpg',
+                gradient: 'from-blue-500 to-cyan-400',
+                badge: 'CEO',
               },
-              { name: 'Bruk Hayal', role: 'Co-Founder', bio: 'Passionate builder driving innovation and growth.', email: '', photo: null },
-              { name: 'Kasawun Tesfaye', role: 'Lead Developer', bio: 'Full-stack engineer crafting scalable digital products.', email: '', photo: null },
-              { name: 'Bezawit Tadese', role: 'Designer', bio: 'Creative mind behind every pixel and user experience.', email: '', photo: null },
+              {
+                name: 'Bruk Hayal',
+                role: 'Co-Founder',
+                bio: 'Passionate builder driving innovation and growth across the organization.',
+                email: '',
+                photo: '/team/bruk.png',
+                gradient: 'from-violet-500 to-purple-400',
+                badge: null,
+              },
+              {
+                name: 'Kasawun Tesfaye',
+                role: 'Lead Developer',
+                bio: 'Full-stack engineer crafting scalable and performant digital products.',
+                email: '',
+                photo: '/team/kasawun.png',
+                gradient: 'from-emerald-500 to-teal-400',
+                badge: null,
+              },
+              {
+                name: 'Bezawit Tadese',
+                role: 'Designer',
+                bio: 'Creative mind behind every pixel, interaction, and user experience.',
+                email: '',
+                photo: '/team/Bezawit.png',
+                gradient: 'from-orange-500 to-amber-400',
+                badge: null,
+              },
             ].map((member, i) => (
-              <div key={i} className="group relative flex flex-col items-center text-center bg-white dark:bg-gray-800/80 border border-gray-200/60 dark:border-gray-700/50 rounded-2xl p-6 shadow-lg hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 hover:-translate-y-2">
-                {/* Top accent */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div key={i} className="group relative flex flex-col items-center text-center rounded-3xl overflow-hidden bg-white dark:bg-gray-800/80 border border-gray-200/60 dark:border-gray-700/50 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3">
+                {/* Gradient header band */}
+                <div className={`w-full h-24 bg-gradient-to-br ${member.gradient} relative`}>
+                  <div className="absolute inset-0 opacity-20" style={{ backgroundImage: `radial-gradient(circle at 70% 50%, white 1px, transparent 0)`, backgroundSize: '20px 20px' }}></div>
+                </div>
 
-                {/* Photo */}
-                <div className="relative mb-4">
-                  <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white dark:border-gray-700 shadow-xl">
-                    {member.photo ? (
-                      <img src={member.photo} alt={member.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-blue-500/20 to-cyan-400/20 flex items-center justify-center">
-                        <span className="material-symbols-outlined text-blue-400 text-4xl">person</span>
-                      </div>
-                    )}
+                {/* Avatar overlapping the band */}
+                <div className="relative -mt-12 mb-3">
+                  <div className={`w-24 h-24 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-xl`}>
+                    <img src={member.photo} alt={member.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   </div>
-                  {i === 0 && (
-                    <div className="absolute -bottom-1 -right-1 bg-gradient-to-r from-blue-500 to-cyan-400 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">
-                      CEO
+                  {member.badge && (
+                    <div className={`absolute -bottom-1 left-1/2 -translate-x-1/2 bg-gradient-to-r ${member.gradient} text-white text-[10px] font-bold px-3 py-0.5 rounded-full shadow-lg whitespace-nowrap`}>
+                      {member.badge}
                     </div>
                   )}
                 </div>
 
-                <h3 className="font-bold text-gray-900 dark:text-white text-lg">{member.name}</h3>
-                <p className="text-blue-500 text-sm font-semibold mb-2">{member.role}</p>
-                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-3">{member.bio}</p>
-
-                {member.email && (
-                  <a
-                    href={`mailto:${member.email}`}
-                    className="text-xs text-gray-400 hover:text-blue-500 transition-colors duration-300 flex items-center gap-1"
-                  >
-                    <span className="material-symbols-outlined text-sm">mail</span>
-                    {member.email}
-                  </a>
-                )}
+                <div className="flex flex-col items-center gap-1 px-5 pb-6">
+                  <h3 className="font-black text-gray-900 dark:text-white text-lg">{member.name}</h3>
+                  <span className={`text-xs font-bold px-3 py-1 rounded-full bg-gradient-to-r ${member.gradient} text-white shadow-sm`}>{member.role}</span>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mt-2">{member.bio}</p>
+                  {member.email && (
+                    <a href={`mailto:${member.email}`} className="mt-2 flex items-center gap-1.5 text-xs text-gray-400 hover:text-blue-500 transition-colors duration-300">
+                      <span className="material-symbols-outlined text-sm">mail</span>
+                      {member.email}
+                    </a>
+                  )}
+                </div>
+                <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${member.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
               </div>
             ))}
           </div>
