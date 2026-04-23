@@ -33,7 +33,23 @@ interface Stats {
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [token] = useState(() => localStorage.getItem('adminToken'));
+  const [dark, setDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('adminDark') === 'true' || document.documentElement.classList.contains('dark');
+    }
+    return false;
+  });
   const [stats, setStats] = useState<Stats | null>(null);
+
+  useEffect(() => {
+    if (dark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('adminDark', 'true');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('adminDark', 'false');
+    }
+  }, [dark]);
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [activeTab, setActiveTab] = useState<'overview' | 'contacts' | 'subscribers'>('overview');
@@ -95,10 +111,18 @@ const AdminDashboard = () => {
             <p className="text-xs text-slate-400">LemiTech</p>
           </div>
         </div>
-        <button onClick={logout} className="flex items-center gap-2 text-sm text-slate-500 hover:text-red-500 transition-colors">
-          <span className="material-symbols-outlined text-[18px]">logout</span>
-          Logout
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setDark(d => !d)}
+            className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 border border-gray-200 dark:border-gray-700"
+          >
+            <span className="material-symbols-outlined text-[18px]">{dark ? 'light_mode' : 'dark_mode'}</span>
+          </button>
+          <button onClick={logout} className="flex items-center gap-2 text-sm text-slate-500 hover:text-red-500 transition-colors">
+            <span className="material-symbols-outlined text-[18px]">logout</span>
+            Logout
+          </button>
+        </div>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col gap-8">
