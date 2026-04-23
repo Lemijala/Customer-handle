@@ -147,8 +147,33 @@ const About = () => {
               </div>
               <h2 className="text-2xl lg:text-3xl font-black text-gray-900 dark:text-white">Our Activities</h2>
             </div>
+            {/* Mobile: auto-scroll carousel */}
+            <div className="md:hidden overflow-hidden -mx-3">
+              <div className="flex gap-3 py-4" style={{ width: 'max-content', animation: 'marquee 12s linear infinite' }}>
+                {[
+                  { src: '/p1.jpg', label: 'Team at Work' },
+                  { src: '/p2.jpg', label: 'Building Together' },
+                  { src: '/p3.jpg', label: 'Our Community' },
+                  { src: '/p4.jpg', label: 'Our Activities' },
+                  { src: '/p5.jpeg', label: 'Our Activities' },
+                  { src: '/p6.jpg', label: 'Our Activities' },
+                  { src: '/p1.jpg', label: 'Team at Work' },
+                  { src: '/p2.jpg', label: 'Building Together' },
+                  { src: '/p3.jpg', label: 'Our Community' },
+                  { src: '/p4.jpg', label: 'Our Activities' },
+                  { src: '/p5.jpeg', label: 'Our Activities' },
+                  { src: '/p6.jpg', label: 'Our Activities' },
+                ].map((photo, i) => (
+                  <div key={i} className="flex-shrink-0 w-44 h-32 rounded-2xl overflow-hidden border-2 border-white dark:border-gray-800 shadow-lg">
+                    <img src={photo.src} alt={photo.label} className="w-full h-full object-cover" />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Desktop: hover expand gallery */}
             <div
-              className="flex justify-center items-center py-6 overflow-x-auto scrollbar-hide"
+              className="hidden md:flex justify-center items-center py-6 overflow-x-auto scrollbar-hide"
               onMouseEnter={() => setIsGalleryExpanded(true)}
               onMouseLeave={() => { setIsGalleryExpanded(false); setHoveredPhoto(null); }}
             >
