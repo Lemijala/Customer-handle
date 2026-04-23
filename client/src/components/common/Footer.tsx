@@ -28,8 +28,8 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="size-10 rounded-xl bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center shadow-lg shadow-primary/30">
-                <span className="material-symbols-outlined text-white">terminal</span>
+              <div className="size-10 rounded-xl overflow-hidden shadow-lg">
+                <img src="/logo.png" alt="LemiTech" className="w-full h-full object-cover" />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white">LemiTech</h3>
