@@ -65,6 +65,7 @@ export const sendContactEmail = async (data: ContactEmailOptions): Promise<void>
 
         <!-- Header -->
         <div style="background: linear-gradient(135deg, #3b82f6, #06b6d4); padding: 32px 24px; border-radius: 10px; text-align: center; margin-bottom: 24px;">
+          <p style="color: rgba(255,255,255,0.7); margin: 0 0 4px; font-size: 13px; letter-spacing: 2px; text-transform: uppercase;">Welcome to</p>
           <h1 style="color: white; margin: 0 0 6px; font-size: 26px; font-weight: 800;">LemiTech</h1>
           <p style="color: rgba(255,255,255,0.85); margin: 0; font-size: 14px;">Software Studio — Building Digital Products</p>
         </div>
