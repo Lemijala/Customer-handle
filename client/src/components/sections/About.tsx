@@ -318,8 +318,10 @@ const About = () => {
 
         {/* Road */}
         <div className="relative">
-          {/* Center vertical line (road) */}
-          <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500/20 via-blue-500/40 to-blue-500/20 rounded-full" />
+          {/* Center vertical line — desktop only */}
+          <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500/20 via-blue-500/40 to-blue-500/20 rounded-full hidden md:block" />
+          {/* Left line — mobile only */}
+          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/20 via-blue-500/40 to-blue-500/20 rounded-full md:hidden" />
 
           <div className="flex flex-col gap-0">
             {journeySteps.map((step, index) => (
@@ -329,9 +331,8 @@ const About = () => {
                 duration={700}
                 delay={index * 100}
               >
-                <div className={`relative flex items-center gap-6 mb-12 ${step.side === 'right' ? 'flex-row-reverse' : ''}`}>
-
-                  {/* Content card */}
+                {/* Desktop: alternating layout */}
+                <div className={`relative hidden md:flex items-center gap-6 mb-12 ${step.side === 'right' ? 'flex-row-reverse' : ''}`}>
                   <div className={`flex-1 ${step.side === 'right' ? 'text-right' : 'text-left'}`}>
                     <div className={`inline-block bg-white dark:bg-[#162032] border border-gray-200 dark:border-[#282e39] rounded-2xl p-5 shadow-lg hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-1 max-w-sm ${step.side === 'right' ? 'ml-auto' : ''}`}>
                       <span className="text-xs font-bold uppercase tracking-widest text-blue-500 mb-1 block">{step.year}</span>
@@ -339,20 +340,33 @@ const About = () => {
                       <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{step.description}</p>
                     </div>
                   </div>
-
-                  {/* Center node */}
                   <div className="relative z-10 flex-shrink-0">
                     <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center shadow-xl border-4 border-white dark:border-gray-900`}>
                       <span className="material-symbols-outlined text-white text-[22px]">{step.icon}</span>
                     </div>
-                    {/* Step number badge */}
                     <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-xs font-black flex items-center justify-center shadow-md">
                       {String(step.id).padStart(2, '0')}
                     </div>
                   </div>
-
-                  {/* Empty space for opposite side */}
                   <div className="flex-1" />
+                </div>
+
+                {/* Mobile: compact left-aligned */}
+                <div className="relative flex md:hidden items-start gap-4 mb-8 pl-2">
+                  {/* Node */}
+                  <div className="relative z-10 flex-shrink-0 mt-1">
+                    <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center shadow-lg border-2 border-white dark:border-gray-900`}>
+                      <span className="material-symbols-outlined text-white text-[16px]">{step.icon}</span>
+                    </div>
+                  </div>
+                  {/* Card */}
+                  <div className="flex-1 bg-white dark:bg-[#162032] border border-gray-200 dark:border-[#282e39] rounded-2xl p-4 shadow-md">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className={`text-xs font-black px-2 py-0.5 rounded-full bg-gradient-to-r ${step.color} text-white`}>{step.year}</span>
+                    </div>
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-1">{step.title}</h3>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{step.description}</p>
+                  </div>
                 </div>
               </Reveal>
             ))}
