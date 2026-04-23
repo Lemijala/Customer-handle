@@ -60,7 +60,7 @@ const About = () => {
   const [hoveredPhoto, setHoveredPhoto] = useState<number | null>(null);
 
   return (
-    <section id="about" className="relative bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white font-manrope w-full overflow-hidden">
+    <section id="about" className="relative bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white w-full overflow-x-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 -left-20 w-96 h-96 bg-gradient-to-r from-blue-500/5 to-blue-400/5 rounded-full blur-3xl animate-float-slow"></div>

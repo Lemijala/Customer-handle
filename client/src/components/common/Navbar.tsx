@@ -128,8 +128,8 @@ const Navbar = ({ dark, onToggleDark }: NavbarProps) => {
         {/* Mobile menu */}
         {isMenuOpen && (
           <>
-            <div className="fixed inset-0 bg-black/40 backdrop-blur-sm md:hidden" onClick={() => { setIsMenuOpen(false); document.body.classList.remove('no-scroll'); }} />
-            <div className="md:hidden mt-2 p-3 rounded-2xl bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-gray-200/60 dark:border-gray-700/50 shadow-2xl flex flex-col gap-1">
+            <div className="fixed inset-0 bg-black/40 backdrop-blur-sm md:hidden z-40" onClick={() => { setIsMenuOpen(false); document.body.classList.remove('no-scroll'); }} />
+            <div className="fixed top-20 left-4 right-4 md:hidden z-50 p-3 rounded-2xl bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-gray-200/60 dark:border-gray-700/50 shadow-2xl flex flex-col gap-1">
               {navItems.map((item) => (
                 <button
                   key={item.id}

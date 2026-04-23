@@ -2,8 +2,9 @@
  * Run once to create the admin user:
  *   npx ts-node src/seed.ts
  */
+import path from 'path';
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 import connectDB from './utils/db';
 import Admin from './models/Admin';
