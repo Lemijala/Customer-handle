@@ -6,12 +6,25 @@ import Reveal from '../common/Reveal';
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://lamitec.onrender.com';
 
+const gradients = [
+  'from-blue-500 to-cyan-400',
+  'from-violet-500 to-purple-400',
+  'from-emerald-500 to-teal-400',
+  'from-orange-500 to-amber-400',
+  'from-pink-500 to-rose-400',
+];
+
 const Hero = () => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [clientStats, setClientStats] = useState<{ totalClients: number; recentInitials: string[] } | null>(null);
 
   useEffect(() => {
     fetch(`${API_URL}/api/health`).catch(() => {});
+    fetch(`${API_URL}/api/stats/public`)
+      .then(r => r.json())
+      .then(d => { if (d.success) setClientStats(d.data); })
+      .catch(() => {});
   }, []);
 
   const handleSubscribe = async (e: React.FormEvent) => {
@@ -110,6 +123,36 @@ const Hero = () => {
               </button>
             </form>
           </Reveal>
+
+          {/* Social proof */}
+          {(clientStats?.totalClients ?? 0) > 0 && (
+            <Reveal direction="up" duration={700} delay={400}>
+              <div className="flex items-center gap-3 mt-1">
+                {/* Overlapping avatars */}
+                <div className="flex -space-x-2">
+                  {(clientStats?.recentInitials?.length ? clientStats.recentInitials : ['E','L','N','P']).slice(0, 5).map((initial, i) => (
+                    <div
+                      key={i}
+                      className={`w-8 h-8 rounded-full bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center text-white text-xs font-black border-2 border-white dark:border-gray-900 shadow-md`}
+                    >
+                      {initial}
+                    </div>
+                  ))}
+                </div>
+                {/* Stars + count */}
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-0.5">
+                    {[...Array(5)].map((_, i) => (
+                      <span key={i} className="material-symbols-outlined text-amber-400 text-[14px]" style={{fontVariationSettings: "'FILL' 1"}}>star</span>
+                    ))}
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-gray-400">
+                    <span className="font-bold text-slate-900 dark:text-white">{clientStats?.totalClients}+</span> clients trust us
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          )}
         </div>
 
         {/* Mobile image carousel — auto scrolling right to left */}
