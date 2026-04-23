@@ -51,7 +51,7 @@ const Navbar = ({ dark, onToggleDark }: NavbarProps) => {
       isScrolled ? 'py-2' : 'py-4'
     }`}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-between gap-2 min-w-0">
 
           {/* Logo pill */}
           <button onClick={handleLogoClick} className={`flex items-center gap-2.5 group flex-shrink-0 px-4 py-2.5 rounded-2xl transition-all duration-300 ${
@@ -68,12 +68,12 @@ const Navbar = ({ dark, onToggleDark }: NavbarProps) => {
           </button>
 
           {/* Nav links — each item its own pill */}
-          <nav className="hidden md:flex items-center gap-1.5">
+          <nav className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`relative flex items-center gap-1.5 px-3 lg:px-4 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-300 border ${
+                className={`relative flex items-center gap-1 px-2.5 lg:px-4 py-2 rounded-2xl text-sm font-semibold transition-all duration-300 border ${
                   activeSection === item.id
                     ? 'bg-gradient-to-r from-blue-500 to-cyan-400 text-white border-transparent shadow-lg shadow-blue-500/30'
                     : isScrolled
