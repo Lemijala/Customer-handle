@@ -28,6 +28,12 @@ interface Stats {
   avgRating: number | null;
   dbStatus: string;
   uptime: string;
+  memoryUsage: string;
+  cpuLoad: string;
+  processUptime: number;
+  nodeVersion: string;
+  platform: string;
+  timestamp: string;
 }
 
 const AdminDashboard = () => {
@@ -52,7 +58,7 @@ const AdminDashboard = () => {
   }, [dark]);
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
-  const [activeTab, setActiveTab] = useState<'overview' | 'contacts' | 'subscribers'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'contacts' | 'subscribers' | 'system'>('overview');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -148,8 +154,8 @@ const AdminDashboard = () => {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 bg-gray-100 dark:bg-gray-800 p-1.5 rounded-2xl w-fit">
-          {(['overview', 'contacts', 'subscribers'] as const).map(tab => (
+        <div className="flex gap-2 bg-gray-100 dark:bg-gray-800 p-1.5 rounded-2xl w-fit flex-wrap">
+          {(['overview', 'contacts', 'subscribers', 'system'] as const).map(tab => (
             <button key={tab} onClick={() => setActiveTab(tab)}
               className={`px-5 py-2 rounded-xl text-sm font-semibold capitalize transition-all duration-300 ${
                 activeTab === tab
@@ -289,6 +295,55 @@ const AdminDashboard = () => {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* System tab */}
+        {activeTab === 'system' && (
+          <div className="flex flex-col gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[
+                { label: 'DB Status', value: stats?.dbStatus ?? '—', icon: 'database', gradient: 'from-emerald-500 to-teal-400', good: stats?.dbStatus === 'connected' },
+                { label: 'Server Uptime', value: stats?.uptime ?? '—', icon: 'timer', gradient: 'from-blue-500 to-cyan-400', good: true },
+                { label: 'Memory Usage', value: stats?.memoryUsage ?? '—', icon: 'memory', gradient: 'from-violet-500 to-purple-400', good: parseInt(stats?.memoryUsage ?? '0') < 80 },
+                { label: 'CPU Load', value: stats?.cpuLoad ?? '—', icon: 'speed', gradient: 'from-orange-500 to-amber-400', good: parseInt(stats?.cpuLoad ?? '0') < 80 },
+                { label: 'Node Version', value: stats?.nodeVersion ?? '—', icon: 'code', gradient: 'from-pink-500 to-rose-400', good: true },
+                { label: 'Platform', value: stats?.platform ?? '—', icon: 'computer', gradient: 'from-slate-500 to-gray-400', good: true },
+              ].map((s, i) => (
+                <div key={i} className="flex flex-col gap-3 p-5 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
+                  <div className="flex items-center justify-between">
+                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${s.gradient} flex items-center justify-center shadow-md`}>
+                      <span className="material-symbols-outlined text-white text-[18px]">{s.icon}</span>
+                    </div>
+                    <span className={`text-xs font-bold px-2 py-1 rounded-full ${s.good ? 'bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400' : 'bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-400'}`}>
+                      {s.good ? '● OK' : '● Warning'}
+                    </span>
+                  </div>
+                  <div>
+                    <p className={`text-xl font-black text-transparent bg-clip-text bg-gradient-to-r ${s.gradient}`}>{s.value}</p>
+                    <p className="text-xs text-slate-400 mt-0.5">{s.label}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Process uptime */}
+            <div className="p-5 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+              <p className="text-xs text-slate-400 uppercase font-bold mb-2">Process Uptime</p>
+              <p className="text-2xl font-black text-slate-900 dark:text-white">
+                {stats?.processUptime ? `${Math.floor(stats.processUptime / 3600)}h ${Math.floor((stats.processUptime % 3600) / 60)}m ${stats.processUptime % 60}s` : '—'}
+              </p>
+            </div>
+
+            {/* Last updated */}
+            <div className="flex items-center gap-2 text-xs text-slate-400">
+              <span className="material-symbols-outlined text-[14px]">schedule</span>
+              Last updated: {stats?.timestamp ? new Date(stats.timestamp).toLocaleString() : '—'}
+              <button onClick={fetchAll} className="ml-2 flex items-center gap-1 text-blue-500 hover:underline font-semibold">
+                <span className="material-symbols-outlined text-[14px]">refresh</span>
+                Refresh
+              </button>
             </div>
           </div>
         )}
