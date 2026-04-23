@@ -7,6 +7,7 @@ interface Contact {
   _id: string;
   name: string;
   email: string;
+  phone?: string;
   organization?: string;
   inquiryType?: string;
   message: string;
@@ -141,26 +142,73 @@ const AdminDashboard = () => {
           <div className="flex flex-col gap-3">
             <p className="text-sm text-slate-400">{contacts.length} total messages</p>
             {contacts.map(c => (
-              <div key={c._id} className={`flex flex-col gap-2 p-5 rounded-2xl bg-white dark:bg-gray-800 border transition-all duration-300 ${
+              <div key={c._id} className={`flex flex-col gap-3 p-5 rounded-2xl bg-white dark:bg-gray-800 border transition-all duration-300 cursor-pointer ${
                 c.isRead ? 'border-gray-200 dark:border-gray-700' : 'border-blue-500/40 shadow-md shadow-blue-500/10'
-              }`}>
+              }`} onClick={() => !c.isRead && markRead(c._id)}>
+                {/* Header */}
                 <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <p className="font-bold text-slate-900 dark:text-white">{c.name}</p>
-                      {!c.isRead && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500 text-white">NEW</span>}
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-white font-black text-sm flex-shrink-0">
+                      {c.name[0]}
                     </div>
-                    <p className="text-xs text-slate-400">{c.email} {c.organization && `· ${c.organization}`}</p>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <p className="font-bold text-slate-900 dark:text-white">{c.name}</p>
+                        {!c.isRead && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500 text-white">NEW</span>}
+                      </div>
+                      <p className="text-xs text-slate-400">{new Date(c.createdAt).toLocaleDateString()} · {new Date(c.createdAt).toLocaleTimeString()}</p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2 flex-shrink-0">
-                    <span className="text-xs text-slate-400">{new Date(c.createdAt).toLocaleDateString()}</span>
-                    {!c.isRead && (
-                      <button onClick={() => markRead(c._id)} className="text-xs text-blue-500 hover:underline">Mark read</button>
-                    )}
-                  </div>
+                  {!c.isRead && (
+                    <button onClick={e => { e.stopPropagation(); markRead(c._id); }} className="text-xs text-blue-500 hover:underline flex-shrink-0">Mark read</button>
+                  )}
                 </div>
-                {c.inquiryType && <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-slate-500 w-fit">{c.inquiryType}</span>}
-                <p className="text-sm text-slate-600 dark:text-gray-300 leading-relaxed">{c.message}</p>
+
+                {/* Contact details */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-gray-50 dark:bg-gray-700/30 rounded-xl p-4">
+                  <div className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-blue-500 text-[16px]">mail</span>
+                    <div>
+                      <p className="text-[10px] text-slate-400 uppercase font-bold">Email</p>
+                      <p className="text-sm text-slate-700 dark:text-gray-200 break-all">{c.email}</p>
+                    </div>
+                  </div>
+                  {c.phone && (
+                    <div className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-emerald-500 text-[16px]">phone</span>
+                      <div>
+                        <p className="text-[10px] text-slate-400 uppercase font-bold">Phone</p>
+                        <p className="text-sm text-slate-700 dark:text-gray-200">{c.phone}</p>
+                      </div>
+                    </div>
+                  )}
+                  {c.organization && (
+                    <div className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-violet-500 text-[16px]">business</span>
+                      <div>
+                        <p className="text-[10px] text-slate-400 uppercase font-bold">Organization</p>
+                        <p className="text-sm text-slate-700 dark:text-gray-200">{c.organization}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {c.inquiryType && (
+                  <span className="text-xs font-semibold px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-slate-500 w-fit">{c.inquiryType}</span>
+                )}
+
+                {/* Message */}
+                <div className="bg-white dark:bg-gray-900/50 border border-gray-100 dark:border-gray-700 rounded-xl p-4">
+                  <p className="text-[10px] text-slate-400 uppercase font-bold mb-1">Message</p>
+                  <p className="text-sm text-slate-700 dark:text-gray-200 leading-relaxed">{c.message}</p>
+                </div>
+
+                {/* Reply button */}
+                <a href={`mailto:${c.email}`} onClick={e => e.stopPropagation()}
+                  className="self-start flex items-center gap-2 text-xs font-bold text-white bg-gradient-to-r from-blue-500 to-cyan-400 px-4 py-2 rounded-xl shadow-md hover:scale-105 transition-all duration-300">
+                  <span className="material-symbols-outlined text-[14px]">reply</span>
+                  Reply via Email
+                </a>
               </div>
             ))}
           </div>

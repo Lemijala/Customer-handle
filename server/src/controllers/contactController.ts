@@ -11,10 +11,10 @@ export const submitContact = async (req: Request, res: Response): Promise<void> 
     return;
   }
 
-  const { name, email, organization, inquiryType, message, rating } = req.body;
+  const { name, email, phone, organization, inquiryType, message, rating } = req.body;
 
   try {
-    const contact = await Contact.create({ name, email, organization, inquiryType, message, rating });
+    const contact = await Contact.create({ name, email, phone, organization, inquiryType, message, rating });
 
     // Send email (non-blocking — don't fail the request if email fails)
     sendContactEmail({ name, email, organization, inquiryType, message }).catch((err: Error) =>
