@@ -93,6 +93,7 @@ const Skills = () => {
         <div className="relative">
           {/* Center line */}
           <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/10 via-blue-500/40 to-blue-500/10 hidden md:block" />
+          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/10 via-blue-500/40 to-blue-500/10 md:hidden" />
 
           <div className="flex flex-col gap-0">
             {roadmap.map((step, index) => (
@@ -102,7 +103,7 @@ const Skills = () => {
                 duration={700}
                 delay={index * 100}
               >
-                <div className={`relative flex items-center gap-6 mb-16 ${step.side === 'right' ? 'md:flex-row-reverse' : ''}`}>
+                <div className={`relative hidden md:flex items-center gap-6 mb-16 ${step.side === 'right' ? 'md:flex-row-reverse' : ''}`}>
 
                   {/* Content card */}
                   <div className={`flex-1 ${step.side === 'right' ? 'md:text-right' : 'md:text-left'}`}>
@@ -141,6 +142,29 @@ const Skills = () => {
 
                   {/* Empty spacer */}
                   <div className="flex-1 hidden md:block" />
+                </div>
+
+                {/* Mobile: compact left-aligned */}
+                <div className="relative flex md:hidden items-start gap-4 mb-8 pl-2">
+                  <div className="relative z-10 flex-shrink-0 mt-1">
+                    <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${step.gradient} flex items-center justify-center shadow-lg border-2 border-white dark:border-gray-900`}>
+                      <span className="material-symbols-outlined text-white text-[16px]">{step.icon}</span>
+                    </div>
+                  </div>
+                  <div className="flex-1 bg-white dark:bg-[#162032] border border-gray-200 dark:border-[#282e39] rounded-2xl p-4 shadow-md">
+                    <div className="flex items-center gap-2 mb-1 flex-wrap">
+                      <span className={`text-xs font-black px-2 py-0.5 rounded-full bg-gradient-to-r ${step.gradient} text-white`}>{step.year}</span>
+                      <span className="text-xs text-slate-400">{step.milestone}</span>
+                    </div>
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-0.5">{step.title}</h3>
+                    <p className="text-xs text-slate-400 mb-2">{step.subtitle}</p>
+                    <p className="text-xs text-slate-500 dark:text-gray-400 leading-relaxed mb-3">{step.description}</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {step.tags.map((tag, t) => (
+                        <span key={t} className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-slate-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </Reveal>
             ))}
