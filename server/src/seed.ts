@@ -12,7 +12,7 @@ import Admin from './models/Admin';
 (async () => {
   await connectDB();
 
-  const email = process.env.ADMIN_EMAIL || 'admin@lemitech.dev';
+  const email = process.env.ADMIN_EMAIL || 'admin@woyyuu-tech.dev';
   const password = process.env.ADMIN_PASSWORD || 'changeme123';
 
   const existing = await Admin.findOne({ email });

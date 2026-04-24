@@ -44,7 +44,7 @@ app.use('/api/auth', rateLimit({ windowMs: 15 * 60 * 1000, max: 20, message: 'To
 
 // Health check
 app.get('/api/health', (_req, res) => {
-  res.json({ status: 'healthy', timestamp: new Date().toISOString(), service: 'Lemitech Portfolio API' });
+  res.json({ status: 'healthy', timestamp: new Date().toISOString(), service: 'Woyyuu Tech Portfolio API' });
 });
 
 // API routes

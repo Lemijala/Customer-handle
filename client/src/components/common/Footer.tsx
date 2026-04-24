@@ -29,10 +29,10 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <div className="size-10 rounded-xl overflow-hidden shadow-lg">
-                <img src="/logo.png" alt="LemiTech" className="w-full h-full object-cover" />
+                <img src="/logo.png" alt="Woyyuu Tech" className="w-full h-full object-cover" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white">LemiTech</h3>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">Woyyuu Tech</h3>
                 <p className="text-xs text-slate-500 dark:text-gray-400">Senior Software Developer</p>
               </div>
             </div>

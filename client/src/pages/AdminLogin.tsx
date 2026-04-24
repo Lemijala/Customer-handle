@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://lamitec.onrender.com';
+const API_URL = import.meta.env.VITE_API_URL || 'https://woyyuu-tech.onrender.com';
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -37,9 +37,9 @@ const AdminLogin = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center px-4">
       <div className="w-full max-w-sm flex flex-col gap-6 p-8 rounded-3xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-2xl">
         <div className="flex flex-col items-center gap-2">
-          <img src="/logo.png" alt="LemiTech" className="w-12 h-12 rounded-2xl shadow-lg" />
+          <img src="/logo.png" alt="Woyyuu Tech" className="w-12 h-12 rounded-2xl shadow-lg" />
           <h1 className="font-black text-xl text-slate-900 dark:text-white">Admin Login</h1>
-          <p className="text-xs text-slate-400">LemiTech Dashboard</p>
+          <p className="text-xs text-slate-400">Woyyuu Tech Dashboard</p>
         </div>
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
           <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email"

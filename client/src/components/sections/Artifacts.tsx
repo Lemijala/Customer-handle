@@ -10,8 +10,8 @@ const Artifacts = () => {
   const repos = [
     {
       id: 1,
-      name: 'lemitech-portfolio',
-      description: 'The source code for LemiTech\'s company portfolio — built with React, TypeScript, and Tailwind CSS.',
+      name: 'woyyuu-tech-portfolio',
+      description: 'The source code for Woyyuu Tech\'s company portfolio — built with React, TypeScript, and Tailwind CSS.',
       language: 'TypeScript',
       langColor: 'bg-blue-500',
       stars: 12,
@@ -93,7 +93,7 @@ const Artifacts = () => {
       id: 1,
       name: 'Endurance Youth Org',
       role: 'Partner Organization',
-      quote: 'LemiTech delivered our platform faster than any agency we\'ve worked with. The quality and attention to detail was outstanding from day one.',
+      quote: 'Woyyuu Tech delivered our platform faster than any agency we\'ve worked with. The quality and attention to detail was outstanding from day one.',
       initials: 'EY',
       gradient: 'from-blue-500 to-cyan-400',
     },
@@ -137,7 +137,7 @@ const Artifacts = () => {
               Artifacts
             </h1>
             <p className="text-slate-500 dark:text-gray-400 text-lg leading-relaxed max-w-2xl">
-              Open source work, technical writing, and client testimonials — a transparent look at how LemiTech builds and thinks.
+              Open source work, technical writing, and client testimonials — a transparent look at how Woyyuu Tech builds and thinks.
             </p>
           </div>
         </Reveal>

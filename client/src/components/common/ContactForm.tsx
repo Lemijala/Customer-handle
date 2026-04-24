@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://lamitec.onrender.com';
+const API_URL = import.meta.env.VITE_API_URL || 'https://woyyuu-tech.onrender.com';
 
 const StarRating = ({ value, onChange }: { value: number; onChange: (v: number) => void }) => {
   const [hovered, setHovered] = useState(0);

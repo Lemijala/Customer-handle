@@ -60,10 +60,10 @@ const Navbar = ({ dark, onToggleDark }: NavbarProps) => {
               : 'bg-white/70 dark:bg-gray-900/70 backdrop-blur-lg border border-gray-200/40 dark:border-gray-700/30'
           }`}>
             <div className="w-8 h-8 rounded-xl overflow-hidden shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-              <img src="/logo.png" alt="LemiTech" className="w-full h-full object-cover" />
+              <img src="/logo.png" alt="Woyyuu Tech" className="w-full h-full object-cover" />
             </div>
             <span className="font-black text-base text-slate-900 dark:text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-cyan-400 transition-all duration-300">
-              LemiTech
+              Woyyuu Tech
             </span>
           </button>
 

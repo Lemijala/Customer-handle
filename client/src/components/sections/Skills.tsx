@@ -50,7 +50,7 @@ const roadmap = [
   {
     year: '2025–Now',
     title: 'Studio at Scale',
-    subtitle: 'Growing LemiTech',
+    subtitle: 'Growing Woyyuu Tech',
     description: 'Operating as a full-service software studio across web, mobile, and backend. Building complex platforms with a growing team across Ethiopia and beyond.',
     tags: ['Next.js', 'Go', 'Flutter', 'Dart', 'Java', 'TypeScript', 'Microservices'],
     icon: 'groups',

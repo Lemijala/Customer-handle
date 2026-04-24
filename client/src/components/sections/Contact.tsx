@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://lamitec.onrender.com';
+const API_URL = import.meta.env.VITE_API_URL || 'https://woyyuu-tech.onrender.com';
 
 const StarRating: React.FC<{ value: number; onChange: (v: number) => void }> = ({ value, onChange }) => {
   const [hovered, setHovered] = useState(0);

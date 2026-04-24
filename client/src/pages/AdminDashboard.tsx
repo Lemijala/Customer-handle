@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://lamitec.onrender.com';
+const API_URL = import.meta.env.VITE_API_URL || 'https://woyyuu-tech.onrender.com';
 
 interface Contact {
   _id: string;
@@ -111,10 +111,10 @@ const AdminDashboard = () => {
       {/* Header */}
       <div className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 flex items-center justify-between shadow-sm">
         <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="LemiTech" className="w-8 h-8 rounded-lg" />
+          <img src="/logo.png" alt="Woyyuu Tech" className="w-8 h-8 rounded-lg" />
           <div>
             <h1 className="font-black text-lg">Admin Dashboard</h1>
-            <p className="text-xs text-slate-400">LemiTech</p>
+            <p className="text-xs text-slate-400">Woyyuu Tech</p>
           </div>
         </div>
         <div className="flex items-center gap-3">

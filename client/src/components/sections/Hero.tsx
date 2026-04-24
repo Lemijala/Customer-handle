@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import ContactForm from '../common/ContactForm';
 import Reveal from '../common/Reveal';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://lamitec.onrender.com';
+const API_URL = import.meta.env.VITE_API_URL || 'https://woyyuu-tech.onrender.com';
 
 const gradients = [
   'from-blue-500 to-cyan-400',
@@ -89,7 +89,7 @@ const Hero = () => {
           {/* Title */}
           <Reveal direction="down" duration={700} delay={0}>
             <h1 className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black leading-tight tracking-tight text-slate-900 dark:text-white">
-              LemiTech
+              Woyyuu Tech
             </h1>
           </Reveal>
 
@@ -101,7 +101,7 @@ const Hero = () => {
 
           <Reveal direction="up" duration={700} delay={200}>
             <p className="text-slate-500 dark:text-gray-400 text-base sm:text-lg max-w-xl leading-relaxed">
-              We turn complex ideas into powerful digital products. From scalable web platforms to sleek mobile apps — LemiTech engineers solutions that drive real business growth across Ethiopia and beyond.
+              We turn complex ideas into powerful digital products. From scalable web platforms to sleek mobile apps — Woyyuu Tech engineers solutions that drive real business growth across Ethiopia and beyond.
             </p>
           </Reveal>
 
@@ -158,10 +158,10 @@ const Hero = () => {
           <div className="flex gap-4" style={{ width: 'max-content', animation: 'marquee 15s linear infinite' }}>
             {[
               { src: '/pc-image.png', alt: 'Project preview' },
-              { src: '/lemtech-flag.png', alt: 'LemiTech' },
+              { src: '/woyyu-tech-flag.png', alt: 'Woyyuu Tech' },
               { src: '/left-side-mobile-screen.png', alt: 'Mobile App' },
               { src: '/pc-image.png', alt: 'Project preview' },
-              { src: '/lemtech-flag.png', alt: 'LemiTech' },
+              { src: '/woyyu-tech-flag.png', alt: 'Woyyuu Tech' },
               { src: '/left-side-mobile-screen.png', alt: 'Mobile App' },
             ].map((img, i) => (
               <div key={i} className="flex-shrink-0 w-52 h-36 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
@@ -174,7 +174,7 @@ const Hero = () => {
         {/* Flag image — desktop only */}
         <Reveal direction="zoom" duration={900} delay={200}>
           <div className="hidden lg:block max-w-lg mx-auto w-full rounded-2xl overflow-hidden bg-gray-900 aspect-video border border-gray-800 hover:scale-[1.02] transition-transform duration-300">
-            <img src="/lemtech-flag.png" alt="LemiTech Flag" className="w-full h-full object-cover"
+            <img src="/woyyu-tech-flag.png" alt="Woyyuu Tech Flag" className="w-full h-full object-cover"
               onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
           </div>
         </Reveal>
@@ -215,7 +215,7 @@ const Hero = () => {
               {[...Array(2)].flatMap(() => [
                 { name: 'Endurance Youth', logo: '/logos/org1.png' },
                 { name: 'Novar Software', logo: '/logos/org2.png' },
-                { name: 'LemiTech Solutions', logo: '/logos/org3.png' },
+                { name: 'Woyyuu Tech Solutions', logo: '/logos/org3.png' },
                 { name: 'PolyTech', logo: '/logos/org4.png' },
                 { name: 'Addis Tech Hub', logo: '/logos/org5.png' },
                 { name: 'Organization 6', logo: '/logos/org6.png' },
@@ -247,14 +247,14 @@ const Hero = () => {
             <div className="flex flex-col items-center text-center gap-4 max-w-2xl mx-auto">
               <div className="inline-flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 animate-pulse"></div>
-                <span className="text-blue-500 font-bold tracking-wider text-xs uppercase">Why LemiTech</span>
+                <span className="text-blue-500 font-bold tracking-wider text-xs uppercase">Why Woyyuu Tech</span>
               </div>
               <h2 className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white leading-tight">
                 Great ideas deserve<br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">better execution.</span>
               </h2>
               <p className="text-slate-500 dark:text-gray-400 text-lg leading-relaxed">
-                Most businesses have the vision but struggle to find a technical partner who truly gets it — one that moves fast, builds right, and doesn't drain your budget. That's exactly the gap LemiTech was built to fill.
+                Most businesses have the vision but struggle to find a technical partner who truly gets it — one that moves fast, builds right, and doesn't drain your budget. That's exactly the gap Woyyuu Tech was built to fill.
               </p>
             </div>
 
@@ -317,7 +317,7 @@ const Hero = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 {
-                  quote: "LemiTech delivered our platform faster than any agency we've worked with — and the quality was outstanding.",
+                  quote: "Woyyuu Tech delivered our platform faster than any agency we've worked with — and the quality was outstanding.",
                   name: 'Endurance Youth',
                   role: 'Organization Partner',
                   gradient: 'from-blue-500 to-cyan-400',

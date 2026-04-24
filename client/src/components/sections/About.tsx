@@ -45,8 +45,8 @@ const journeySteps = [
   {
     id: 5,
     year: '2024–Now',
-    title: 'Growing Up Company — LemiTech',
-    description: 'Founded and growing LemiTech into Ethiopia\'s leading software development studio, delivering innovative digital products at scale.',
+    title: 'Growing Up Company — Woyyuu Tech',
+    description: 'Founded and growing Woyyuu Tech into Ethiopia\'s leading software development studio, delivering innovative digital products at scale.',
     icon: 'rocket_launch',
     color: 'from-primary to-blue-600',
     side: 'left',
@@ -94,7 +94,7 @@ const About = () => {
                 Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">Story</span>
               </h1>
               <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
-                LemiTech is a software development studio. We design and build custom web platforms, mobile applications, and digital products that help businesses grow, scale, and compete in the modern world.
+                Woyyuu Tech is a software development studio. We design and build custom web platforms, mobile applications, and digital products that help businesses grow, scale, and compete in the modern world.
               </p>
               <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
                 Founded by a team of passionate engineers and creatives, we combine deep technical expertise with a genuine understanding of the World market — delivering solutions that are not just functional, but transformative.
@@ -117,13 +117,13 @@ const About = () => {
             {/* Image below text, centered */}
             <div className="relative w-full max-w-lg mt-10">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-blue-500/10 border border-gray-200 dark:border-gray-800">
-                <img src="/lemtech-flag.png" alt="LemiTech" className="w-full h-48 lg:h-64 object-cover" />
+                <img src="/woyyu-tech-flag.png" alt="Woyyuu Tech" className="w-full h-48 lg:h-64 object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <div className="flex items-center gap-3">
-                    <img src="/logo.png" alt="LemiTech Logo" className="w-10 h-10 rounded-xl object-cover" />
+                    <img src="/logo.png" alt="Woyyuu Tech Logo" className="w-10 h-10 rounded-xl object-cover" />
                     <div className="text-left">
-                      <p className="text-white font-bold text-lg">LemiTech</p>
+                      <p className="text-white font-bold text-lg">Woyyuu Tech</p>
                       <p className="text-white/70 text-sm">Addis Ababa, Ethiopia</p>
                     </div>
                   </div>
