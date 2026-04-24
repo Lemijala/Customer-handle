@@ -73,16 +73,13 @@ const Hero = () => {
 
           {/* Floating right image */}
           <Reveal direction="right" duration={900} delay={400} className="hidden lg:flex flex-col items-start gap-3 absolute right-0 top-1/2 -translate-y-1/2">
-            <div className="self-start ml-4 text-white opacity-60">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M4 0l16 12-7 2-4 8z"/></svg>
+            <div className="w-40 xl:w-48 h-52 xl:h-60 rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+              <img src="/left-side-mobile-screen.png" alt="Mobile App" className="w-full h-full object-cover" />
             </div>
             <div className="flex items-center gap-1 bg-[#2a2a2a] border border-gray-700 rounded-full px-4 py-2">
               <span className="w-2 h-2 rounded-full bg-gray-400 animate-pulse"></span>
               <span className="w-2 h-2 rounded-full bg-gray-400 opacity-60 animate-pulse" style={{animationDelay:'0.2s'}}></span>
               <span className="w-2 h-2 rounded-full bg-gray-400 opacity-30 animate-pulse" style={{animationDelay:'0.4s'}}></span>
-            </div>
-            <div className="w-40 xl:w-48 h-52 xl:h-60 rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
-              <img src="/left-side-mobile-screen.png" alt="Mobile App" className="w-full h-full object-cover" />
             </div>
           </Reveal>
 
