@@ -104,7 +104,15 @@ export const sendContactEmail = async (data: ContactEmailOptions): Promise<void>
 
         <!-- Footer -->
         <div style="text-align: center; padding: 16px;">
-          <p style="color: #94a3b8; font-size: 13px; margin: 0 0 8px;">LemiTech Software Studio · Addis Ababa, Ethiopia</p>
+          <p style="color: #94a3b8; font-size: 13px; margin: 0 0 12px;">LemiTech Software Studio · Addis Ababa, Ethiopia</p>
+          <!-- Social Links -->
+          <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 12px;">
+            <a href="https://github.com/Lemijala" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: #f1f5f9; border-radius: 8px; text-decoration: none; color: #475569; font-size: 13px; font-weight: 600;" title="GitHub">GH</a>
+            <a href="https://linkedin.com/in/lemesa" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: #f1f5f9; border-radius: 8px; text-decoration: none; color: #0077b5; font-size: 13px; font-weight: 600;" title="LinkedIn">in</a>
+            <a href="https://tiktok.com/@lemesa" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: #f1f5f9; border-radius: 8px; text-decoration: none; color: #000; font-size: 13px; font-weight: 600;" title="TikTok">TT</a>
+            <a href="https://t.me/lemesa" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: #f1f5f9; border-radius: 8px; text-decoration: none; color: #229ed9; font-size: 13px; font-weight: 600;" title="Telegram">TG</a>
+            <a href="mailto:tlemesagirma@gmail.com" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: #f1f5f9; border-radius: 8px; text-decoration: none; color: #3b82f6; font-size: 13px; font-weight: 600;" title="Email">✉</a>
+          </div>
           <p style="color: #94a3b8; font-size: 12px; margin: 0;">
             <a href="mailto:tlemesagirma@gmail.com" style="color: #3b82f6; text-decoration: none;">tlemesagirma@gmail.com</a>
           </p>
