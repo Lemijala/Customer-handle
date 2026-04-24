@@ -59,7 +59,7 @@ const Hero = () => {
 
           {/* Floating left image */}
           <Reveal direction="left" duration={900} delay={400} className="hidden lg:flex flex-col items-end gap-3 absolute left-0 top-1/2 -translate-y-1/2">
-            <div className="w-40 xl:w-48 rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+            <div className="w-40 xl:w-48 h-52 xl:h-60 rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
               <img src="/pc-image.png" alt="Project preview" className="w-full h-full object-cover" />
             </div>
             <div className="flex items-center gap-2 bg-[#2a2a2a] border border-gray-700 rounded-full px-4 py-2 self-end mr-4">
@@ -81,7 +81,7 @@ const Hero = () => {
               <span className="w-2 h-2 rounded-full bg-gray-400 opacity-60 animate-pulse" style={{animationDelay:'0.2s'}}></span>
               <span className="w-2 h-2 rounded-full bg-gray-400 opacity-30 animate-pulse" style={{animationDelay:'0.4s'}}></span>
             </div>
-            <div className="w-40 xl:w-48 rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+            <div className="w-40 xl:w-48 h-52 xl:h-60 rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
               <img src="/left-side-mobile-screen.png" alt="Mobile App" className="w-full h-full object-cover" />
             </div>
           </Reveal>
