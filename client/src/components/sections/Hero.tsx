@@ -137,14 +137,14 @@ const Hero = () => {
             </Reveal>
           </div>
 
-          {/* Right: PC + Phone overlapping */}
-          <Reveal direction="right" duration={900} delay={200} className="flex-1 hidden lg:flex items-start justify-center relative min-h-[380px] xl:min-h-[420px]">
-            {/* PC mockup — same width as phone, moved up */}
-            <div className="absolute left-0 top-0 w-36 xl:w-44 h-64 xl:h-72 rounded-2xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 z-10">
+          {/* Right: PC + Phone side by side, phone offset down */}
+          <Reveal direction="right" duration={900} delay={200} className="flex-1 hidden lg:flex items-start justify-center gap-3">
+            {/* PC mockup */}
+            <div className="w-44 xl:w-52 h-64 xl:h-72 rounded-2xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 flex-shrink-0">
               <img src="/pc-image.png" alt="Desktop preview" className="w-full h-full object-cover" />
             </div>
-            {/* Phone mockup — right next to PC, moved down */}
-            <div className="absolute left-32 xl:left-40 top-20 w-36 xl:w-44 rounded-3xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 z-20">
+            {/* Phone mockup — same width, shifted down */}
+            <div className="w-44 xl:w-52 rounded-3xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 flex-shrink-0 mt-16">
               <img src="/left-side-mobile-screen.png" alt="Mobile App" className="w-full object-cover" />
             </div>
           </Reveal>
