@@ -55,10 +55,10 @@ const Hero = () => {
       <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
 
         {/* Two-column hero layout */}
-        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-8 mb-10">
+        <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-4 mb-10">
 
-          {/* Left: Text — wider */}
-          <div className="flex-[1.2] flex flex-col gap-5">
+          {/* Left: Text — takes more space */}
+          <div className="flex-[1.5] flex flex-col gap-5">
             {/* Badge */}
             <Reveal direction="left" duration={700} delay={0}>
               <div className="inline-flex items-center gap-2 bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 rounded-full px-4 py-1.5 w-fit">
@@ -138,13 +138,13 @@ const Hero = () => {
           </div>
 
           {/* Right: PC + Phone side by side, phone offset down */}
-          <Reveal direction="right" duration={900} delay={200} className="flex-1 hidden lg:flex items-start justify-center gap-3">
+          <Reveal direction="right" duration={900} delay={200} className="flex-1 hidden lg:flex items-start justify-center gap-2">
             {/* PC mockup */}
-            <div className="w-44 xl:w-52 h-64 xl:h-72 rounded-2xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 flex-shrink-0">
+            <div className="w-36 xl:w-44 h-52 xl:h-60 rounded-2xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 flex-shrink-0">
               <img src="/pc-image.png" alt="Desktop preview" className="w-full h-full object-cover" />
             </div>
             {/* Phone mockup — same width, shifted down */}
-            <div className="w-44 xl:w-52 rounded-3xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 flex-shrink-0 mt-16">
+            <div className="w-36 xl:w-44 rounded-3xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 flex-shrink-0 mt-12">
               <img src="/left-side-mobile-screen.png" alt="Mobile App" className="w-full object-cover" />
             </div>
           </Reveal>
