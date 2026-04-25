@@ -138,14 +138,14 @@ const Hero = () => {
           </div>
 
           {/* Right: PC + Phone overlapping */}
-          <Reveal direction="right" duration={900} delay={200} className="flex-1 hidden lg:flex items-end justify-center relative h-80 xl:h-96">
-            {/* PC mockup */}
-            <div className="absolute left-0 bottom-0 w-56 xl:w-64 rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700 z-10">
-              <img src="/pc-image.png" alt="Desktop preview" className="w-full h-full object-cover" />
+          <Reveal direction="right" duration={900} delay={200} className="flex-1 hidden lg:flex items-start justify-center relative min-h-[380px] xl:min-h-[420px]">
+            {/* PC mockup — left, top-aligned */}
+            <div className="absolute left-4 top-0 w-52 xl:w-60 rounded-2xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 z-10">
+              <img src="/pc-image.png" alt="Desktop preview" className="w-full object-cover" />
             </div>
-            {/* Phone mockup — taller, overlapping right side */}
-            <div className="absolute right-0 bottom-0 w-36 xl:w-44 rounded-3xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700 z-20" style={{height: '110%'}}>
-              <img src="/left-side-mobile-screen.png" alt="Mobile App" className="w-full h-full object-cover" />
+            {/* Phone mockup — right, extends below PC */}
+            <div className="absolute right-0 top-8 w-32 xl:w-40 rounded-3xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 z-20">
+              <img src="/left-side-mobile-screen.png" alt="Mobile App" className="w-full object-cover" />
             </div>
           </Reveal>
         </div>
@@ -168,9 +168,9 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Flag image */}
+        {/* Flag image — contained, centered like design */}
         <Reveal direction="zoom" duration={900} delay={200}>
-          <div className="w-full rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 hover:scale-[1.01] transition-transform duration-300">
+          <div className="max-w-2xl mx-auto w-full rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 hover:scale-[1.01] transition-transform duration-300">
             <img src="/woyyu-tech-flag.png" alt="Woyyuu Tech Flag" className="w-full object-cover"
               onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
           </div>
