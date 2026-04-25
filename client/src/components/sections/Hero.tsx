@@ -102,40 +102,18 @@ const Hero = () => {
             </p>
           </Reveal>
 
-          {/* Subscribe */}
-          <Reveal direction="up" duration={700} delay={300}>
-            <form onSubmit={handleSubscribe} className="flex items-center gap-0 w-full max-w-md mt-2">
-              <input
-                type="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder="Your email"
-                className="flex-1 h-12 px-5 rounded-l-full border border-gray-300 dark:border-[#282e39] bg-white dark:bg-[#162032] text-slate-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:border-primary text-sm"
-              />
-              <button
-                type="submit"
-                className="h-12 px-6 rounded-r-full bg-gradient-to-r from-primary to-blue-600 hover:shadow-lg hover:shadow-primary/30 text-white font-bold text-sm transition-all duration-300 whitespace-nowrap"
-              >
-                {subscribed ? 'Subscribed!' : 'Subscribe'}
-              </button>
-            </form>
-          </Reveal>
+          {/* Subscribe moved below flag image */}
 
           {/* Social proof */}
           <Reveal direction="up" duration={700} delay={400}>
             <div className="flex items-center gap-3 mt-1">
-              {/* Overlapping avatars */}
               <div className="flex -space-x-2">
                 {(clientStats?.recentInitials?.length ? clientStats.recentInitials : ['E','L','N','P','B']).slice(0, 5).map((initial, i) => (
-                  <div
-                    key={i}
-                    className={`w-8 h-8 rounded-full bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center text-white text-xs font-black border-2 border-white dark:border-gray-900 shadow-md`}
-                  >
+                  <div key={i} className={`w-8 h-8 rounded-full bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center text-white text-xs font-black border-2 border-white dark:border-gray-900 shadow-md`}>
                     {initial}
                   </div>
                 ))}
               </div>
-              {/* Stars + count */}
               <div className="flex flex-col">
                 <div className="flex items-center gap-0.5">
                   {[...Array(5)].map((_, i) => (
@@ -150,7 +128,7 @@ const Hero = () => {
           </Reveal>
         </div>
 
-        {/* Mobile image carousel — auto scrolling right to left */}
+        {/* Mobile image carousel */}
         <div className="lg:hidden overflow-hidden mb-8 -mx-4">
           <div className="flex gap-4" style={{ width: 'max-content', animation: 'marquee 15s linear infinite' }}>
             {[
@@ -175,6 +153,26 @@ const Hero = () => {
               onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
           </div>
         </Reveal>
+
+        {/* Subscribe — below flag */}
+        <Reveal direction="up" duration={700} delay={100}>
+          <form onSubmit={handleSubscribe} className="flex items-center gap-0 w-full max-w-md mx-auto mt-4">
+            <input
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="Your email"
+              className="flex-1 h-12 px-5 rounded-l-full border border-gray-300 dark:border-[#282e39] bg-white dark:bg-[#162032] text-slate-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:border-primary text-sm"
+            />
+            <button
+              type="submit"
+              className="h-12 px-6 rounded-r-full bg-gradient-to-r from-primary to-blue-600 hover:shadow-lg hover:shadow-primary/30 text-white font-bold text-sm transition-all duration-300 whitespace-nowrap"
+            >
+              {subscribed ? 'Subscribed!' : 'Subscribe'}
+            </button>
+          </form>
+        </Reveal>
+
       </div>
 
       {/* Stats Bar */}
