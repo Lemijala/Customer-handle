@@ -44,11 +44,11 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="relative w-full overflow-hidden bg-background-light dark:bg-background-dark">
-      {/* Background */}
+    <section id="home" className="relative w-full overflow-hidden bg-white dark:bg-background-dark">
+      {/* Background gradient — light blue like the design */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-1/4 -left-40 w-[600px] h-[600px] bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/3 -right-40 w-[500px] h-[500px] bg-gradient-to-l from-blue-500/5 to-cyan-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-gradient-to-bl from-blue-100/80 via-blue-50/50 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-cyan-50/60 to-transparent rounded-full blur-3xl"></div>
       </div>
 
       {/* Main Content */}
@@ -137,14 +137,14 @@ const Hero = () => {
             </Reveal>
           </div>
 
-          {/* Right: PC + Phone side by side */}
-          <Reveal direction="right" duration={900} delay={200} className="flex-1 hidden lg:flex items-end justify-center gap-4 relative">
+          {/* Right: PC + Phone overlapping */}
+          <Reveal direction="right" duration={900} delay={200} className="flex-1 hidden lg:flex items-end justify-center relative h-80 xl:h-96">
             {/* PC mockup */}
-            <div className="w-56 xl:w-64 rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700 flex-shrink-0">
+            <div className="absolute left-0 bottom-0 w-56 xl:w-64 rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700 z-10">
               <img src="/pc-image.png" alt="Desktop preview" className="w-full h-full object-cover" />
             </div>
-            {/* Phone mockup — slightly taller, offset up */}
-            <div className="w-36 xl:w-44 rounded-3xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700 flex-shrink-0 -mb-6">
+            {/* Phone mockup — taller, overlapping right side */}
+            <div className="absolute right-0 bottom-0 w-36 xl:w-44 rounded-3xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700 z-20" style={{height: '110%'}}>
               <img src="/left-side-mobile-screen.png" alt="Mobile App" className="w-full h-full object-cover" />
             </div>
           </Reveal>
