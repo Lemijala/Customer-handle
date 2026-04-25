@@ -148,9 +148,22 @@ const Hero = () => {
 
         {/* Flag image — desktop only */}
         <Reveal direction="zoom" duration={900} delay={200}>
-          <div className="hidden lg:block max-w-lg mx-auto w-full rounded-2xl overflow-hidden bg-gray-900 aspect-video border border-gray-800 hover:scale-[1.02] transition-transform duration-300">
+          <div className="hidden lg:block max-w-lg mx-auto w-full rounded-2xl overflow-hidden bg-gray-900 aspect-video border border-gray-800 hover:scale-[1.02] transition-transform duration-300 relative">
             <img src="/woyyu-tech-flag.png" alt="Woyyuu Tech Flag" className="w-full h-full object-cover"
               onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+            {/* Subscriber count badge on top of flag */}
+            <div className="absolute top-3 right-3 flex items-center gap-2 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-lg border border-gray-200/60 dark:border-gray-700/50">
+              <div className="flex -space-x-1.5">
+                {['G','L','B'].map((initial, i) => (
+                  <div key={i} className={`w-5 h-5 rounded-full bg-gradient-to-br ${['from-blue-500 to-cyan-400','from-violet-500 to-purple-400','from-emerald-500 to-teal-400'][i]} flex items-center justify-center text-white text-[8px] font-black border border-white dark:border-gray-900`}>
+                    {initial}
+                  </div>
+                ))}
+              </div>
+              <span className="text-xs font-bold text-slate-700 dark:text-white">
+                {(clientStats?.totalClients ?? 0) + 16}+ subscribers
+              </span>
+            </div>
           </div>
         </Reveal>
 
