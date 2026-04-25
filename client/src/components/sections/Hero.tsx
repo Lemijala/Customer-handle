@@ -69,25 +69,25 @@ const Hero = () => {
 
             {/* Title */}
             <Reveal direction="left" duration={700} delay={100}>
-              <h1 className="text-6xl sm:text-7xl lg:text-7xl xl:text-8xl font-black leading-[1.05] tracking-tight">
+              <h1 className="text-7xl sm:text-8xl lg:text-8xl xl:text-9xl font-black leading-[1.0] tracking-tight">
                 <span className="text-slate-900 dark:text-white">Woyyuu</span><br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">Tech</span>
               </h1>
             </Reveal>
 
             {/* Divider */}
-            <div className="w-12 h-1 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400"></div>
+            <div className="w-14 h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400"></div>
 
             {/* Subtitle */}
             <Reveal direction="left" duration={700} delay={150}>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-800 dark:text-gray-200 leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-gray-200 leading-tight">
                 Where Ideas Become<br />Reality
               </h2>
             </Reveal>
 
             {/* Description */}
             <Reveal direction="left" duration={700} delay={200}>
-              <p className="text-slate-500 dark:text-gray-400 text-sm sm:text-base leading-relaxed max-w-md">
+              <p className="text-slate-500 dark:text-gray-400 text-base sm:text-lg leading-relaxed max-w-lg">
                 We turn complex ideas into powerful digital products. From scalable web platforms to sleek mobile apps — Woyyuu Tech engineers solutions that drive real business growth across Ethiopia and beyond.
               </p>
             </Reveal>
@@ -139,12 +139,12 @@ const Hero = () => {
 
           {/* Right: PC + Phone overlapping */}
           <Reveal direction="right" duration={900} delay={200} className="flex-1 hidden lg:flex items-start justify-center relative min-h-[380px] xl:min-h-[420px]">
-            {/* PC mockup — left, top-aligned */}
-            <div className="absolute left-4 top-0 w-52 xl:w-60 rounded-2xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 z-10">
-              <img src="/pc-image.png" alt="Desktop preview" className="w-full object-cover" />
+            {/* PC mockup — left, top-aligned, taller */}
+            <div className="absolute left-0 top-0 w-64 xl:w-72 h-64 xl:h-72 rounded-2xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 z-10">
+              <img src="/pc-image.png" alt="Desktop preview" className="w-full h-full object-cover" />
             </div>
-            {/* Phone mockup — right, extends below PC */}
-            <div className="absolute right-0 top-8 w-32 xl:w-40 rounded-3xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 z-20">
+            {/* Phone mockup — right, closer to PC, extends below */}
+            <div className="absolute right-4 top-6 w-36 xl:w-44 rounded-3xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 z-20">
               <img src="/left-side-mobile-screen.png" alt="Mobile App" className="w-full object-cover" />
             </div>
           </Reveal>
