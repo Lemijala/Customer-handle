@@ -55,10 +55,10 @@ const Hero = () => {
       <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
 
         {/* Two-column hero layout */}
-        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 mb-10">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-8 mb-10">
 
-          {/* Left: Text */}
-          <div className="flex-1 flex flex-col gap-5">
+          {/* Left: Text — wider */}
+          <div className="flex-[1.2] flex flex-col gap-5">
             {/* Badge */}
             <Reveal direction="left" duration={700} delay={0}>
               <div className="inline-flex items-center gap-2 bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 rounded-full px-4 py-1.5 w-fit">
@@ -69,7 +69,7 @@ const Hero = () => {
 
             {/* Title */}
             <Reveal direction="left" duration={700} delay={100}>
-              <h1 className="text-7xl sm:text-8xl lg:text-8xl xl:text-9xl font-black leading-[1.0] tracking-tight">
+              <h1 className="text-8xl sm:text-9xl lg:text-8xl xl:text-9xl font-black leading-[1.0] tracking-tight">
                 <span className="text-slate-900 dark:text-white">Woyyuu</span><br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">Tech</span>
               </h1>
@@ -80,14 +80,14 @@ const Hero = () => {
 
             {/* Subtitle */}
             <Reveal direction="left" duration={700} delay={150}>
-              <h2 className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-gray-200 leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-4xl font-black text-slate-800 dark:text-gray-200 leading-tight">
                 Where Ideas Become<br />Reality
               </h2>
             </Reveal>
 
             {/* Description */}
             <Reveal direction="left" duration={700} delay={200}>
-              <p className="text-slate-500 dark:text-gray-400 text-base sm:text-lg leading-relaxed max-w-lg">
+              <p className="text-slate-500 dark:text-gray-400 text-base sm:text-lg leading-relaxed max-w-xl">
                 We turn complex ideas into powerful digital products. From scalable web platforms to sleek mobile apps — Woyyuu Tech engineers solutions that drive real business growth across Ethiopia and beyond.
               </p>
             </Reveal>
@@ -143,8 +143,8 @@ const Hero = () => {
             <div className="absolute left-0 top-0 w-36 xl:w-44 h-64 xl:h-72 rounded-2xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 z-10">
               <img src="/pc-image.png" alt="Desktop preview" className="w-full h-full object-cover" />
             </div>
-            {/* Phone mockup — same width, moved down */}
-            <div className="absolute right-4 top-20 w-36 xl:w-44 rounded-3xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 z-20">
+            {/* Phone mockup — right next to PC, moved down */}
+            <div className="absolute left-32 xl:left-40 top-20 w-36 xl:w-44 rounded-3xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 z-20">
               <img src="/left-side-mobile-screen.png" alt="Mobile App" className="w-full object-cover" />
             </div>
           </Reveal>
