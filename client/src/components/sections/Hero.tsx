@@ -44,37 +44,39 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="relative w-full overflow-hidden bg-white dark:bg-background-dark">
-      {/* Background gradient — light blue like the design */}
+    <section id="home" className="relative w-full overflow-hidden bg-background-light dark:bg-background-dark">
+      {/* Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-gradient-to-bl from-blue-100/80 via-blue-50/50 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-cyan-50/60 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 -left-40 w-[600px] h-[600px] bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/3 -right-40 w-[500px] h-[500px] bg-gradient-to-l from-blue-500/5 to-cyan-500/5 rounded-full blur-3xl"></div>
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
+      <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12">
 
-        {/* Centered hero with floating side images */}
-        <div className="relative flex flex-col items-center text-center gap-5 mb-10">
+        {/* Centered Hero Text */}
+        <div className="relative flex flex-col items-center text-center gap-6 mb-12">
 
-          {/* Floating left — PC */}
-          <Reveal direction="left" duration={900} delay={400} className="hidden lg:flex flex-col items-center gap-3 absolute left-0 top-1/2 -translate-y-1/2">
-            <div className="w-44 xl:w-52 rounded-2xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700">
-              <img src="/pc-image.png" alt="Desktop preview" className="w-full object-cover" />
+          {/* Floating left image */}
+          <Reveal direction="left" duration={900} delay={400} className="hidden lg:flex flex-col items-end gap-3 absolute left-0 top-1/2 -translate-y-1/2">
+            <div className="w-40 xl:w-48 h-52 xl:h-60 rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+              <img src="/pc-image.png" alt="Project preview" className="w-full h-full object-cover" />
             </div>
-            <div className="flex items-center gap-1.5 bg-gray-900 dark:bg-gray-800 rounded-full px-4 py-1.5">
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-              <span className="w-2 h-2 rounded-full bg-green-400 opacity-60 animate-pulse" style={{animationDelay:'0.2s'}}></span>
-              <span className="w-2 h-2 rounded-full bg-green-400 opacity-30 animate-pulse" style={{animationDelay:'0.4s'}}></span>
+            <div className="flex items-center gap-2 bg-[#2a2a2a] border border-gray-700 rounded-full px-4 py-2 self-end mr-4">
+              <div className="flex gap-1">
+                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                <span className="w-2 h-2 rounded-full bg-green-400 opacity-60 animate-pulse" style={{animationDelay:'0.2s'}}></span>
+                <span className="w-2 h-2 rounded-full bg-green-400 opacity-30 animate-pulse" style={{animationDelay:'0.4s'}}></span>
+              </div>
             </div>
           </Reveal>
 
-          {/* Floating right — Phone */}
-          <Reveal direction="right" duration={900} delay={400} className="hidden lg:flex flex-col items-center gap-3 absolute right-0 top-1/2 -translate-y-1/2">
-            <div className="w-36 xl:w-44 rounded-3xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700">
-              <img src="/left-side-mobile-screen.png" alt="Mobile App" className="w-full object-cover" />
+          {/* Floating right image */}
+          <Reveal direction="right" duration={900} delay={400} className="hidden lg:flex flex-col items-start gap-3 absolute right-0 top-1/2 -translate-y-1/2">
+            <div className="w-40 xl:w-48 h-52 xl:h-60 rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+              <img src="/left-side-mobile-screen.png" alt="Mobile App" className="w-full h-full object-cover" />
             </div>
-            <div className="flex items-center gap-1.5 bg-gray-900 dark:bg-gray-800 rounded-full px-4 py-1.5">
+            <div className="flex items-center gap-1 bg-[#2a2a2a] border border-gray-700 rounded-full px-4 py-2">
               <span className="w-2 h-2 rounded-full bg-gray-400 animate-pulse"></span>
               <span className="w-2 h-2 rounded-full bg-gray-400 opacity-60 animate-pulse" style={{animationDelay:'0.2s'}}></span>
               <span className="w-2 h-2 rounded-full bg-gray-400 opacity-30 animate-pulse" style={{animationDelay:'0.4s'}}></span>
@@ -83,58 +85,43 @@ const Hero = () => {
 
           {/* Title */}
           <Reveal direction="down" duration={700} delay={0}>
-            <h1 className="text-7xl sm:text-8xl lg:text-9xl font-black leading-tight tracking-tight text-slate-900 dark:text-white">
+            <h1 className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black leading-tight tracking-tight text-slate-900 dark:text-white">
               Woyyuu Tech
             </h1>
           </Reveal>
 
-          {/* Subtitle */}
           <Reveal direction="up" duration={700} delay={100}>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight text-slate-700 dark:text-gray-300">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight text-slate-700 dark:text-gray-300">
               Where Ideas Become<br />Reality
             </h2>
           </Reveal>
 
-          {/* Description */}
-          <Reveal direction="up" duration={700} delay={150}>
+          <Reveal direction="up" duration={700} delay={200}>
             <p className="text-slate-500 dark:text-gray-400 text-base sm:text-lg max-w-xl leading-relaxed">
               We turn complex ideas into powerful digital products. From scalable web platforms to sleek mobile apps — Woyyuu Tech engineers solutions that drive real business growth across Ethiopia and beyond.
             </p>
           </Reveal>
 
-          {/* Subscribe */}
-          <Reveal direction="up" duration={700} delay={200}>
-            <form onSubmit={handleSubscribe} className="flex items-center gap-0 w-full max-w-sm">
-              <div className="flex items-center flex-1 h-12 px-4 rounded-l-full border border-gray-300 dark:border-[#282e39] bg-white dark:bg-[#162032] gap-2">
-                <span className="material-symbols-outlined text-gray-400 text-[18px]">mail</span>
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Your email"
-                  className="flex-1 bg-transparent text-slate-900 dark:text-white placeholder:text-gray-400 focus:outline-none text-sm" />
-              </div>
-              <button type="submit" className="h-12 px-5 rounded-r-full bg-gradient-to-r from-blue-500 to-blue-600 hover:shadow-lg hover:shadow-blue-500/30 text-white font-bold text-sm transition-all duration-300 flex items-center gap-1.5 whitespace-nowrap">
-                {subscribed ? 'Done!' : 'Subscribe'}
-                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-              </button>
-            </form>
-          </Reveal>
+          {/* Subscribe moved below flag image */}
 
           {/* Social proof */}
-          <Reveal direction="up" duration={700} delay={250}>
-            <div className="flex items-center gap-3">
+          <Reveal direction="up" duration={700} delay={400}>
+            <div className="flex items-center gap-3 mt-1">
               <div className="flex -space-x-2">
-                {(clientStats?.recentInitials?.length ? clientStats.recentInitials : ['G','L','B','D','B']).slice(0, 5).map((initial, i) => (
+                {(clientStats?.recentInitials?.length ? clientStats.recentInitials : ['E','L','N','P','B']).slice(0, 5).map((initial, i) => (
                   <div key={i} className={`w-8 h-8 rounded-full bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center text-white text-xs font-black border-2 border-white dark:border-gray-900 shadow-md`}>
                     {initial}
                   </div>
                 ))}
               </div>
-              <div className="flex flex-col items-start">
+              <div className="flex flex-col">
                 <div className="flex items-center gap-0.5">
                   {[...Array(5)].map((_, i) => (
                     <span key={i} className="material-symbols-outlined text-amber-400 text-[14px]" style={{fontVariationSettings: "'FILL' 1"}}>star</span>
                   ))}
                 </div>
                 <p className="text-xs text-slate-500 dark:text-gray-400">
-                  <span className="font-bold text-slate-900 dark:text-white">{(clientStats?.totalClients ?? 0) + 16}+</span> clients trust us
+                  <span className="font-bold text-slate-900 dark:text-white">{clientStats?.totalClients ?? 0}+</span> clients trust us
                 </p>
               </div>
             </div>
@@ -144,28 +131,47 @@ const Hero = () => {
         {/* Mobile image carousel */}
         <div className="lg:hidden overflow-hidden mb-8 -mx-4">
           <div className="flex gap-4" style={{ width: 'max-content', animation: 'marquee 15s linear infinite' }}>
-            {['/pc-image.png','/woyyu-tech-flag.png','/left-side-mobile-screen.png','/pc-image.png','/woyyu-tech-flag.png','/left-side-mobile-screen.png'].map((src, i) => (
+            {[
+              { src: '/pc-image.png', alt: 'Project preview' },
+              { src: '/woyyu-tech-flag.png', alt: 'Woyyuu Tech' },
+              { src: '/left-side-mobile-screen.png', alt: 'Mobile App' },
+              { src: '/pc-image.png', alt: 'Project preview' },
+              { src: '/woyyu-tech-flag.png', alt: 'Woyyuu Tech' },
+              { src: '/left-side-mobile-screen.png', alt: 'Mobile App' },
+            ].map((img, i) => (
               <div key={i} className="flex-shrink-0 w-52 h-36 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
-                <img src={src} alt="preview" className="w-full h-full object-cover" />
+                <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
               </div>
             ))}
           </div>
         </div>
 
-        {/* Flag image */}
+        {/* Flag image — desktop only */}
         <Reveal direction="zoom" duration={900} delay={200}>
-          <div className="max-w-2xl mx-auto w-full rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 hover:scale-[1.01] transition-transform duration-300">
-            <img src="/woyyu-tech-flag.png" alt="Woyyuu Tech Flag" className="w-full object-cover"
+          <div className="hidden lg:block max-w-lg mx-auto w-full rounded-2xl overflow-hidden bg-gray-900 aspect-video border border-gray-800 hover:scale-[1.02] transition-transform duration-300">
+            <img src="/woyyu-tech-flag.png" alt="Woyyuu Tech Flag" className="w-full h-full object-cover"
               onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
           </div>
         </Reveal>
 
-        {/* Scroll indicator */}
-        <div className="flex justify-center mt-8">
-          <div className="w-8 h-8 rounded-full border-2 border-gray-300 dark:border-gray-600 flex items-center justify-center animate-bounce">
-            <span className="material-symbols-outlined text-gray-400 text-[18px]">keyboard_arrow_down</span>
-          </div>
-        </div>
+        {/* Subscribe — below flag */}
+        <Reveal direction="up" duration={700} delay={100}>
+          <form onSubmit={handleSubscribe} className="flex items-center gap-0 w-full max-w-md mx-auto mt-4">
+            <input
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="Your email"
+              className="flex-1 h-12 px-5 rounded-l-full border border-gray-300 dark:border-[#282e39] bg-white dark:bg-[#162032] text-slate-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:border-primary text-sm"
+            />
+            <button
+              type="submit"
+              className="h-12 px-6 rounded-r-full bg-gradient-to-r from-primary to-blue-600 hover:shadow-lg hover:shadow-primary/30 text-white font-bold text-sm transition-all duration-300 whitespace-nowrap"
+            >
+              {subscribed ? 'Subscribed!' : 'Subscribe'}
+            </button>
+          </form>
+        </Reveal>
 
       </div>
 
