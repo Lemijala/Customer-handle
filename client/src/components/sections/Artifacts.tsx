@@ -1,6 +1,5 @@
 // File path: src/components/sections/Artifacts.tsx
 
-import { useState } from 'react';
 import Reveal from '../common/Reveal';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,18 +7,22 @@ const services = [
   {
     id: 1,
     title: 'Web Development',
-    description: 'We build fast, scalable, and modern web platforms tailored to your business. From landing pages to full enterprise systems — we deliver clean, maintainable code.',
+    description: 'We build fast, scalable, and modern web platforms tailored to your business. From landing pages to full enterprise systems — clean, maintainable code that grows with you.',
     icon: 'web',
     gradient: 'from-blue-500 to-cyan-400',
+    shadow: 'shadow-blue-500/20',
     features: ['React / Next.js', 'Node.js & REST APIs', 'Database Design', 'Cloud Deployment'],
+    side: 'left',
   },
   {
     id: 2,
     title: 'Mobile App Development',
-    description: 'Cross-platform mobile apps built with Flutter and React Native. We deliver smooth, native-feeling experiences for both iOS and Android.',
+    description: 'Cross-platform mobile apps built with Flutter and React Native. Smooth, native-feeling experiences for both iOS and Android — shipped fast.',
     icon: 'phone_iphone',
     gradient: 'from-violet-500 to-purple-400',
+    shadow: 'shadow-violet-500/20',
     features: ['Flutter & Dart', 'React Native', 'iOS & Android', 'Push Notifications'],
+    side: 'right',
   },
   {
     id: 3,
@@ -27,7 +30,9 @@ const services = [
     description: 'User-centered design that converts. We craft intuitive interfaces, design systems, and prototypes that make your product a pleasure to use.',
     icon: 'palette',
     gradient: 'from-pink-500 to-rose-400',
+    shadow: 'shadow-pink-500/20',
     features: ['Figma Prototypes', 'Design Systems', 'User Research', 'Responsive Design'],
+    side: 'left',
   },
   {
     id: 4,
@@ -35,7 +40,9 @@ const services = [
     description: 'Robust server-side systems, microservices, and API integrations. We build the engine that powers your product — secure, fast, and scalable.',
     icon: 'dns',
     gradient: 'from-emerald-500 to-teal-400',
+    shadow: 'shadow-emerald-500/20',
     features: ['REST & GraphQL APIs', 'Microservices', 'Authentication', 'Third-party Integrations'],
+    side: 'right',
   },
   {
     id: 5,
@@ -43,7 +50,9 @@ const services = [
     description: 'We set up and manage your cloud infrastructure, CI/CD pipelines, and deployment workflows so your team can ship faster with confidence.',
     icon: 'cloud',
     gradient: 'from-orange-500 to-amber-400',
+    shadow: 'shadow-orange-500/20',
     features: ['AWS / Firebase', 'Docker & Kubernetes', 'CI/CD Pipelines', 'Monitoring & Alerts'],
+    side: 'left',
   },
   {
     id: 6,
@@ -51,16 +60,27 @@ const services = [
     description: 'Not sure where to start? We help you plan your architecture, choose the right tech stack, and build a roadmap that fits your budget and timeline.',
     icon: 'lightbulb',
     gradient: 'from-indigo-500 to-violet-400',
+    shadow: 'shadow-indigo-500/20',
     features: ['Architecture Review', 'Tech Stack Advice', 'Project Roadmap', 'Code Audit'],
+    side: 'right',
+  },
+  {
+    id: 7,
+    title: 'Mentorship',
+    description: 'We guide developers and entrepreneurs through their journey — from learning to build, to launching real products. One-on-one sessions tailored to your goals.',
+    icon: 'school',
+    gradient: 'from-cyan-500 to-blue-400',
+    shadow: 'shadow-cyan-500/20',
+    features: ['1-on-1 Sessions', 'Code Reviews', 'Career Guidance', 'Project Support'],
+    side: 'left',
   },
 ];
 
 const Artifacts = () => {
-  const [hovered, setHovered] = useState<number | null>(null);
   const navigate = useNavigate();
 
   return (
-    <section id="artifacts" className="relative bg-background-light dark:bg-background-dark text-slate-900 dark:text-white w-full overflow-hidden py-16 lg:py-24">
+    <section id="artifacts" className="relative bg-background-light dark:bg-background-dark text-slate-900 dark:text-white w-full overflow-x-hidden py-16 lg:py-24">
       {/* Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-1/4 -left-40 w-80 h-80 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl"></div>
@@ -68,7 +88,7 @@ const Artifacts = () => {
         <div className="absolute inset-0" style={{ backgroundImage: `radial-gradient(circle at 1px 1px, rgba(59,130,246,0.06) 1px, transparent 0)`, backgroundSize: '40px 40px' }}></div>
       </div>
 
-      <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-16">
+      <div className="relative z-10 max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-20">
 
         {/* Header */}
         <Reveal direction="up" duration={700} delay={0}>
@@ -86,43 +106,39 @@ const Artifacts = () => {
           </div>
         </Reveal>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Alternating service cards */}
+        <div className="flex flex-col gap-12">
           {services.map((service, i) => (
-            <Reveal key={service.id} direction="up" duration={700} delay={i * 80}>
-              <div
-                className="group relative flex flex-col gap-5 p-7 rounded-2xl bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 h-full"
-                onMouseEnter={() => setHovered(service.id)}
-                onMouseLeave={() => setHovered(null)}
-                style={{
-                  transform: hovered === service.id ? 'translateY(-8px)' : 'translateY(0)',
-                  transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                }}
-              >
-                {/* Top accent */}
-                <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-t-2xl`}></div>
+            <Reveal key={service.id} direction={service.side === 'left' ? 'left' : 'right'} duration={700} delay={i * 60}>
+              <div className={`flex flex-col ${service.side === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 group`}>
 
-                {/* Icon */}
-                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                  <span className="material-symbols-outlined text-white text-[26px]">{service.icon}</span>
+                {/* Icon block */}
+                <div className={`flex-shrink-0 w-full md:w-64 lg:w-72 flex flex-col items-center justify-center gap-4 p-8 rounded-3xl bg-gradient-to-br ${service.gradient} shadow-2xl ${service.shadow} group-hover:scale-105 transition-transform duration-500`}>
+                  <span className="material-symbols-outlined text-white text-[56px]" style={{fontVariationSettings:"'FILL' 1"}}>{service.icon}</span>
+                  <h3 className="font-black text-white text-xl text-center">{service.title}</h3>
+                  <div className="flex flex-wrap gap-2 justify-center">
+                    {service.features.map((f, fi) => (
+                      <span key={fi} className="text-xs font-semibold px-2.5 py-1 rounded-full bg-white/20 text-white border border-white/30">
+                        {f}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="flex flex-col gap-2 flex-1">
-                  <h3 className="font-black text-slate-900 dark:text-white text-xl">{service.title}</h3>
-                  <p className="text-slate-500 dark:text-gray-400 text-sm leading-relaxed">{service.description}</p>
+                {/* Text block */}
+                <div className="flex-1 flex flex-col gap-4">
+                  <div className={`w-12 h-1 rounded-full bg-gradient-to-r ${service.gradient}`}></div>
+                  <h2 className="text-3xl lg:text-4xl font-black text-slate-900 dark:text-white">{service.title}</h2>
+                  <p className="text-slate-500 dark:text-gray-400 text-lg leading-relaxed">{service.description}</p>
+                  <button
+                    onClick={() => { navigate('/contact'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                    className={`self-start flex items-center gap-2 text-sm font-bold px-5 py-2.5 rounded-xl bg-gradient-to-r ${service.gradient} text-white shadow-lg hover:scale-105 active:scale-95 transition-all duration-300`}
+                  >
+                    <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    Get Started
+                  </button>
                 </div>
 
-                {/* Features */}
-                <div className="flex flex-wrap gap-2">
-                  {service.features.map((f, fi) => (
-                    <span key={fi} className="text-xs font-semibold px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-slate-600 dark:text-gray-300 border border-gray-200 dark:border-gray-600">
-                      {f}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Bottom line */}
-                <div className={`h-0.5 w-0 bg-gradient-to-r ${service.gradient} group-hover:w-full transition-all duration-500 rounded-full`}></div>
               </div>
             </Reveal>
           ))}
