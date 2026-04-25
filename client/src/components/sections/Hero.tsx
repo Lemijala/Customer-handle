@@ -137,7 +137,7 @@ const Hero = () => {
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-2">
                   {(clientStats?.recentInitials?.length ? clientStats.recentInitials : ['E','L','N','P','B']).slice(0, 5).map((initial, i) => (
-                    <div key={i} className={`w-8 h-8 rounded-full bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center text-white text-xs font-black border-2 border-white shadow-md`}>
+                    <div key={i} className={`w-10 h-10 rounded-full bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center text-white text-sm font-black border-2 border-white shadow-md`}>
                       {initial}
                     </div>
                   ))}
@@ -145,21 +145,21 @@ const Hero = () => {
                 <div className="flex flex-col">
                   <div className="flex items-center gap-0.5">
                     {[...Array(5)].map((_, i) => (
-                      <span key={i} className="material-symbols-outlined text-amber-400 text-[14px]" style={{fontVariationSettings: "'FILL' 1"}}>star</span>
+                      <span key={i} className="material-symbols-outlined text-amber-400 text-[18px]" style={{fontVariationSettings: "'FILL' 1"}}>star</span>
                     ))}
                   </div>
-                  <p className="text-xs text-white/80">
-                    <span className="font-bold text-white">{clientStats?.totalClients ?? 0}+</span> clients trust us
+                  <p className="text-sm text-white/80">
+                    <span className="font-bold text-white text-base">{clientStats?.totalClients ?? 0}+</span> clients trust us
                   </p>
                 </div>
               </div>
               {/* Subscribe form */}
-              <form onSubmit={handleSubscribe} className="flex items-center gap-0 w-full max-w-sm">
+              <form onSubmit={handleSubscribe} className="flex items-center gap-0 w-full max-w-md">
                 <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Your email"
-                  className="flex-1 h-11 px-5 rounded-l-full border border-white/30 bg-white/20 backdrop-blur-sm text-white placeholder:text-white/60 focus:outline-none focus:border-white/60 text-sm" />
+                  className="flex-1 h-13 px-6 rounded-l-full border-2 border-white/40 bg-white/25 backdrop-blur-sm text-white placeholder:text-white/70 focus:outline-none focus:border-white/80 text-base font-medium" style={{height:'52px'}} />
                 <button type="submit"
-                  className="h-11 px-5 rounded-r-full bg-gradient-to-r from-blue-500 to-cyan-400 hover:shadow-lg hover:shadow-blue-500/40 text-white font-bold text-sm transition-all duration-300 whitespace-nowrap">
-                  {subscribed ? 'Subscribed!' : 'Subscribe'}
+                  className="h-13 px-7 rounded-r-full bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500 shadow-xl shadow-blue-500/40 text-white font-black text-base transition-all duration-300 whitespace-nowrap border-2 border-blue-400" style={{height:'52px'}}>
+                  {subscribed ? '✓ Done!' : 'Subscribe →'}
                 </button>
               </form>
             </div>
