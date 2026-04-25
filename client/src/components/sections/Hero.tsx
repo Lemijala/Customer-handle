@@ -198,20 +198,51 @@ const Hero = () => {
       <Reveal direction="up" duration={700} delay={0}>
         <div className="w-full py-12 px-4 sm:px-6 border-t border-gray-200 dark:border-[#282e39]">
           <div className="max-w-[1200px] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { value: '20+', label: 'Projects Delivered', icon: 'rocket_launch', gradient: 'from-blue-500 to-cyan-400' },
-              { value: '15+', label: 'Happy Clients', icon: 'sentiment_very_satisfied', gradient: 'from-violet-500 to-purple-400' },
-              { value: '4+', label: 'Years Experience', icon: 'calendar_today', gradient: 'from-emerald-500 to-teal-400' },
-              { value: '2', label: 'Office Locations', icon: 'location_on', gradient: 'from-orange-500 to-amber-400' },
-            ].map((stat, i) => (
-              <div key={i} className="group flex flex-col items-center text-center gap-2 p-6 rounded-2xl bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300 mb-1`}>
-                  <span className="material-symbols-outlined text-white text-[20px]">{stat.icon}</span>
-                </div>
-                <span className={`text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r ${stat.gradient}`}>{stat.value}</span>
-                <span className="text-sm text-slate-500 dark:text-gray-400 font-medium">{stat.label}</span>
+            {/* Projects Delivered */}
+            <div className="group flex flex-col items-center text-center gap-2 p-6 rounded-2xl bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300 mb-1">
+                <span className="material-symbols-outlined text-white text-[20px]">rocket_launch</span>
               </div>
-            ))}
+              <span className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">20+</span>
+              <span className="text-sm text-slate-500 dark:text-gray-400 font-medium">Projects Delivered</span>
+            </div>
+
+            {/* Live client badge */}
+            <div className="group flex flex-col items-center text-center gap-2 p-6 rounded-2xl bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <div className="flex -space-x-2 mb-1 group-hover:scale-110 transition-transform duration-300">
+                {(clientStats?.recentInitials?.length ? clientStats.recentInitials : ['E','L','N','P','B']).slice(0, 5).map((initial, i) => (
+                  <div key={i} className={`w-9 h-9 rounded-full bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center text-white text-xs font-black border-2 border-white dark:border-gray-800 shadow-md`}>
+                    {initial}
+                  </div>
+                ))}
+              </div>
+              <div className="flex items-center gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="material-symbols-outlined text-amber-400 text-[13px]" style={{fontVariationSettings: "'FILL' 1"}}>star</span>
+                ))}
+              </div>
+              <span className="text-sm text-slate-500 dark:text-gray-400 font-medium">
+                <span className="font-black text-slate-900 dark:text-white text-lg">{clientStats?.totalClients ?? 0}+</span> Happy Clients
+              </span>
+            </div>
+
+            {/* Years Experience */}
+            <div className="group flex flex-col items-center text-center gap-2 p-6 rounded-2xl bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-400 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300 mb-1">
+                <span className="material-symbols-outlined text-white text-[20px]">calendar_today</span>
+              </div>
+              <span className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-400">4+</span>
+              <span className="text-sm text-slate-500 dark:text-gray-400 font-medium">Years Experience</span>
+            </div>
+
+            {/* Office Locations */}
+            <div className="group flex flex-col items-center text-center gap-2 p-6 rounded-2xl bg-white dark:bg-gray-800/60 border border-gray-200/60 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-amber-400 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300 mb-1">
+                <span className="material-symbols-outlined text-white text-[20px]">location_on</span>
+              </div>
+              <span className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-400">2</span>
+              <span className="text-sm text-slate-500 dark:text-gray-400 font-medium">Office Locations</span>
+            </div>
           </div>
         </div>
       </Reveal>
