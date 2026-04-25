@@ -19,7 +19,7 @@ const Navbar = ({ dark, onToggleDark }: NavbarProps) => {
     { label: 'About', id: 'about', path: '/about', icon: 'info' },
     { label: 'Experience', id: 'skills', path: '/skills', icon: 'work' },
     { label: 'Projects', id: 'case-studies', path: '/case-studies', icon: 'folder' },
-    { label: 'Artifacts', id: 'artifacts', path: '/artifacts', icon: 'code' },
+    { label: 'Services', id: 'artifacts', path: '/artifacts', icon: 'build' },
     { label: 'Contact', id: 'contact', path: '/contact', icon: 'mail' },
   ];
 
