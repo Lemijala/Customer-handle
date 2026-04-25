@@ -54,98 +54,89 @@ const Hero = () => {
       {/* Main Content */}
       <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
 
-        {/* Two-column hero layout */}
-        <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-4 mb-10">
+        {/* Centered hero with floating side images */}
+        <div className="relative flex flex-col items-center text-center gap-5 mb-10">
 
-          {/* Left: Text — takes more space */}
-          <div className="flex-[1.5] flex flex-col gap-5">
-            {/* Badge */}
-            <Reveal direction="left" duration={700} delay={0}>
-              <div className="inline-flex items-center gap-2 bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 rounded-full px-4 py-1.5 w-fit">
-                <span className="material-symbols-outlined text-blue-500 text-[14px]">rocket_launch</span>
-                <span className="text-blue-600 dark:text-blue-400 text-xs font-bold tracking-wide">Innovate • Build • Empower</span>
+          {/* Floating left — PC */}
+          <Reveal direction="left" duration={900} delay={400} className="hidden lg:flex flex-col items-center gap-3 absolute left-0 top-1/2 -translate-y-1/2">
+            <div className="w-44 xl:w-52 rounded-2xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700">
+              <img src="/pc-image.png" alt="Desktop preview" className="w-full object-cover" />
+            </div>
+            <div className="flex items-center gap-1.5 bg-gray-900 dark:bg-gray-800 rounded-full px-4 py-1.5">
+              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+              <span className="w-2 h-2 rounded-full bg-green-400 opacity-60 animate-pulse" style={{animationDelay:'0.2s'}}></span>
+              <span className="w-2 h-2 rounded-full bg-green-400 opacity-30 animate-pulse" style={{animationDelay:'0.4s'}}></span>
+            </div>
+          </Reveal>
+
+          {/* Floating right — Phone */}
+          <Reveal direction="right" duration={900} delay={400} className="hidden lg:flex flex-col items-center gap-3 absolute right-0 top-1/2 -translate-y-1/2">
+            <div className="w-36 xl:w-44 rounded-3xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700">
+              <img src="/left-side-mobile-screen.png" alt="Mobile App" className="w-full object-cover" />
+            </div>
+            <div className="flex items-center gap-1.5 bg-gray-900 dark:bg-gray-800 rounded-full px-4 py-1.5">
+              <span className="w-2 h-2 rounded-full bg-gray-400 animate-pulse"></span>
+              <span className="w-2 h-2 rounded-full bg-gray-400 opacity-60 animate-pulse" style={{animationDelay:'0.2s'}}></span>
+              <span className="w-2 h-2 rounded-full bg-gray-400 opacity-30 animate-pulse" style={{animationDelay:'0.4s'}}></span>
+            </div>
+          </Reveal>
+
+          {/* Title */}
+          <Reveal direction="down" duration={700} delay={0}>
+            <h1 className="text-7xl sm:text-8xl lg:text-9xl font-black leading-tight tracking-tight text-slate-900 dark:text-white">
+              Woyyuu Tech
+            </h1>
+          </Reveal>
+
+          {/* Subtitle */}
+          <Reveal direction="up" duration={700} delay={100}>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight text-slate-700 dark:text-gray-300">
+              Where Ideas Become<br />Reality
+            </h2>
+          </Reveal>
+
+          {/* Description */}
+          <Reveal direction="up" duration={700} delay={150}>
+            <p className="text-slate-500 dark:text-gray-400 text-base sm:text-lg max-w-xl leading-relaxed">
+              We turn complex ideas into powerful digital products. From scalable web platforms to sleek mobile apps — Woyyuu Tech engineers solutions that drive real business growth across Ethiopia and beyond.
+            </p>
+          </Reveal>
+
+          {/* Subscribe */}
+          <Reveal direction="up" duration={700} delay={200}>
+            <form onSubmit={handleSubscribe} className="flex items-center gap-0 w-full max-w-sm">
+              <div className="flex items-center flex-1 h-12 px-4 rounded-l-full border border-gray-300 dark:border-[#282e39] bg-white dark:bg-[#162032] gap-2">
+                <span className="material-symbols-outlined text-gray-400 text-[18px]">mail</span>
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Your email"
+                  className="flex-1 bg-transparent text-slate-900 dark:text-white placeholder:text-gray-400 focus:outline-none text-sm" />
               </div>
-            </Reveal>
+              <button type="submit" className="h-12 px-5 rounded-r-full bg-gradient-to-r from-blue-500 to-blue-600 hover:shadow-lg hover:shadow-blue-500/30 text-white font-bold text-sm transition-all duration-300 flex items-center gap-1.5 whitespace-nowrap">
+                {subscribed ? 'Done!' : 'Subscribe'}
+                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </button>
+            </form>
+          </Reveal>
 
-            {/* Title */}
-            <Reveal direction="left" duration={700} delay={100}>
-              <h1 className="text-8xl sm:text-9xl lg:text-8xl xl:text-9xl font-black leading-[1.0] tracking-tight">
-                <span className="text-slate-900 dark:text-white">Woyyuu</span><br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">Tech</span>
-              </h1>
-            </Reveal>
-
-            {/* Divider */}
-            <div className="w-14 h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400"></div>
-
-            {/* Subtitle */}
-            <Reveal direction="left" duration={700} delay={150}>
-              <h2 className="text-3xl sm:text-4xl lg:text-4xl font-black text-slate-800 dark:text-gray-200 leading-tight">
-                Where Ideas Become<br />Reality
-              </h2>
-            </Reveal>
-
-            {/* Description */}
-            <Reveal direction="left" duration={700} delay={200}>
-              <p className="text-slate-500 dark:text-gray-400 text-base sm:text-lg leading-relaxed max-w-xl">
-                We turn complex ideas into powerful digital products. From scalable web platforms to sleek mobile apps — Woyyuu Tech engineers solutions that drive real business growth across Ethiopia and beyond.
-              </p>
-            </Reveal>
-
-            {/* Subscribe */}
-            <Reveal direction="left" duration={700} delay={250}>
-              <form onSubmit={handleSubscribe} className="flex items-center gap-0 w-full max-w-sm">
-                <div className="flex items-center flex-1 h-12 px-4 rounded-l-full border border-gray-300 dark:border-[#282e39] bg-white dark:bg-[#162032] gap-2">
-                  <span className="material-symbols-outlined text-gray-400 text-[18px]">mail</span>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    placeholder="Your email"
-                    className="flex-1 bg-transparent text-slate-900 dark:text-white placeholder:text-gray-400 focus:outline-none text-sm"
-                  />
-                </div>
-                <button type="submit"
-                  className="h-12 px-5 rounded-r-full bg-gradient-to-r from-blue-500 to-blue-600 hover:shadow-lg hover:shadow-blue-500/30 text-white font-bold text-sm transition-all duration-300 flex items-center gap-1.5 whitespace-nowrap">
-                  {subscribed ? 'Done!' : 'Subscribe'}
-                  <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-                </button>
-              </form>
-            </Reveal>
-
-            {/* Social proof */}
-            <Reveal direction="left" duration={700} delay={300}>
-              <div className="flex items-center gap-3">
-                <div className="flex -space-x-2">
-                  {(clientStats?.recentInitials?.length ? clientStats.recentInitials : ['G','L','B','D','B']).slice(0, 5).map((initial, i) => (
-                    <div key={i} className={`w-8 h-8 rounded-full bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center text-white text-xs font-black border-2 border-white dark:border-gray-900 shadow-md`}>
-                      {initial}
-                    </div>
+          {/* Social proof */}
+          <Reveal direction="up" duration={700} delay={250}>
+            <div className="flex items-center gap-3">
+              <div className="flex -space-x-2">
+                {(clientStats?.recentInitials?.length ? clientStats.recentInitials : ['G','L','B','D','B']).slice(0, 5).map((initial, i) => (
+                  <div key={i} className={`w-8 h-8 rounded-full bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center text-white text-xs font-black border-2 border-white dark:border-gray-900 shadow-md`}>
+                    {initial}
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-col items-start">
+                <div className="flex items-center gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className="material-symbols-outlined text-amber-400 text-[14px]" style={{fontVariationSettings: "'FILL' 1"}}>star</span>
                   ))}
                 </div>
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-0.5">
-                    {[...Array(5)].map((_, i) => (
-                      <span key={i} className="material-symbols-outlined text-amber-400 text-[14px]" style={{fontVariationSettings: "'FILL' 1"}}>star</span>
-                    ))}
-                  </div>
-                  <p className="text-xs text-slate-500 dark:text-gray-400">
-                    <span className="font-bold text-slate-900 dark:text-white">{(clientStats?.totalClients ?? 0) + 16}+</span> clients trust us
-                  </p>
-                </div>
+                <p className="text-xs text-slate-500 dark:text-gray-400">
+                  <span className="font-bold text-slate-900 dark:text-white">{(clientStats?.totalClients ?? 0) + 16}+</span> clients trust us
+                </p>
               </div>
-            </Reveal>
-          </div>
-
-          {/* Right: PC + Phone side by side, phone offset down */}
-          <Reveal direction="right" duration={900} delay={200} className="flex-1 hidden lg:flex items-start justify-center gap-2">
-            {/* PC mockup */}
-            <div className="w-36 xl:w-44 h-52 xl:h-60 rounded-2xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 flex-shrink-0">
-              <img src="/pc-image.png" alt="Desktop preview" className="w-full h-full object-cover" />
-            </div>
-            {/* Phone mockup — same width, shifted down */}
-            <div className="w-36 xl:w-44 rounded-3xl overflow-hidden shadow-2xl border border-gray-300 dark:border-gray-700 flex-shrink-0 mt-12">
-              <img src="/left-side-mobile-screen.png" alt="Mobile App" className="w-full object-cover" />
             </div>
           </Reveal>
         </div>
@@ -153,22 +144,15 @@ const Hero = () => {
         {/* Mobile image carousel */}
         <div className="lg:hidden overflow-hidden mb-8 -mx-4">
           <div className="flex gap-4" style={{ width: 'max-content', animation: 'marquee 15s linear infinite' }}>
-            {[
-              { src: '/pc-image.png', alt: 'Project preview' },
-              { src: '/woyyu-tech-flag.png', alt: 'Woyyuu Tech' },
-              { src: '/left-side-mobile-screen.png', alt: 'Mobile App' },
-              { src: '/pc-image.png', alt: 'Project preview' },
-              { src: '/woyyu-tech-flag.png', alt: 'Woyyuu Tech' },
-              { src: '/left-side-mobile-screen.png', alt: 'Mobile App' },
-            ].map((img, i) => (
+            {['/pc-image.png','/woyyu-tech-flag.png','/left-side-mobile-screen.png','/pc-image.png','/woyyu-tech-flag.png','/left-side-mobile-screen.png'].map((src, i) => (
               <div key={i} className="flex-shrink-0 w-52 h-36 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
-                <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
+                <img src={src} alt="preview" className="w-full h-full object-cover" />
               </div>
             ))}
           </div>
         </div>
 
-        {/* Flag image — contained, centered like design */}
+        {/* Flag image */}
         <Reveal direction="zoom" duration={900} delay={200}>
           <div className="max-w-2xl mx-auto w-full rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 hover:scale-[1.01] transition-transform duration-300">
             <img src="/woyyu-tech-flag.png" alt="Woyyuu Tech Flag" className="w-full object-cover"
