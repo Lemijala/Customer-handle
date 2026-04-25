@@ -104,28 +104,6 @@ const Hero = () => {
 
           {/* Subscribe moved below flag image */}
 
-          {/* Social proof */}
-          <Reveal direction="up" duration={700} delay={400}>
-            <div className="flex items-center gap-3 mt-1">
-              <div className="flex -space-x-2">
-                {(clientStats?.recentInitials?.length ? clientStats.recentInitials : ['E','L','N','P','B']).slice(0, 5).map((initial, i) => (
-                  <div key={i} className={`w-8 h-8 rounded-full bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center text-white text-xs font-black border-2 border-white dark:border-gray-900 shadow-md`}>
-                    {initial}
-                  </div>
-                ))}
-              </div>
-              <div className="flex flex-col">
-                <div className="flex items-center gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className="material-symbols-outlined text-amber-400 text-[14px]" style={{fontVariationSettings: "'FILL' 1"}}>star</span>
-                  ))}
-                </div>
-                <p className="text-xs text-slate-500 dark:text-gray-400">
-                  <span className="font-bold text-slate-900 dark:text-white">{clientStats?.totalClients ?? 0}+</span> clients trust us
-                </p>
-              </div>
-            </div>
-          </Reveal>
         </div>
 
         {/* Mobile image carousel */}
@@ -146,44 +124,72 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Flag image — desktop only */}
+        {/* Flag image with centered subscribe + social proof overlay */}
         <Reveal direction="zoom" duration={900} delay={200}>
           <div className="hidden lg:block max-w-lg mx-auto w-full rounded-2xl overflow-hidden bg-gray-900 aspect-video border border-gray-800 hover:scale-[1.02] transition-transform duration-300 relative">
             <img src="/woyyu-tech-flag.png" alt="Woyyuu Tech Flag" className="w-full h-full object-cover"
               onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-            {/* Subscriber count badge on top of flag */}
-            <div className="absolute top-3 right-3 flex items-center gap-2 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-lg border border-gray-200/60 dark:border-gray-700/50">
-              <div className="flex -space-x-1.5">
-                {['G','L','B'].map((initial, i) => (
-                  <div key={i} className={`w-5 h-5 rounded-full bg-gradient-to-br ${['from-blue-500 to-cyan-400','from-violet-500 to-purple-400','from-emerald-500 to-teal-400'][i]} flex items-center justify-center text-white text-[8px] font-black border border-white dark:border-gray-900`}>
-                    {initial}
+            {/* Dark overlay */}
+            <div className="absolute inset-0 bg-black/40 rounded-2xl" />
+            {/* Centered content */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6">
+              {/* Social proof */}
+              <div className="flex items-center gap-3">
+                <div className="flex -space-x-2">
+                  {(clientStats?.recentInitials?.length ? clientStats.recentInitials : ['E','L','N','P','B']).slice(0, 5).map((initial, i) => (
+                    <div key={i} className={`w-8 h-8 rounded-full bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center text-white text-xs font-black border-2 border-white shadow-md`}>
+                      {initial}
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-0.5">
+                    {[...Array(5)].map((_, i) => (
+                      <span key={i} className="material-symbols-outlined text-amber-400 text-[14px]" style={{fontVariationSettings: "'FILL' 1"}}>star</span>
+                    ))}
                   </div>
-                ))}
+                  <p className="text-xs text-white/80">
+                    <span className="font-bold text-white">{clientStats?.totalClients ?? 0}+</span> clients trust us
+                  </p>
+                </div>
               </div>
-              <span className="text-xs font-bold text-slate-700 dark:text-white">
-                {(clientStats?.totalClients ?? 0) + 16}+ subscribers
-              </span>
+              {/* Subscribe form */}
+              <form onSubmit={handleSubscribe} className="flex items-center gap-0 w-full max-w-sm">
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Your email"
+                  className="flex-1 h-11 px-5 rounded-l-full border border-white/30 bg-white/20 backdrop-blur-sm text-white placeholder:text-white/60 focus:outline-none focus:border-white/60 text-sm" />
+                <button type="submit"
+                  className="h-11 px-5 rounded-r-full bg-gradient-to-r from-blue-500 to-cyan-400 hover:shadow-lg hover:shadow-blue-500/40 text-white font-bold text-sm transition-all duration-300 whitespace-nowrap">
+                  {subscribed ? 'Subscribed!' : 'Subscribe'}
+                </button>
+              </form>
             </div>
           </div>
         </Reveal>
 
-        {/* Subscribe — below flag */}
+        {/* Mobile subscribe form */}
         <Reveal direction="up" duration={700} delay={100}>
-          <form onSubmit={handleSubscribe} className="flex items-center gap-0 w-full max-w-md mx-auto mt-4">
-            <input
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              placeholder="Your email"
-              className="flex-1 h-12 px-5 rounded-l-full border border-gray-300 dark:border-[#282e39] bg-white dark:bg-[#162032] text-slate-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:border-primary text-sm"
-            />
-            <button
-              type="submit"
-              className="h-12 px-6 rounded-r-full bg-gradient-to-r from-primary to-blue-600 hover:shadow-lg hover:shadow-primary/30 text-white font-bold text-sm transition-all duration-300 whitespace-nowrap"
-            >
-              {subscribed ? 'Subscribed!' : 'Subscribe'}
-            </button>
-          </form>
+          <div className="lg:hidden flex flex-col items-center gap-3 mt-4">
+            <div className="flex items-center gap-3">
+              <div className="flex -space-x-2">
+                {(clientStats?.recentInitials?.length ? clientStats.recentInitials : ['E','L','N','P','B']).slice(0, 5).map((initial, i) => (
+                  <div key={i} className={`w-7 h-7 rounded-full bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center text-white text-xs font-black border-2 border-white dark:border-gray-900 shadow-md`}>
+                    {initial}
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-slate-500 dark:text-gray-400">
+                <span className="font-bold text-slate-900 dark:text-white">{clientStats?.totalClients ?? 0}+</span> clients trust us
+              </p>
+            </div>
+            <form onSubmit={handleSubscribe} className="flex items-center gap-0 w-full max-w-md">
+              <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Your email"
+                className="flex-1 h-12 px-5 rounded-l-full border border-gray-300 dark:border-[#282e39] bg-white dark:bg-[#162032] text-slate-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:border-primary text-sm" />
+              <button type="submit"
+                className="h-12 px-6 rounded-r-full bg-gradient-to-r from-primary to-blue-600 text-white font-bold text-sm transition-all duration-300 whitespace-nowrap">
+                {subscribed ? 'Subscribed!' : 'Subscribe'}
+              </button>
+            </form>
+          </div>
         </Reveal>
 
       </div>
