@@ -131,28 +131,8 @@ const Hero = () => {
               onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
             {/* Dark overlay */}
             <div className="absolute inset-0 bg-black/40 rounded-2xl" />
-            {/* Centered content */}
+            {/* Centered content — subscribe only */}
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6">
-              {/* Social proof */}
-              <div className="flex items-center gap-3">
-                <div className="flex -space-x-2">
-                  {(clientStats?.recentInitials?.length ? clientStats.recentInitials : ['E','L','N','P','B']).slice(0, 5).map((initial, i) => (
-                    <div key={i} className={`w-10 h-10 rounded-full bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center text-white text-sm font-black border-2 border-white shadow-md`}>
-                      {initial}
-                    </div>
-                  ))}
-                </div>
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-0.5">
-                    {[...Array(5)].map((_, i) => (
-                      <span key={i} className="material-symbols-outlined text-amber-400 text-[18px]" style={{fontVariationSettings: "'FILL' 1"}}>star</span>
-                    ))}
-                  </div>
-                  <p className="text-sm text-white/80">
-                    <span className="font-bold text-white text-base">{clientStats?.totalClients ?? 0}+</span> clients trust us
-                  </p>
-                </div>
-              </div>
               {/* Subscribe form */}
               <form onSubmit={handleSubscribe} className="flex items-center gap-0 w-full max-w-md">
                 <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Your email"
