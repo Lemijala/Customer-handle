@@ -7,6 +7,7 @@ const AdminLogin = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -33,6 +34,8 @@ const AdminLogin = () => {
     setLoading(false);
   };
 
+  const inputClass = "flex-1 bg-transparent text-slate-900 dark:text-white placeholder:text-gray-400 focus:outline-none text-sm";
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center px-4">
       <div className="w-full max-w-sm flex flex-col gap-6 p-8 rounded-3xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-2xl">
@@ -42,10 +45,23 @@ const AdminLogin = () => {
           <p className="text-xs text-slate-400">Woyyuu Tech Dashboard</p>
         </div>
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
-          <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email"
-            className="h-11 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-blue-500" required />
-          <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password"
-            className="h-11 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-blue-500" required />
+          {/* Email */}
+          <div className="flex items-center gap-3 h-11 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus-within:border-blue-500 transition-colors">
+            <span className="material-symbols-outlined text-gray-400 text-[18px] flex-shrink-0">person</span>
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email"
+              className={inputClass} required />
+          </div>
+
+          {/* Password */}
+          <div className="flex items-center gap-3 h-11 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus-within:border-blue-500 transition-colors">
+            <span className="material-symbols-outlined text-gray-400 text-[18px] flex-shrink-0">key</span>
+            <input type={showPassword ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)} placeholder="Password"
+              className={inputClass} required />
+            <button type="button" onClick={() => setShowPassword(v => !v)} className="flex-shrink-0 text-gray-400 hover:text-blue-500 transition-colors">
+              <span className="material-symbols-outlined text-[18px]">{showPassword ? 'visibility_off' : 'visibility'}</span>
+            </button>
+          </div>
+
           {error && <p className="text-xs text-red-500 text-center">{error}</p>}
           <button type="submit" disabled={loading}
             className="h-11 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-bold text-sm shadow-lg shadow-blue-500/30 hover:scale-105 active:scale-95 transition-all duration-300 disabled:opacity-60">
