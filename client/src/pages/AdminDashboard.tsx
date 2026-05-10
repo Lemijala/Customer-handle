@@ -61,7 +61,6 @@ const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState<'overview' | 'contacts' | 'subscribers' | 'system'>('overview');
   const [loading, setLoading] = useState(true);
   const [showNotifications, setShowNotifications] = useState(false);
-  const [lastSeenCount, setLastSeenCount] = useState(() => parseInt(localStorage.getItem('lastSeenCount') || '0'));
 
   // Poll every 30 seconds for new data
   useEffect(() => {
@@ -102,14 +101,7 @@ const AdminDashboard = () => {
 
   const logout = () => { localStorage.removeItem('adminToken'); navigate('/admin/login'); };
 
-  const totalCount = contacts.length + subscribers.length;
-  const newCount = Math.max(0, totalCount - lastSeenCount);
-
-  const markAllSeen = () => {
-    setLastSeenCount(totalCount);
-    localStorage.setItem('lastSeenCount', String(totalCount));
-    setShowNotifications(false);
-  };
+  const newCount = contacts.filter(c => !c.isRead).length;
 
   if (loading) return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
@@ -131,11 +123,11 @@ const AdminDashboard = () => {
             <p className="text-xs text-slate-400">Woyyuu Tech</p>
           </div>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 mr-8">
           {/* Notification Bell */}
           <div className="relative">
             <button
-              onClick={() => { setShowNotifications(v => !v); }}
+              onClick={() => setShowNotifications(v => !v)}
               className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 border border-gray-200 dark:border-gray-700 relative"
             >
               <span className="material-symbols-outlined text-[18px]">notifications</span>
@@ -146,38 +138,55 @@ const AdminDashboard = () => {
               )}
             </button>
             {showNotifications && (
-              <div className="absolute right-0 top-12 w-80 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl z-50 overflow-hidden">
-                <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-gray-700">
-                  <h3 className="font-bold text-sm text-slate-900 dark:text-white">Notifications</h3>
-                  <button onClick={markAllSeen} className="text-xs text-blue-500 hover:underline">Mark all read</button>
+              <>
+                <div className="fixed inset-0 z-40" onClick={() => setShowNotifications(false)} />
+                <div className="absolute right-0 top-12 w-80 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl z-50 overflow-hidden">
+                  <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+                    <h3 className="font-bold text-sm text-slate-900 dark:text-white">Notifications</h3>
+                    <button onClick={() => setShowNotifications(false)} className="text-xs text-blue-500 hover:underline">Close</button>
+                  </div>
+                  <div className="max-h-72 overflow-y-auto">
+                    {/* Unread contacts — clickable, navigates to contacts tab */}
+                    {contacts.filter(c => !c.isRead).map(c => (
+                      <button
+                        key={c._id}
+                        className="w-full flex items-start gap-3 px-4 py-3 border-b border-gray-50 dark:border-gray-700/50 hover:bg-blue-50 dark:hover:bg-blue-500/10 transition-colors text-left bg-blue-50/50 dark:bg-blue-500/5"
+                        onClick={() => {
+                          markRead(c._id);
+                          setActiveTab('contacts');
+                          setShowNotifications(false);
+                        }}
+                      >
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-white text-xs font-black flex-shrink-0 mt-0.5">{c.name[0]}</div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-semibold text-slate-900 dark:text-white truncate">{c.name} sent a message</p>
+                          <p className="text-xs text-slate-400 truncate">{c.message.slice(0, 50)}...</p>
+                          <p className="text-[10px] text-slate-400 mt-0.5">{new Date(c.createdAt).toLocaleString()}</p>
+                        </div>
+                        <span className="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0 mt-1"></span>
+                      </button>
+                    ))}
+                    {/* Subscribers — clickable, navigates to subscribers tab */}
+                    {subscribers.slice(0, 3).map(s => (
+                      <button
+                        key={s._id}
+                        className="w-full flex items-start gap-3 px-4 py-3 border-b border-gray-50 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors text-left"
+                        onClick={() => { setActiveTab('subscribers'); setShowNotifications(false); }}
+                      >
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-400 flex items-center justify-center text-white text-xs font-black flex-shrink-0 mt-0.5">{s.email[0].toUpperCase()}</div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-semibold text-slate-900 dark:text-white">New subscriber</p>
+                          <p className="text-xs text-slate-400 truncate">{s.email}</p>
+                          <p className="text-[10px] text-slate-400 mt-0.5">{new Date(s.createdAt).toLocaleString()}</p>
+                        </div>
+                      </button>
+                    ))}
+                    {contacts.filter(c => !c.isRead).length === 0 && subscribers.length === 0 && (
+                      <div className="px-4 py-8 text-center text-sm text-slate-400">No new notifications</div>
+                    )}
+                  </div>
                 </div>
-                <div className="max-h-72 overflow-y-auto">
-                  {contacts.slice(0, 5).map(c => (
-                    <div key={c._id} className={`flex items-start gap-3 px-4 py-3 border-b border-gray-50 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors ${!c.isRead ? 'bg-blue-50/50 dark:bg-blue-500/5' : ''}`}>
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-white text-xs font-black flex-shrink-0 mt-0.5">{c.name[0]}</div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs font-semibold text-slate-900 dark:text-white truncate">{c.name} sent a message</p>
-                        <p className="text-xs text-slate-400 truncate">{c.message.slice(0, 50)}...</p>
-                        <p className="text-[10px] text-slate-400 mt-0.5">{new Date(c.createdAt).toLocaleString()}</p>
-                      </div>
-                      {!c.isRead && <span className="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0 mt-1"></span>}
-                    </div>
-                  ))}
-                  {subscribers.slice(0, 3).map(s => (
-                    <div key={s._id} className="flex items-start gap-3 px-4 py-3 border-b border-gray-50 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-400 flex items-center justify-center text-white text-xs font-black flex-shrink-0 mt-0.5">{s.email[0].toUpperCase()}</div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs font-semibold text-slate-900 dark:text-white">New subscriber</p>
-                        <p className="text-xs text-slate-400 truncate">{s.email}</p>
-                        <p className="text-[10px] text-slate-400 mt-0.5">{new Date(s.createdAt).toLocaleString()}</p>
-                      </div>
-                    </div>
-                  ))}
-                  {contacts.length === 0 && subscribers.length === 0 && (
-                    <div className="px-4 py-8 text-center text-sm text-slate-400">No notifications yet</div>
-                  )}
-                </div>
-              </div>
+              </>
             )}
           </div>
           <button
